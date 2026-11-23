@@ -158,6 +158,9 @@ final class AuditEvent
     // 6B — custos trazidos do orçamento para as atividades (D-P93); os recursos em si auditam em registry.*
     public const SCHEDULE_COSTS_IMPORTED = 'schedule.costs_imported';
 
+    // 6B — exportação do orçamento sintético (XLSX/PDF); o arquivo não é guardado
+    public const SCHEDULE_EXPORTED = 'schedule.exported';
+
     /** @return list<string> */
     public static function all(): array
     {

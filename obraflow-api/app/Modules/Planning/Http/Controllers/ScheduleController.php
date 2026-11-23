@@ -12,6 +12,7 @@ use App\Models\ScheduleDependency;
 use App\Models\ScheduleTask;
 use App\Models\ScheduleTaskItem;
 use App\Modules\Budgets\Services\BudgetAccess;
+use App\Modules\Planning\Export\ScheduleExportService;
 use App\Modules\Planning\Http\Requests\ScheduleRequest;
 use App\Modules\Planning\Import\ScheduleSheetImporter;
 use App\Modules\Planning\Services\ScheduleCostCalculator;
@@ -199,6 +200,16 @@ class ScheduleController extends Controller
         $this->items->fromBudget($schedule, $request->user());
 
         return $this->respond($request, $project);
+    }
+
+    /** Orçamento sintético do planejamento em XLSX (28 colunas + recursos + cronograma) ou PDF (D-P96). */
+    public function export(Request $request, string $uuid, ScheduleExportService $exports): BinaryFileResponse
+    {
+        $format = $request->validate(['format' => ['required', 'in:'.implode(',', ScheduleExportService::FORMATS)]])['format'];
+        $project = $this->project($request, $uuid, 'view');
+        $file = $exports->generate($project, $this->schedule($project), $format, $request->user());
+
+        return response()->download($file['path'], $file['filename'], ['Content-Type' => $file['mime'], 'Cache-Control' => 'no-store, private'])->deleteFileAfterSend();
     }
 
     public function importTemplate(Request $request, string $uuid, ScheduleSheetImporter $importer): BinaryFileResponse

@@ -203,8 +203,8 @@ it('banco: marco com duração 0, dependência sem auto-ligação e % entre 0 e 
     $this->b->delete("/api/v1/projects/{$obra2}/schedule")->assertNoContent();
 
     $emitidos = AuditLog::query()->distinct()->pluck('event')->all();
-    // schedule.costs_imported é coberto em Feature/Planning/ScheduleItemsTest (6B)
-    expect(array_values(array_diff(AuditEvent::phase6(), [AuditEvent::SCHEDULE_COSTS_IMPORTED], $emitidos)))->toBe([])
+    // schedule.costs_imported e schedule.exported são cobertos em Feature/Planning/ScheduleItemsTest (6B)
+    expect(array_values(array_diff(AuditEvent::phase6(), [AuditEvent::SCHEDULE_COSTS_IMPORTED, AuditEvent::SCHEDULE_EXPORTED], $emitidos)))->toBe([])
         ->and(AuditLog::query()->whereIn('event', AuditEvent::phase6())->pluck('tenant_id')->unique()->all())->toBe([$this->A->id])
         ->and(AuditLog::query()->where('event', AuditEvent::REGISTRY_CREATED)->where('entity_type', 'schedule_task')->exists())->toBeTrue();
 });

@@ -1,5 +1,5 @@
 import { env } from '@/lib/env'
-import { http } from '@/lib/http'
+import { http, httpDownload } from '@/lib/http'
 
 /** Planejamento da obra (Fase 6A). O servidor calcula tudo (dias úteis, reprogramação, caminho crítico — D-P67). */
 
@@ -137,6 +137,8 @@ export const planningApi = {
   addItems: (uuid: string, taskId: number, body: Body) => http<{ data: PlanData }>(`${s(uuid)}/tasks/${taskId}/items`, { method: 'POST', body }).then(data),
   updateItem: (uuid: string, id: number, body: Body) => http<{ data: PlanData }>(`${s(uuid)}/items/${id}`, { method: 'PUT', body }).then(data),
   removeItem: (uuid: string, id: number) => http<{ data: PlanData }>(`${s(uuid)}/items/${id}`, { method: 'DELETE' }).then(data),
+  /** Orçamento sintético (D-P96): XLSX com 28 colunas + recursos + cronograma, ou PDF. Nada é gravado. */
+  exportFile: (uuid: string, format: 'xlsx' | 'pdf') => httpDownload(`${s(uuid)}/export`, { query: { format } }),
   itemsFromBudget: (uuid: string) => http<{ data: PlanData }>(`${s(uuid)}/items/from-budget`, { method: 'POST' }).then(data),
   importPreview: (uuid: string, file: File) => {
     const form = new FormData()

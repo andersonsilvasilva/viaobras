@@ -3,8 +3,11 @@
 use App\Models\AuditLog;
 use App\Models\ReferenceDataset;
 use App\Modules\Audit\AuditEvent;
+use App\Modules\Budgets\Report\ChromeRenderer;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Testing\TestResponse;
+use OpenSpout\Reader\XLSX\Reader;
 use Tests\Support\Browser;
 use Tests\Support\Scenario;
 use Tests\Support\SinapiFixture;
@@ -146,4 +149,65 @@ it('do orçamento aprovado (D-P93): cada atividade recebe o item como recurso, c
 
     // "Trazer custos do orçamento" de novo não duplica (só atividades sem recursos)
     expect($this->b->post("{$this->url}/items/from-budget")->assertOk()->json('data.items'))->toHaveCount(2);
+});
+
+/** Lê o .xlsx baixado: [aba => linhas]. */
+function xlsxPlanejamento(TestResponse $res): array
+{
+    $tmp = tempnam(sys_get_temp_dir(), 'xp').'.xlsx';
+    copy($res->baseResponse->getFile()->getPathname(), $tmp);
+    $reader = new Reader;
+    $reader->open($tmp);
+    $out = [];
+    foreach ($reader->getSheetIterator() as $sheet) {
+        foreach ($sheet->getRowIterator() as $row) {
+            $out[$sheet->getName()][] = $row->toArray();
+        }
+    }
+    $reader->close();
+    @unlink($tmp);
+
+    return $out;
+}
+
+it('exporta o orçamento sintético (D-P96): XLSX com 28 colunas, recursos e cronograma; PDF; auditado; outro tenant não', function () {
+    ['a' => $a] = planejamento($this);
+    $this->b->post("{$this->url}/tasks/{$a}/items", ['source' => 'manual', 'kind' => 'material', 'description' => 'DEMO Argamassa', 'unit_code' => 'KG', 'unit_cost' => '2.50', 'quantity_per_unit' => '4'])->assertCreated();
+    $this->b->post("{$this->url}/tasks/{$a}/items", ['source' => 'manual', 'kind' => 'labor', 'description' => 'DEMO Pedreiro', 'unit_code' => 'H', 'unit_cost' => '30.00', 'quantity_per_unit' => '0.5'])->assertCreated();
+    $costs = $this->b->put("{$this->url}/pricing", ['bdi_method' => 'informed', 'bdi_percent' => '20', 'discount_percent' => '5'])->assertOk()->json('data.costs');
+
+    $res = $this->b->get("{$this->url}/export?format=xlsx")->assertOk();
+    expect($res->headers->get('content-disposition'))->toContain('-orcamento-sintetico.xlsx')->and($res->headers->get('cache-control'))->toContain('no-store');
+    $x = xlsxPlanejamento($res);
+    expect(array_keys($x))->toBe(['Orçamento sintético', 'Recursos', 'Cronograma']);
+
+    $sheet = $x['Orçamento sintético'];
+    $header = collect($sheet)->first(fn ($r) => ($r[0] ?? null) === 'ID');
+    expect($header)->toHaveCount(28)->and($header[4])->toBe('Valor de custo unit.')->and($header[22])->toBe('Total de venda');
+    $total = collect($sheet)->first(fn ($r) => ($r[0] ?? null) === 'TOTAL');
+    expect(number_format((float) $total[22], 2, '.', ''))->toBe($costs['sale']) // 10 × (10 + 15) × 1,20 × 0,95 = 285,00
+        ->and($costs)->toMatchArray(['cost' => '250.00', 'sale' => '285.00']);
+    $act = collect($sheet)->first(fn ($r) => ($r[0] ?? null) === '1.1');
+    expect((float) $act[4])->toBe(25.0)->and((float) $act[5])->toBe(10.0)->and((float) $act[6])->toBe(15.0); // custo unit. total, material, cargo/função
+    expect(collect($x['Recursos'])->pluck(5)->all())->toContain('DEMO Argamassa', 'DEMO Pedreiro')
+        ->and(collect($x['Cronograma'])->pluck(1)->map(fn ($v) => trim((string) $v))->all())->toContain('DEMO Contrapiso');
+
+    if (app(ChromeRenderer::class)->available()) {
+        $pdf = $this->b->get("{$this->url}/export?format=pdf")->assertOk();
+        $bytes = file_get_contents($pdf->baseResponse->getFile()->getPathname());
+        expect(substr($bytes, 0, 5))->toBe('%PDF-');
+        if ($dir = getenv('REPORT_SAMPLE_DIR')) {
+            file_put_contents($dir.'/amostra-sintetico.pdf', $bytes);
+        }
+    }
+    $this->b->get("{$this->url}/export?format=doc")->assertUnprocessable();
+    expect(AuditLog::query()->where('event', AuditEvent::SCHEDULE_EXPORTED)->count())->toBeGreaterThanOrEqual(1);
+
+    // sem acesso à obra (D-P24) → 404, mesmo no mesmo tenant; outro tenant também não vê
+    $m = new Browser($this);
+    $m->login(Scenario::member($this->A, 'member')->email)->assertOk();
+    $m->get("{$this->url}/export?format=xlsx")->assertNotFound();
+    $o = new Browser($this);
+    $o->login(Scenario::member(Scenario::tenant(), 'admin')->email)->assertOk();
+    $o->get("{$this->url}/export?format=xlsx")->assertNotFound();
 });

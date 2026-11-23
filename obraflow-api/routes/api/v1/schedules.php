@@ -29,6 +29,7 @@ Route::middleware('tenant.required')->prefix('projects/{uuid}/schedule')->whereU
     Route::post('tasks/{id}/items', [ScheduleController::class, 'storeItems'])->whereNumber('id')->middleware('can:schedules.manage')->name('schedules.items.store');
     Route::put('items/{id}', [ScheduleController::class, 'updateItem'])->whereNumber('id')->middleware('can:schedules.manage')->name('schedules.items.update');
     Route::delete('items/{id}', [ScheduleController::class, 'destroyItem'])->whereNumber('id')->middleware('can:schedules.manage')->name('schedules.items.destroy');
+    Route::get('export', [ScheduleController::class, 'export'])->middleware('can:schedules.view')->name('schedules.export'); // ?format=xlsx|pdf (nada é gravado)
     Route::post('items/from-budget', [ScheduleController::class, 'itemsFromBudget'])->middleware('can:schedules.manage')->name('schedules.items.from-budget');
 
     // importação por planilha (D-P68b): modelo, pré-visualização (nada gravado) e importação

@@ -20,6 +20,7 @@ import { fromGanttLink, isoWeek, planningApi, toGanttLink, toGanttTasks, toYmd, 
 import { PeriodNotice } from './PeriodNotice'
 import { TaskDialog } from './TaskDialog'
 import { AddItemDialog, type AddMode } from './costs/AddItemDialog'
+import { ExportMenu } from './costs/ExportMenu'
 import { PricingDialog } from './costs/PricingDialog'
 import { ResourcesView } from './costs/ResourcesView'
 
@@ -83,7 +84,7 @@ const CELL: Record<Zoom, number> = { day: 44, week: 160, month: 130 }
  * pelas dependências e caminho crítico (D-P66/D-P67). O Gantt (SVAR, MIT — D-P69) só desenha e captura as ações
  * (arrastar barra, ligar atividades, abrir edição), que viram chamadas à API.
  */
-export function PlanningTab({ project, canEditProject, onOpenCalendar }: { project: { uuid: string; start_date: string | null; expected_end_date: string | null }; canEditProject: boolean; onOpenCalendar: () => void }) {
+export function PlanningTab({ project, canEditProject, onOpenCalendar }: { project: { uuid: string; code?: string | null; start_date: string | null; expected_end_date: string | null }; canEditProject: boolean; onOpenCalendar: () => void }) {
   const { can } = useAuth()
   const { notify } = useToast()
   const client = useQueryClient()
@@ -253,9 +254,7 @@ export function PlanningTab({ project, canEditProject, onOpenCalendar }: { proje
               </Button>
             </>
           )}
-          <Button size="sm" variant="outline" disabled title="Orçamento sintético em XLSX e PDF (próxima etapa da 6B)">
-            <Download className="size-3.5" /> Exportar
-          </Button>
+          <ExportMenu uuid={uuid} code={project.code ?? 'obra'} />
           <Button size="icon-sm" variant="outline" aria-label="Configurações de visualização" title="Configurações de visualização" onClick={() => setSettings(true)}>
             <Settings className="size-3.5" />
           </Button>

@@ -1,6 +1,6 @@
 # FASE 6 — PLANEJAMENTO E DIÁRIO DE OBRA: MODELO APROVADO
 
-> **Aprovado em 2026-11-17** (D-P65 a D-P76 conforme a recomendação). A parte 6A (Cronograma) foi **homologada em 2026-11-17** (A-52); 6B e 6C seguem, cada uma com autorização expressa.
+> **Aprovado em 2026-11-17** (D-P65 a D-P76 conforme a recomendação). A parte 6A (Cronograma) foi **homologada em 2026-11-17** (A-52) e a 6B (Recursos) em **2026-11-23** (A-60, [FASE6B_MODELO.md](FASE6B_MODELO.md)); a 6C segue com autorização expressa.
 > **Base:**
 > - modelagem original ([DATABASE.md](DATABASE.md) §2.8 e §2.9);
 > - telas do Brickup enviadas pelo responsável ([SCREEN_REFERENCES.md](SCREEN_REFERENCES.md), "Referências do Brickup": cronograma, recursos, orçamento sintético, importação, visualização, RDO);

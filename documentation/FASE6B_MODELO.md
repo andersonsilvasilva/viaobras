@@ -1,6 +1,6 @@
 # FASE 6B — RECURSOS E ORÇAMENTO SINTÉTICO DO PLANEJAMENTO: MODELO APROVADO
 
-> **Aprovado em 2026-11-18** (D-P87 a D-P98 conforme a recomendação — A-57).
+> **Aprovado em 2026-11-18** (D-P87 a D-P98 conforme a recomendação — A-57). **Homologado pelo responsável em 2026-11-23 (A-60).**
 >
 > **Base:**
 > - Fase 6 aprovada (D-P65…D-P76), em especial a D-P72 (custo e venda) e a D-P73 (exportação);
@@ -121,3 +121,13 @@ A lista exata será apresentada antes de executar, como sempre.
 - **"Visualizar recursos":** troca o Gantt pela árvore de etapas, atividades e recursos (Nome, Tipo, Un., Qtd. unit., Qtd. total, venda e custo unitários e totais), com edição em linha do consumo e da quantidade da atividade, "+" por atividade, excluir recurso, expandir/recolher e "Exibir apenas atividades".
 - **Colunas opcionais** no Gantt (Configurações): Custo unit., Total de custo e Total de venda.
 - **Importação:** a pré-visualização mostra os recursos e a atividade de cada um.
+
+### Etapa 5 — exportação do orçamento sintético
+
+- **Rota** `GET /projects/{uuid}/schedule/export?format=xlsx|pdf` (`schedules.view` + acesso à obra; outro tenant ou sem acesso → 404); arquivo temporário apagado após o envio; auditoria `schedule.exported`.
+- **XLSX** (OpenSpout): aba **Orçamento sintético** com as **28 colunas** (ID, Atividade, Un. medida, Qtd. unit.; valor de custo unitário e por tipo; BDI e desconto; venda unitária por tipo; total de custo por tipo; total de venda e por tipo), etapas destacadas e linha de total; aba **Recursos** (cada recurso com origem, consumo, quantidade, custo, BDI, desconto e venda); aba **Cronograma**.
+- **PDF** (Chrome headless, motor da 4D): A4 paisagem com "Página X de Y", cartões de totais, atividades com custo por tipo, resumo por tipo de insumo e cronograma.
+- **Tela:** botão **Exportar** com Planilha (XLSX) e PDF.
+- **Testes:** +1 em `ScheduleItemsTest` (28 colunas, totais iguais aos da tela, abas, PDF, validação, auditoria e acesso); API 480/480, frontend 52/52.
+
+**6B homologada pelo responsável em 2026-11-23 (A-60).** A 6C (RDO) começa pela proposta, só com autorização expressa.
