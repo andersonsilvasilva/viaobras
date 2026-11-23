@@ -37,7 +37,7 @@ Antes de implementar:
 5. Ler UX_GUIDELINES.md, caso já exista.
 6. Ler SCREEN_REFERENCES.md, caso já exista.
 7. Analisar todas as imagens existentes em `documentation/references/telas/`.
-8. Inspecionar a estrutura atual de `obraflow-web/`.
+8. Inspecionar a estrutura atual de `viaobras-web/`.
 
 Não sobrescrever arquivos existentes sem inspeção.
 

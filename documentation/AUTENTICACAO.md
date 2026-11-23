@@ -87,7 +87,7 @@ Corpo da emissão: `POST /api/v1/tokens {"name": "...", "expires_in_days": 1..90
 
 ## 9. Testar o login pela API (sem expor a senha)
 
-A senha é digitada **só por você**, em prompt oculto; nunca em argumento de comando, arquivo ou chat. Pré-requisito: `php artisan serve` em `obraflow-api` (http://localhost:8000). O login é por sessão e exige `Origin` de domínio stateful (`SANCTUM_STATEFUL_DOMAINS=localhost:5173`).
+A senha é digitada **só por você**, em prompt oculto; nunca em argumento de comando, arquivo ou chat. Pré-requisito: `php artisan serve` em `viaobras-api` (http://localhost:8000). O login é por sessão e exige `Origin` de domínio stateful (`SANCTUM_STATEFUL_DOMAINS=localhost:5173`).
 
 PowerShell:
 

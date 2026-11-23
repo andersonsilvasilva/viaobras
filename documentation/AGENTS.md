@@ -24,7 +24,7 @@ Não invente decisões arquiteturais quando elas já estiverem documentadas.
 
 ## 1.1 Decisões oficiais já registradas
 
-- **Identidade visual: azul-safira** (`#0F52BA`), tokens em `obraflow-web/src/index.css`; sem laranja de destaque; sem hexadecimais nos componentes ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)).
+- **Identidade visual: azul-safira** (`#0F52BA`), tokens em `viaobras-web/src/index.css`; sem laranja de destaque; sem hexadecimais nos componentes ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)).
 - **`users` é global** (sem `tenant_id`); vínculo por `tenant_users`; Spatie Teams com `team_foreign_key = tenant_id` ([MULTITENANCY.md](MULTITENANCY.md)). *O modelo de dados está **aguardando aprovação** — não criar migrations antes dela.* **Sem papéis globais** (todo papel tem `tenant_id`); **token sem `tenant_id` nunca acessa dados de negócio**; `X-Tenant` nunca é autoridade; **sem triggers**; recarregar o usuário/limpar relações ao trocar o tenant do contexto (armadilha confirmada, [FASE1_MODELO.md](FASE1_MODELO.md) §7.1).
 - Frontend em dados demonstrativos (`src/mocks`), acessados só por `src/services`. Dados fictícios usam o prefixo `DEMO-` e nunca imitam fontes oficiais.
 - Ambiente Windows/Git Bash: rodar `npm test` pelo PowerShell/CMD (ver README).

@@ -13,7 +13,7 @@ class HealthController extends Controller
     {
         return response()->json([
             'status' => 'ok',
-            'service' => 'obraflow-api',
+            'service' => 'viaobras-api',
             'version' => 'v1',
             'time' => now()->utc()->toIso8601String(),
         ]);

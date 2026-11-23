@@ -52,7 +52,7 @@ Base: `/api/v1` · JSON · UTF-8. Todas as rotas são versionadas.
 ### `GET /api/v1/health` — liveness
 Sem dependências. `200`:
 ```json
-{ "status": "ok", "service": "obraflow-api", "version": "v1", "time": "2026-11-12T17:09:04+00:00" }
+{ "status": "ok", "service": "viaobras-api", "version": "v1", "time": "2026-11-12T17:09:04+00:00" }
 ```
 
 ### `GET /api/v1/health/ready` — readiness

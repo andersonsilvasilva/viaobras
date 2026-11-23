@@ -5,7 +5,7 @@ Sem interface de superadmin nesta fase (decisão da aprovação da Fase 1). A ad
 ## 1. Instalação do zero
 
 ```bash
-cd obraflow-api
+cd viaobras-api
 cp .env.example .env && php artisan key:generate        # preencha DB_PASSWORD (usuário exclusivo, nunca root)
 php artisan migrate                                       # as 15 tabelas da Fase 1
 php artisan viaobras:provision --name="Minha Construtora" --admin-email=admin@empresa.com --admin-name="Fulano"

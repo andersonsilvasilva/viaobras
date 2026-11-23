@@ -1,6 +1,6 @@
 # DESIGN_SYSTEM.md
 
-Identidade oficial: **azul-safira** (decisão A-01). Fonte única dos tokens: [`obraflow-web/src/index.css`](../obraflow-web/src/index.css). Componentes **nunca** usam hexadecimal — apenas tokens semânticos (`bg-primary`, `text-muted-foreground`…).
+Identidade oficial: **azul-safira** (decisão A-01). Fonte única dos tokens: [`viaobras-web/src/index.css`](../viaobras-web/src/index.css). Componentes **nunca** usam hexadecimal — apenas tokens semânticos (`bg-primary`, `text-muted-foreground`…).
 
 ## 1. Paleta oficial
 
@@ -83,7 +83,7 @@ Link "Ir para o conteúdo"; `nav` com `aria-label`; foco visível global (`:focu
 
 ## Logomarca (2026-11-17)
 
-Arquivos enviados pelo responsável. Os originais ficam em `documentation/marca/`; as cópias usadas pelo sistema ficam em `obraflow-web/public/brand/`:
+Arquivos enviados pelo responsável. Os originais ficam em `documentation/marca/`; as cópias usadas pelo sistema ficam em `viaobras-web/public/brand/`:
 
 | Arquivo no sistema | Original | Uso |
 |---|---|---|

@@ -42,8 +42,8 @@ Infraestrutura:
 Criar:
 
 viaobras/
-- obraflow-api/
-- obraflow-web/
+- viaobras-api/
+- viaobras-web/
 - infrastructure/
 - documentation/
 

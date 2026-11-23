@@ -4,7 +4,7 @@ Formato: ID · data · decisão · justificativa. Decisões de dados: [DB_DECISI
 
 | ID | Data | Decisão | Justificativa |
 |---|---|---|---|
-| A-01 | 2026-11-12 | **Identidade visual oficial: azul-safira** (`#0F52BA`), sem laranja de destaque | Definida nos PROMPTS 002/003 e na "Paleta Oficial"; tokens centralizados em `obraflow-web/src/index.css` |
+| A-01 | 2026-11-12 | **Identidade visual oficial: azul-safira** (`#0F52BA`), sem laranja de destaque | Definida nos PROMPTS 002/003 e na "Paleta Oficial"; tokens centralizados em `viaobras-web/src/index.css` |
 | A-02 | 2026-11-12 | Laravel **13** / PHP 8.4 | Versão estável atual; requisito PHP ^8.3 |
 | A-03 | 2026-11-12 | Redis via **Predis** | `phpredis` não instalado no ambiente; Predis é puro PHP e estável |
 | A-04 | 2026-11-12 | Testes backend com **Pest** | Sintaxe concisa sobre PHPUnit 12 (compatível) |

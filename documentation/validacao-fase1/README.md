@@ -18,7 +18,7 @@ Uma instância **MySQL 8.0.30 descartável** (mesmo binário do Laragon, pasta t
 mysqld --initialize-insecure --datadir=<pasta-temporaria>
 mysqld --datadir=<pasta-temporaria> --port=3399 --bind-address=127.0.0.1 --mysqlx=OFF
 mysql -uroot -h127.0.0.1 -P3399 < phase1.sql
-php validate.php        # ajuste $api (caminho de obraflow-api) no topo da Parte 2
+php validate.php        # ajuste $api (caminho de viaobras-api) no topo da Parte 2
 ```
 
 ## Limites

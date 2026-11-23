@@ -5,15 +5,15 @@
 Aplicação em duas camadas desacopladas, servidas atrás de um Nginx:
 
 ```text
-Navegador ──► Nginx ──┬─ /        → obraflow-web  (SPA React, estática)
-                      └─ /api/*   → obraflow-api  (Laravel, PHP-FPM)
+Navegador ──► Nginx ──┬─ /        → viaobras-web  (SPA React, estática)
+                      └─ /api/*   → viaobras-api  (Laravel, PHP-FPM)
                                         ├─ MySQL  (dados)
                                         └─ Redis  (cache, filas, sessão)
 ```
 
 Futuro: Object Storage S3 (documentos), workers de fila, IA via provedor externo (com aprovação humana).
 
-## 2. Backend (`obraflow-api`)
+## 2. Backend (`viaobras-api`)
 
 | Item | Escolha |
 |---|---|
@@ -57,7 +57,7 @@ Cada novo módulo vive em `app/Modules/<Nome>/` (Models, Policies, Services/Acti
 - Erros padronizados em um único formato JSON com `request_id` (ver API.md).
 - Health: `GET /api/v1/health` (liveness) e `GET /api/v1/health/ready` (MySQL + Redis).
 
-## 3. Frontend (`obraflow-web`)
+## 3. Frontend (`viaobras-web`)
 
 | Item | Escolha |
 |---|---|

@@ -1,6 +1,6 @@
 # DB_MIGRATION_PLAN.md — ORDEM PROPOSTA DAS MIGRATIONS
 
-> **Estado: a FASE 1 FOI EXECUTADA** (aprovação formal; 15 migrations em `obraflow-api/database/migrations/2026_11_12_2000NN_*`, aplicadas no banco `obraflow` e exercitadas em `obraflow_testing` no **MySQL 8.0.30**). As demais fases abaixo continuam **apenas planejadas**.
+> **Estado: a FASE 1 FOI EXECUTADA** (aprovação formal; 15 migrations em `viaobras-api/database/migrations/2026_11_12_2000NN_*`, aplicadas no banco `obraflow` e exercitadas em `obraflow_testing` no **MySQL 8.0.30**). As demais fases abaixo continuam **apenas planejadas**.
 > **Pendente:** comprovar as mesmas migrations no **MySQL 8.4** (matriz do CI, [TESTES.md](TESTES.md) §4) antes da homologação.
 > As migrations padrão do Laravel (`users`, `cache`, `jobs`) foram removidas; cache/sessão/fila usam drivers locais ([AMBIENTE_LOCAL.md](AMBIENTE_LOCAL.md)).
 

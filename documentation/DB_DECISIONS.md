@@ -20,7 +20,7 @@ Cada decisão: contexto → decisão → alternativas avaliadas → consequênci
 - **Consequência:** +1 índice por pai e por FK; Eloquent inalterado (ver [DB_CONSTRAINTS.md](DB_CONSTRAINTS.md) §1). Exceções documentadas (polimórficas, globais, snapshots).
 
 ### D-04 — Spatie Permission com Teams = tenant
-- **Decisão:** `teams=true`, `team_foreign_key='tenant_id'` (já aplicado em `obraflow-api/config/permission.php`). Contexto definido por `setPermissionsTeamId($tenantId)` no middleware, antes de qualquer checagem.
+- **Decisão:** `teams=true`, `team_foreign_key='tenant_id'` (já aplicado em `viaobras-api/config/permission.php`). Contexto definido por `setPermissionsTeamId($tenantId)` no middleware, antes de qualquer checagem.
 - **Alternativa rejeitada:** sistema próprio de permissões (vedado sem justificativa).
 - **Riscos:** esquecer de definir o team em *jobs/queues/comandos* faz as checagens olharem o tenant errado/nenhum → o contexto é restaurado em cada job (middleware de job).
 

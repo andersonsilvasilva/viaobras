@@ -100,7 +100,7 @@ trait BelongsToTenant
 
 ## 6. Spatie Laravel Permission com Teams
 
-Configuração **já aplicada** em [`obraflow-api/config/permission.php`](../obraflow-api/config/permission.php): `teams = true`, `team_foreign_key = tenant_id`. Pacote instalado: **spatie/laravel-permission 8.5.0**.
+Configuração **já aplicada** em [`viaobras-api/config/permission.php`](../viaobras-api/config/permission.php): `teams = true`, `team_foreign_key = tenant_id`. Pacote instalado: **spatie/laravel-permission 8.5.0**.
 
 ### O que o pacote faz (verificado no código instalado)
 

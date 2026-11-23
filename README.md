@@ -4,8 +4,8 @@ ERP SaaS multi-tenant para construção civil — HighTech Tecnologia. Documenta
 
 ```text
 viaobras/
-├── obraflow-api/      Laravel 13 · PHP 8.4
-├── obraflow-web/      React 19 · TypeScript · Vite 8 · Tailwind 4
+├── viaobras-api/      Laravel 13 · PHP 8.4
+├── viaobras-web/      React 19 · TypeScript · Vite 8 · Tailwind 4
 ├── infrastructure/    Docker Compose · Nginx
 ├── documentation/
 └── .github/workflows/ci.yml
@@ -18,7 +18,7 @@ PHP ≥ 8.3 (testado 8.4) com `pdo_mysql`, `intl`, `mbstring`, `zip`, `bcmath` �
 ## Backend (local)
 
 ```bash
-cd obraflow-api
+cd viaobras-api
 composer install
 cp .env.example .env            # preencha DB_PASSWORD etc. — nunca versione o .env
 php artisan key:generate
@@ -39,7 +39,7 @@ vendor/bin/pint --test
 ## Frontend (local)
 
 ```bash
-cd obraflow-web
+cd viaobras-web
 npm install
 cp .env.example .env.local
 npm run dev                     # http://localhost:5173 (dados demonstrativos)
@@ -64,7 +64,7 @@ docker compose ps               # todos devem ficar "healthy"
 ## Primeiro uso do backend (Fase 1)
 
 ```bash
-cd obraflow-api
+cd viaobras-api
 php artisan migrate                                    # 33 tabelas (Fases 1 e 2) (banco 'viaobras', usuário exclusivo — ver documentation/AMBIENTE_LOCAL.md)
 php artisan viaobras:provision --name="Minha Construtora" --admin-email=admin@empresa.com --admin-name="Fulano"
 vendor/bin/pest                                        # 291 testes (usa o banco 'viaobras_testing')

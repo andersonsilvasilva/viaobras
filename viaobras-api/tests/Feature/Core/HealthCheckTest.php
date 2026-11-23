@@ -25,7 +25,7 @@ it('responde liveness em /api/v1/health sem depender de servicos', function () {
     $this->getJson('/api/v1/health')
         ->assertOk()
         ->assertJsonPath('status', 'ok')
-        ->assertJsonPath('service', 'obraflow-api')
+        ->assertJsonPath('service', 'viaobras-api')
         ->assertHeader('X-Request-Id');
 });
 

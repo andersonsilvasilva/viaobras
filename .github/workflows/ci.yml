@@ -20,7 +20,7 @@ jobs:
         mysql: ['8.0', '8.4']
     defaults:
       run:
-        working-directory: obraflow-api
+        working-directory: viaobras-api
     services:
       mysql:
         image: mysql:${{ matrix.mysql }}
@@ -63,14 +63,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: obraflow-web
+        working-directory: viaobras-web
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: obraflow-web/package-lock.json
+          cache-dependency-path: viaobras-web/package-lock.json
       - run: npm ci
       - run: npm run lint
       - run: npm test

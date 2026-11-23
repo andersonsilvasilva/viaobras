@@ -4,13 +4,13 @@
 
 ```bash
 # Backend (MySQL 8.x; usa o banco 'viaobras_testing')
-cd obraflow-api
+cd viaobras-api
 vendor/bin/pest                    # suíte completa (~30 s)
 vendor/bin/pest tests/Feature/Tenancy
 vendor/bin/pint --test             # estilo
 
 # Frontend — no Windows rode pelo PowerShell/CMD (Git Bash quebra o Vitest por diferença de caminho)
-cd obraflow-web
+cd viaobras-web
 npm test && npm run lint && npm run build
 ```
 

@@ -25,8 +25,8 @@ Empresas · Clientes · Fornecedores · Obras · Contratos · **Orçamentos (mó
 
 ```text
 viaobras/
-├── obraflow-api/      Laravel 13 (PHP 8.4) — API REST /api/v1
-├── obraflow-web/      React 19 + TypeScript + Vite
+├── viaobras-api/      Laravel 13 (PHP 8.4) — API REST /api/v1
+├── viaobras-web/      React 19 + TypeScript + Vite
 ├── infrastructure/    Docker Compose, Nginx
 ├── documentation/     Documentação, prompts, referências de tela
 └── .github/workflows/ CI

@@ -204,7 +204,7 @@ report('com time_zone=+00:00 na conexão o round-trip é exato', $seen2 === '202
 
 // ---------------------------------------------------------------- PARTE 2
 section('9. Spatie Permission (Teams) + Sanctum REAIS sobre o esquema');
-$api = 'C:/laragon/www/obraflow/obraflow-api';
+$api = 'C:/laragon/www/obraflow/viaobras-api';
 foreach (['DB_CONNECTION' => 'mysql', 'DB_HOST' => HOST, 'DB_PORT' => (string) PORT, 'DB_DATABASE' => DB, 'DB_USERNAME' => 'root', 'DB_PASSWORD' => '',
     'CACHE_STORE' => 'array', 'SESSION_DRIVER' => 'array', 'QUEUE_CONNECTION' => 'sync', 'APP_ENV' => 'testing', 'APP_DEBUG' => 'true'] as $k => $v) {
     putenv("$k=$v"); $_ENV[$k] = $v; $_SERVER[$k] = $v;
