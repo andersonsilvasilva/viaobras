@@ -24,13 +24,13 @@ use OpenSpout\Writer\XLSX\Writer;
  */
 final class ScheduleXlsxRenderer
 {
-    private const SAPPHIRE = '0F52BA';
+    private const SAPPHIRE = '0052D4';
 
     private const DEEP = '0A2E66';
 
     private const SOFT = 'EAF1FF';
 
-    private const GRAPHITE = '252A35';
+    private const GRAPHITE = '333333';
 
     private const MUTED = '6B7280';
 

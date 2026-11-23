@@ -25,7 +25,7 @@ use OpenSpout\Writer\XLSX\Writer;
  */
 final class XlsxReportRenderer
 {
-    private const SAPPHIRE = '0F52BA';
+    private const SAPPHIRE = '0052D4';
 
     private const DEEP = '0A2E66';
 
@@ -33,7 +33,7 @@ final class XlsxReportRenderer
 
     private const GRAY = 'F3F4F6';
 
-    private const GRAPHITE = '252A35';
+    private const GRAPHITE = '333333';
 
     private const MUTED = '6B7280';
 
@@ -91,7 +91,7 @@ final class XlsxReportRenderer
         $this->row([$this->text('Orçamento '.$m['code'].' · versão '.$m['version'], $this->style(bold: true, size: 16, color: self::DEEP))], height: 24);
         $this->row([$this->text($m['title'], $this->style(size: 12))]);
         $this->row([$this->text('Situação: '.$m['status_label'].($m['draft'] ? ' (RASCUNHO — versão não aprovada)' : ($m['approved_at'] ? ' em '.$m['approved_at'] : '')),
-            $this->style(bold: $m['draft'], color: $m['draft'] ? 'B45309' : '16A36A'))]);
+            $this->style(bold: $m['draft'], color: $m['draft'] ? 'B45309' : '00A859'))]);
         $this->row([]);
 
         $this->sectionTitle('Identificação');

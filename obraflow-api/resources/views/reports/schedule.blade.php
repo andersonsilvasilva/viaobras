@@ -13,7 +13,7 @@
 <title>Orçamento sintético — {{ $m['project_code'] }}</title>
 <style>
 {!! $fontFace !!}
-:root{--sapphire:#0f52ba;--deep:#0a2e66;--soft:#eaf1ff;--graphite:#252a35;--line:#e5e7eb;--muted:#6b7280}
+:root{--sapphire:#0052d4;--deep:#0a2e66;--soft:#eaf1ff;--graphite:#333333;--line:#e5e7eb;--muted:#6b7280}
 *{box-sizing:border-box}
 html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 body{margin:0;font-family:'Geist',Arial,sans-serif;font-size:8.6pt;color:var(--graphite);line-height:1.35;font-variant-numeric:tabular-nums}

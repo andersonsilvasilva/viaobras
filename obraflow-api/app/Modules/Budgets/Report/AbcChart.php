@@ -68,7 +68,7 @@ final class AbcChart
         }
 
         // barras
-        $colors = ['A' => '#0f52ba', 'B' => '#5b8def', 'C' => '#b8cdf5'];
+        $colors = ['A' => '#0052d4', 'B' => '#5b8def', 'C' => '#b8cdf5'];
         $line = [];
         foreach ($points as $i => $pt) {
             $cx = $left + $slot * $i + $slot / 2;

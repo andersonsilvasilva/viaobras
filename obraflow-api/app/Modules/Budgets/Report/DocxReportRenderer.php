@@ -19,7 +19,7 @@ final class DocxReportRenderer
 {
     private const DEEP = '0A2E66';
 
-    private const SAPPHIRE = '0F52BA';
+    private const SAPPHIRE = '0052D4';
 
     private const SOFT = 'EAF1FF';
 
@@ -27,7 +27,7 @@ final class DocxReportRenderer
 
     private const MUTED = '6B7280';
 
-    private const GRAPHITE = '252A35';
+    private const GRAPHITE = '333333';
 
     private const FONT = 'Calibri';
 
@@ -89,7 +89,7 @@ final class DocxReportRenderer
         $s->addText("{$m['code']} · versão {$m['version']}{$label}", ['size' => 14, 'color' => self::GRAPHITE]);
         $s->addText($m['title'], ['size' => 12, 'color' => self::MUTED]);
         $s->addText($m['draft'] ? 'RASCUNHO · versão não aprovada' : $m['status_label'].($m['approved_at'] ? ' em '.$m['approved_at'] : ''),
-            ['size' => 9, 'bold' => true, 'color' => $m['draft'] ? 'B45309' : '16A36A'], ['spaceBefore' => 120]);
+            ['size' => 9, 'bold' => true, 'color' => $m['draft'] ? 'B45309' : '00A859'], ['spaceBefore' => 120]);
         $s->addTextBreak(2);
 
         $grid = $s->addTable(['width' => 5000, 'unit' => TblWidth::PERCENT, 'cellMargin' => 80]);
@@ -328,7 +328,7 @@ final class DocxReportRenderer
         $ht = $header->addTable(['width' => 5000, 'unit' => TblWidth::PERCENT]);
         $ht->addRow();
         $ht->addCell(5000)->addText("ViaObras · Orçamento {$m['code']} · versão {$m['version']}", ['size' => 7.5, 'color' => self::MUTED]);
-        $ht->addCell(5000)->addText($m['draft'] ? 'RASCUNHO · versão não aprovada' : $m['status_label'], ['size' => 7.5, 'bold' => true, 'color' => $m['draft'] ? 'B45309' : '16A36A'], ['alignment' => Jc::END]);
+        $ht->addCell(5000)->addText($m['draft'] ? 'RASCUNHO · versão não aprovada' : $m['status_label'], ['size' => 7.5, 'bold' => true, 'color' => $m['draft'] ? 'B45309' : '00A859'], ['alignment' => Jc::END]);
         $footer = $s->addFooter();
         $ft = $footer->addTable(['width' => 5000, 'unit' => TblWidth::PERCENT]);
         $ft->addRow();

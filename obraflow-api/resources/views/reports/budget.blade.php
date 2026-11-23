@@ -13,8 +13,8 @@
 <style>
 {!! $fontFace !!}
 :root{
-  --sapphire:#0f52ba; --deep:#0a2e66; --soft:#eaf1ff; --graphite:#252a35; --gray:#f3f4f6; --line:#e5e7eb; --muted:#6b7280;
-  --success:#16a36a; --warning:#b45309;
+  --sapphire:#0052d4; --deep:#0a2e66; --soft:#eaf1ff; --graphite:#333333; --gray:#f3f4f6; --line:#e5e7eb; --muted:#6b7280;
+  --success:#00a859; --warning:#b45309;
 }
 *{box-sizing:border-box}
 html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -24,7 +24,7 @@ body{margin:0;font-family:'Geist',Arial,sans-serif;font-size:9.5pt;color:var(--g
 @page{
   size:A4 portrait; margin:20mm 14mm 17mm 14mm;
   @top-left{content:"ViaObras  ·  Orçamento {{ $m['code'] }}  ·  versão {{ $m['version'] }}";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#6b7280;vertical-align:bottom;padding-bottom:3mm}
-  @top-right{content:"{{ $m['draft'] ? 'RASCUNHO · versão não aprovada' : $m['status_label'].($m['approved_at'] ? ' em '.$m['approved_at'] : '') }}";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;font-weight:600;color:{{ $m['draft'] ? '#b45309' : '#16a36a' }};vertical-align:bottom;padding-bottom:3mm}
+  @top-right{content:"{{ $m['draft'] ? 'RASCUNHO · versão não aprovada' : $m['status_label'].($m['approved_at'] ? ' em '.$m['approved_at'] : '') }}";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;font-weight:600;color:{{ $m['draft'] ? '#b45309' : '#00a859' }};vertical-align:bottom;padding-bottom:3mm}
   @bottom-left{content:"Emitido em {{ $m['issued_at'] }}  ·  Gerado pelo ViaObras";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#6b7280;vertical-align:top;padding-top:3mm}
   @bottom-right{content:"Página " counter(page) " de " counter(pages);font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#0a2e66;font-weight:600;vertical-align:top;padding-top:3mm}
 }
@@ -41,7 +41,7 @@ body{margin:0;font-family:'Geist',Arial,sans-serif;font-size:9.5pt;color:var(--g
 
 /* ---------- capa ---------- */
 .cover{height:259mm;position:relative;overflow:hidden;background:#fff}
-.cover .band{position:absolute;inset:0 0 auto 0;height:112mm;border-radius:5mm;overflow:hidden;background:linear-gradient(135deg,#0a2e66 0%,#0f52ba 100%)}
+.cover .band{position:absolute;inset:0 0 auto 0;height:112mm;border-radius:5mm;overflow:hidden;background:linear-gradient(135deg,#0a2e66 0%,#0052d4 100%)}
 .cover .band::after{content:"";position:absolute;right:-40mm;top:-30mm;width:150mm;height:150mm;border-radius:50%;background:rgba(255,255,255,.06)}
 .cover .band::before{content:"";position:absolute;right:30mm;top:60mm;width:90mm;height:90mm;border-radius:50%;background:rgba(255,255,255,.05)}
 .cover .brand{position:absolute;top:12mm;left:12mm;background:#fff;border-radius:3mm;padding:3.2mm 4.5mm}
@@ -99,7 +99,7 @@ tr.sub td{color:#4b5563}
 .src{display:inline-block;font-size:7pt;padding:.3mm 1.6mm;border-radius:5mm;background:var(--gray);color:#374151;white-space:nowrap}
 .src.SINAPI{background:#e0ebff;color:#0a2e66}
 .bar{height:2.2mm;border-radius:2mm;background:var(--gray);overflow:hidden;min-width:28mm}
-.bar span{display:block;height:100%;background:linear-gradient(90deg,#0f52ba,#5b8def)}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,#0052d4,#5b8def)}
 .badge{display:inline-block;min-width:6mm;text-align:center;font-weight:700;font-size:7.8pt;border-radius:1.5mm;padding:.3mm 1.2mm}
 .badge.A{background:#dcfce7;color:#166534}.badge.B{background:#fef3c7;color:#92400e}.badge.C{background:var(--gray);color:#374151}
 

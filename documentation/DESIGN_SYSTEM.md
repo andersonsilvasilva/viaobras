@@ -6,14 +6,14 @@ Identidade oficial: **azul-safira** (decisão A-01). Fonte única dos tokens: [`
 
 | Token de marca | Hex | Papel |
 |---|---|---|
-| `--brand-sapphire` | `#0F52BA` | Principal: botões primários, links, ícones/estados ativos, seleção |
-| `--brand-sapphire-hover` | `#0B4298` | Hover do principal |
+| `--brand-sapphire` | `#0052D4` | Principal: botões primários, links, ícones/estados ativos, seleção |
+| `--brand-sapphire-hover` | `#0042AB` | Hover do principal |
 | `--brand-deep` | `#0A2E66` | Contraste, textos sobre azul-suave |
 | `--brand-soft` | `#EAF1FF` | Destaques, fundos de seleção/hover |
-| `--brand-graphite` | `#252A35` | Texto e **sidebar** |
+| `--brand-graphite` | `#333333` | Texto e **sidebar** |
 | `--brand-gray` | `#F3F4F6` | Fundo da aplicação |
 | `--brand-white` | `#FFFFFF` | Cartões/superfícies |
-| `--brand-success` | `#16A36A` | **Somente** estados positivos/confirmações |
+| `--brand-success` | `#00A859` | **Somente** estados positivos/confirmações |
 
 Regras: sem laranja de destaque; sem gradientes excessivos; verde só para sucesso; cartões brancos com detalhes azuis; gráficos em tons de azul + complementares.
 
@@ -27,20 +27,20 @@ Para trocar a identidade basta editar os `--brand-*`.
 
 | Par (texto / fundo) | Razão | AA texto (4,5) |
 |---|---|---|
-| Branco / `#0F52BA` (botão primário) | 7,15 | ✅ |
-| Branco / `#0B4298` (hover) | 9,35 | ✅ |
-| `#0F52BA` / branco e / `#F3F4F6` (links) | 7,15 · 6,50 | ✅ |
-| `#252A35` / `#F3F4F6` (texto) | 13,06 | ✅ |
+| Branco / `#0052D4` (botão primário) | 6,65 | ✅ |
+| Branco / `#0042AB` (hover) | 8,87 | ✅ |
+| `#0052D4` / branco e / `#F3F4F6` (links) | 6,65 · 6,04 | ✅ |
+| `#333333` / `#F3F4F6` (texto) | 11,48 | ✅ |
 | `#5B6270` / branco · cinza (texto secundário) | 6,13 · 5,57 | ✅ |
 | `#0A2E66` / `#EAF1FF` | 11,61 | ✅ |
-| `#D5D9E2` / `#252A35` (sidebar) | 10,16 | ✅ |
+| `#D5D9E2` / `#333333` (sidebar) | 8,94 | ✅ |
 | `#C53030` / `#FDEAEA` (erro) | 4,72 | ✅ |
 | `#0B7A4F` (`success-strong`) / `#E6F6EF` | 4,81 | ✅ |
 | `#8A5A00` (`warning-strong`) / `#FDF3E0` | 5,38 | ✅ |
-| `#16A36A` (verde oficial) / branco | 3,24 | ❌ texto · ✅ ícones/preenchimentos (≥ 3:1) |
-| `#16A36A` / `#E6F6EF` | 2,90 | ❌ **não usar para texto** |
+| `#00A859` (verde oficial) / branco | 3,11 | ❌ texto · ✅ ícones/preenchimentos (≥ 3:1) |
+| `#00A859` / `#E6F6EF` | 2,79 | ❌ **não usar para texto** |
 
-Por isso o verde oficial `#16A36A` é usado apenas em preenchimentos e ícones; **texto** de sucesso/aviso usa os tons derivados `success-strong`/`warning-strong`. O botão `success` com texto branco (3,24) não deve ser usado para texto pequeno.
+Por isso o verde oficial `#00A859` é usado apenas em preenchimentos e ícones; **texto** de sucesso/aviso usa os tons derivados `success-strong`/`warning-strong`. O botão `success` com texto branco (3,24) não deve ser usado para texto pequeno.
 
 ## 3. Tipografia
 

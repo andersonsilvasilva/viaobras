@@ -9,15 +9,16 @@
  * SOMENTE neste bloco; componentes usam apenas tokens semânticos.
  */
 :root {
-    /* Primitivos de marca (Paleta Oficial) */
-    --brand-sapphire: #0f52ba;
-    --brand-sapphire-hover: #0b4298;
+    /* Primitivos de marca (Paleta Oficial ViaObras — manual da marca) */
+    --brand-sapphire: #0052d4;
+    --brand-sapphire-hover: #0042ab;
     --brand-deep: #0a2e66;
     --brand-soft: #eaf1ff;
-    --brand-graphite: #252a35;
+    --brand-graphite: #333333;
     --brand-gray: #f3f4f6;
     --brand-white: #ffffff;
-    --brand-success: #16a36a;
+    --brand-success: #00a859;
+    --brand-gold: #ffc107; /* amarelo da marca (capacete) — destaques pontuais */
 
     /* Semânticos */
     --background: var(--brand-gray);
