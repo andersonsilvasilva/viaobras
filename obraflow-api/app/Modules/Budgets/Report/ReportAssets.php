@@ -3,7 +3,7 @@
 namespace App\Modules\Budgets\Report;
 
 /**
- * Fonte (Geist, SIL OFL 1.1 — resources/report/fonts) e marca do ObraFlow embutidas no HTML do relatório: o Chrome
+ * Fonte (Geist, SIL OFL 1.1 — resources/report/fonts) e marca do ViaObras embutidas no HTML do relatório: o Chrome
  * gera o PDF sem buscar nada na rede.
  */
 final class ReportAssets

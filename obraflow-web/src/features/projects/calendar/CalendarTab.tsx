@@ -161,7 +161,7 @@ export function CalendarTab({ uuid, canEdit, startDate }: Props) {
           )}
         </div>
 
-        <div className="obraflow-calendar min-w-0">
+        <div className="viaobras-calendar min-w-0">
           <FullCalendar
             ref={calendarRef}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, classicTheme]}

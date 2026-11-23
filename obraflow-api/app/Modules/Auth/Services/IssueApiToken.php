@@ -16,7 +16,7 @@ use Laravel\Sanctum\NewAccessToken;
 /**
  * Emissão de token de API FIXADO no tenant (D-05/D-20). O Sanctum não conhece tenant, então o tenant_id é
  * gravado na MESMA transação da criação. O banco ainda garante que o usuário tem vínculo (FK composta).
- * Expiração obrigatória e limitada a `obraflow.api_token_max_days`. O valor em claro é devolvido UMA vez.
+ * Expiração obrigatória e limitada a `viaobras.api_token_max_days`. O valor em claro é devolvido UMA vez.
  */
 final class IssueApiToken
 {
@@ -30,7 +30,7 @@ final class IssueApiToken
      */
     public function issue(User $user, Tenant $tenant, string $name, int $expiresInDays, array $abilities): NewAccessToken
     {
-        $max = (int) config('obraflow.api_token_max_days');
+        $max = (int) config('viaobras.api_token_max_days');
 
         if ($expiresInDays < 1 || $expiresInDays > $max) {
             throw ApiException::unprocessable('invalid_token_expiration', "A validade do token deve ficar entre 1 e {$max} dias.");

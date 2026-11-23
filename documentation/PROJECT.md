@@ -1,6 +1,6 @@
-# PROJECT.md — OBRAFLOW
+# PROJECT.md — VIAOBRAS
 
-**ObraFlow** é um ERP SaaS multi-tenant para construção civil, desenvolvido pela **HighTech Tecnologia**.
+**ViaObras** é um ERP SaaS multi-tenant para construção civil, desenvolvido pela **HighTech Tecnologia**.
 
 - **Segmento:** gestão empresarial e operacional da construção civil.
 - **Posicionamento:** plataforma moderna, profissional e inteligente para construtoras, obras, contratos, orçamentos e recursos.
@@ -24,7 +24,7 @@ Empresas · Clientes · Fornecedores · Obras · Contratos · **Orçamentos (mó
 ## Estrutura do repositório
 
 ```text
-obraflow/
+viaobras/
 ├── obraflow-api/      Laravel 13 (PHP 8.4) — API REST /api/v1
 ├── obraflow-web/      React 19 + TypeScript + Vite
 ├── infrastructure/    Docker Compose, Nginx

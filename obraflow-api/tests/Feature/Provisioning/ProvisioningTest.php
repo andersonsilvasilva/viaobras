@@ -29,7 +29,7 @@ afterEach(function () {
 function provision(array $options): array
 {
     // --no-interaction: Artisan::call é interativo por padrão e ficaria esperando a senha no terminal
-    $code = Artisan::call('obraflow:provision', $options + ['--yes' => true, '--no-interaction' => true]);
+    $code = Artisan::call('viaobras:provision', $options + ['--yes' => true, '--no-interaction' => true]);
 
     return [$code, Artisan::output()];
 }
@@ -143,7 +143,7 @@ it('é atômico: falha no meio não deixa tenant, usuário nem papéis pela meta
 
 // ---------------------------------------------------------------- proteções do comando
 it('o comando NUNCA aceita senha por argumento', function () {
-    expect(fn () => Artisan::call('obraflow:provision', base(['--password' => 'Secreta-Demais-123'])))
+    expect(fn () => Artisan::call('viaobras:provision', base(['--password' => 'Secreta-Demais-123'])))
         ->toThrow(ConsoleException::class);
 });
 
@@ -164,7 +164,7 @@ it('em produção exige --force', function () {
 });
 
 it('fluxo interativo: senha por prompt oculto com confirmação', function () {
-    $this->artisan('obraflow:provision', ['--name' => 'Interativa Demo', '--admin-email' => 'i@interativa.test', '--admin-name' => 'Admin I', '--yes' => true])
+    $this->artisan('viaobras:provision', ['--name' => 'Interativa Demo', '--admin-email' => 'i@interativa.test', '--admin-name' => 'Admin I', '--yes' => true])
         ->expectsQuestion('Senha do administrador (mín. 12, com maiúscula, minúscula e número)', 'Interativa-Senha-123')
         ->expectsQuestion('Repita a senha', 'Interativa-Senha-123')
         ->assertExitCode(0);
@@ -173,7 +173,7 @@ it('fluxo interativo: senha por prompt oculto com confirmação', function () {
 });
 
 it('senhas diferentes ou fracas no prompt não criam nada', function () {
-    $this->artisan('obraflow:provision', ['--name' => 'Interativa Demo', '--admin-email' => 'i@interativa.test', '--admin-name' => 'Admin I', '--yes' => true])
+    $this->artisan('viaobras:provision', ['--name' => 'Interativa Demo', '--admin-email' => 'i@interativa.test', '--admin-name' => 'Admin I', '--yes' => true])
         ->expectsQuestion('Senha do administrador (mín. 12, com maiúscula, minúscula e número)', 'Interativa-Senha-123')
         ->expectsQuestion('Repita a senha', 'Outra-Senha-456')
         ->assertExitCode(1);
@@ -196,7 +196,7 @@ it('bloquear usuário: recusa o último administrador, revoga tokens e encerra o
     $tenant = Scenario::tenant();
     $unico = Scenario::member($tenant, 'admin');
 
-    expect(Artisan::call('obraflow:user:block', ['email' => $unico->email]))->toBe(1);
+    expect(Artisan::call('viaobras:user:block', ['email' => $unico->email]))->toBe(1);
     expect($unico->fresh()->isActive())->toBeTrue();
 
     $segundo = Scenario::member($tenant, 'admin');
@@ -205,7 +205,7 @@ it('bloquear usuário: recusa o último administrador, revoga tokens e encerra o
     $browser = new Browser($this);
     $browser->login($segundo->email)->assertOk();
 
-    expect(Artisan::call('obraflow:user:block', ['email' => $segundo->email]))->toBe(0);
+    expect(Artisan::call('viaobras:user:block', ['email' => $segundo->email]))->toBe(0);
 
     expect($segundo->fresh()->isActive())->toBeFalse()->and(PersonalAccessToken::query()->count())->toBe(0);
     $browser->get('/api/v1/tenant')->assertForbidden()->assertJsonPath('error.code', 'account_blocked');
@@ -213,7 +213,7 @@ it('bloquear usuário: recusa o último administrador, revoga tokens e encerra o
 
     expect(AuditLog::query()->where('event', AuditEvent::AUTH_USER_BLOCKED)->count())->toBe(1);
 
-    expect(Artisan::call('obraflow:user:unblock', ['email' => $segundo->email]))->toBe(0);
+    expect(Artisan::call('viaobras:user:unblock', ['email' => $segundo->email]))->toBe(0);
     expect($segundo->fresh()->isActive())->toBeTrue()->and(AuditLog::query()->where('event', AuditEvent::AUTH_USER_UNBLOCKED)->count())->toBe(1);
 });
 
@@ -222,7 +222,7 @@ it('--force bloqueia mesmo o último administrador', function () {
     $tenant = Scenario::tenant();
     $unico = Scenario::member($tenant, 'admin');
 
-    expect(Artisan::call('obraflow:user:block', ['email' => $unico->email, '--force' => true]))->toBe(0)
+    expect(Artisan::call('viaobras:user:block', ['email' => $unico->email, '--force' => true]))->toBe(0)
         ->and($unico->fresh()->isActive())->toBeFalse();
 });
 
@@ -234,21 +234,21 @@ it('status do tenant: suspender bloqueia o acesso na hora e reativar restaura (a
     $browser->login($admin->email)->assertOk();
     $browser->get('/api/v1/tenant')->assertOk();
 
-    expect(Artisan::call('obraflow:tenant:status', ['slug' => $tenant->slug, 'status' => 'suspended']))->toBe(0);
+    expect(Artisan::call('viaobras:tenant:status', ['slug' => $tenant->slug, 'status' => 'suspended']))->toBe(0);
     $browser->get('/api/v1/tenant')->assertForbidden()->assertJsonPath('error.code', 'tenant_suspended');
 
-    expect(Artisan::call('obraflow:tenant:status', ['slug' => $tenant->slug, 'status' => 'active']))->toBe(0);
+    expect(Artisan::call('viaobras:tenant:status', ['slug' => $tenant->slug, 'status' => 'active']))->toBe(0);
     $browser->get('/api/v1/tenant')->assertOk();
 
     expect(AuditLog::query()->where('tenant_id', $tenant->id)->whereIn('event', [AuditEvent::TENANT_SUSPENDED, AuditEvent::TENANT_REACTIVATED])->pluck('event')->all())
         ->toBe([AuditEvent::TENANT_SUSPENDED, AuditEvent::TENANT_REACTIVATED]);
 
-    expect(Artisan::call('obraflow:tenant:status', ['slug' => $tenant->slug, 'status' => 'trial']))->toBe(1); // status inválido
+    expect(Artisan::call('viaobras:tenant:status', ['slug' => $tenant->slug, 'status' => 'trial']))->toBe(1); // status inválido
 });
 
-it('obraflow:sync-permissions é idempotente', function () {
-    expect(Artisan::call('obraflow:sync-permissions'))->toBe(0);
+it('viaobras:sync-permissions é idempotente', function () {
+    expect(Artisan::call('viaobras:sync-permissions'))->toBe(0);
     $n = DB::table('permissions')->count();
 
-    expect(Artisan::call('obraflow:sync-permissions'))->toBe(0)->and(DB::table('permissions')->count())->toBe($n);
+    expect(Artisan::call('viaobras:sync-permissions'))->toBe(0)->and(DB::table('permissions')->count())->toBe($n);
 });

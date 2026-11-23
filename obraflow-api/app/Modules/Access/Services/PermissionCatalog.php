@@ -7,7 +7,7 @@ use Spatie\Permission\PermissionRegistrar;
 
 /**
  * Catálogo GLOBAL de permissões e papéis iniciais. É DADO DE REFERÊNCIA instalado por comando idempotente
- * (`obraflow:sync-permissions`), versionado no código — não é seeder de demonstração. Nunca apaga nada.
+ * (`viaobras:sync-permissions`), versionado no código — não é seeder de demonstração. Nunca apaga nada.
  * Convenção: `modulo.acao`.
  */
 final class PermissionCatalog

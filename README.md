@@ -1,9 +1,9 @@
-# ObraFlow
+# ViaObras
 
 ERP SaaS multi-tenant para construção civil — HighTech Tecnologia. Documentação em [`documentation/`](documentation/PROJECT.md).
 
 ```text
-obraflow/
+viaobras/
 ├── obraflow-api/      Laravel 13 · PHP 8.4
 ├── obraflow-web/      React 19 · TypeScript · Vite 8 · Tailwind 4
 ├── infrastructure/    Docker Compose · Nginx
@@ -22,7 +22,7 @@ cd obraflow-api
 composer install
 cp .env.example .env            # preencha DB_PASSWORD etc. — nunca versione o .env
 php artisan key:generate
-# crie o banco "obraflow" no MySQL (veja documentation/AMBIENTE_LOCAL.md)
+# crie o banco "viaobras" no MySQL (veja documentation/AMBIENTE_LOCAL.md)
 php artisan serve               # http://localhost:8000
 curl http://localhost:8000/api/v1/health
 ```
@@ -65,8 +65,8 @@ docker compose ps               # todos devem ficar "healthy"
 
 ```bash
 cd obraflow-api
-php artisan migrate                                    # 33 tabelas (Fases 1 e 2) (banco 'obraflow', usuário exclusivo — ver documentation/AMBIENTE_LOCAL.md)
-php artisan obraflow:provision --name="Minha Construtora" --admin-email=admin@empresa.com --admin-name="Fulano"
+php artisan migrate                                    # 33 tabelas (Fases 1 e 2) (banco 'viaobras', usuário exclusivo — ver documentation/AMBIENTE_LOCAL.md)
+php artisan viaobras:provision --name="Minha Construtora" --admin-email=admin@empresa.com --admin-name="Fulano"
 vendor/bin/pest                                        # 291 testes (usa o banco 'obraflow_testing')
 ```
 

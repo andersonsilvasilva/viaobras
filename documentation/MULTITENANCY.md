@@ -109,9 +109,9 @@ Configuração **já aplicada** em [`obraflow-api/config/permission.php`](../obr
 - O cache de permissões (24 h por padrão) é um **único** registro global.
 - A migration padrão cria `roles.tenant_id` **nullable**, `model_has_roles.role_id` com FK **simples** e `ON DELETE CASCADE`, e **não** cria FK para `tenants`.
 
-### O que o ObraFlow muda (migration própria, baseada no stub)
+### O que o ViaObras muda (migration própria, baseada no stub)
 
-| Ponto | Pacote | ObraFlow |
+| Ponto | Pacote | ViaObras |
 |---|---|---|
 | `roles.tenant_id` | NULL | **NOT NULL** + FK `tenants` (sem papéis globais; `Role::create` sem contexto **falha** no banco) |
 | Unicidade de papéis | `(tenant_id, name, guard_name)` com `NULL` | Mesma chave, agora **sem NULL** ⇒ exata |

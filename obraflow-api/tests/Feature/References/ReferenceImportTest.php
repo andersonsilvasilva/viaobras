@@ -19,7 +19,7 @@ use Tests\Support\XlsxFixture;
 
 function importRefs(array $opts): int
 {
-    return Artisan::call('obraflow:references:import', ['--competency' => '2024-12', '--state' => 'MT', '--regime' => 'with_relief', ...$opts]);
+    return Artisan::call('viaobras:references:import', ['--competency' => '2024-12', '--state' => 'MT', '--regime' => 'with_relief', ...$opts]);
 }
 
 function refCounts(): array
@@ -114,15 +114,15 @@ it('ativar exige insumos e composições; nova competência ativa substitui a an
         ['G' => '88316', 'H' => 'SERVENTE', 'I' => 'H', 'K' => '19,00'],
         ['G' => '88316', 'H' => 'SERVENTE', 'I' => 'H', 'K' => '19,00', 'L' => 'INSUMO', 'M' => '4750', 'N' => 'PEDREIRO', 'O' => 'H', 'Q' => '1,0000000', 'R' => '19,00', 'S' => '19,00'],
     ]);
-    expect(Artisan::call('obraflow:references:import', ['--competency' => '2025-01', '--state' => 'MT', '--regime' => 'with_relief',
+    expect(Artisan::call('viaobras:references:import', ['--competency' => '2025-01', '--state' => 'MT', '--regime' => 'with_relief',
         '--resources' => $jan, '--compositions' => $janComp, '--activate' => true]))->toBe(0, Artisan::output());
 
     expect(ReferenceDataset::query()->orderBy('version')->pluck('status', 'version')->all())->toBe(['2024-12' => 'superseded', '2025-01' => 'active']);
 });
 
 it('valida as opções obrigatórias', function () {
-    expect(Artisan::call('obraflow:references:import', ['--competency' => '12/2024', '--state' => 'MT', '--regime' => 'with_relief']))->toBe(1)
-        ->and(Artisan::call('obraflow:references:import', ['--competency' => '2024-12', '--state' => 'MT', '--regime' => 'desonerado']))->toBe(1);
+    expect(Artisan::call('viaobras:references:import', ['--competency' => '12/2024', '--state' => 'MT', '--regime' => 'with_relief']))->toBe(1)
+        ->and(Artisan::call('viaobras:references:import', ['--competency' => '2024-12', '--state' => 'MT', '--regime' => 'desonerado']))->toBe(1);
 });
 
 // ---------------------------------------------------------------- integridade do banco

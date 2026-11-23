@@ -1,8 +1,8 @@
-# ObraFlow — ambiente de containers (desenvolvimento/homologação)
+# ViaObras — ambiente de containers (desenvolvimento/homologação)
 # Uso: cp .env.example .env  (preencha as senhas)  &&  docker compose up -d --build
 # Nenhum segredo possui valor padrão: variáveis obrigatórias usam ${VAR:?mensagem}.
 
-name: obraflow
+name: viaobras
 
 services:
   api:
@@ -11,7 +11,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     environment:
-      APP_NAME: ObraFlow
+      APP_NAME: ViaObras
       APP_ENV: ${APP_ENV:-production}
       APP_DEBUG: ${APP_DEBUG:-false}
       APP_KEY: ${APP_KEY:?defina APP_KEY (php artisan key:generate --show)}
@@ -20,8 +20,8 @@ services:
       DB_CONNECTION: mysql
       DB_HOST: mysql
       DB_PORT: 3306
-      DB_DATABASE: ${MYSQL_DATABASE:-obraflow}
-      DB_USERNAME: ${MYSQL_USER:-obraflow}
+      DB_DATABASE: ${MYSQL_DATABASE:-viaobras}
+      DB_USERNAME: ${MYSQL_USER:-viaobras}
       DB_PASSWORD: ${MYSQL_PASSWORD:?defina MYSQL_PASSWORD}
       REDIS_CLIENT: predis
       REDIS_HOST: redis
@@ -67,8 +67,8 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?defina MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-obraflow}
-      MYSQL_USER: ${MYSQL_USER:-obraflow}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-viaobras}
+      MYSQL_USER: ${MYSQL_USER:-viaobras}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:?defina MYSQL_PASSWORD}
     command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_0900_ai_ci", "--default-time-zone=+00:00"]
     volumes:

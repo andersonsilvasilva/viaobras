@@ -87,10 +87,10 @@ Arquivos enviados pelo responsável. Os originais ficam em `documentation/marca/
 
 | Arquivo no sistema | Original | Uso |
 |---|---|---|
-| `favicon.png` (70×67) | `Favicon ObraFlow.png` | ícone da aba do navegador |
-| `logo-simbolo.png` (217×185) | `logo ObraFlow.png` | símbolo (capacete + prédios): menu lateral e ícone no celular (`apple-touch-icon`) |
-| `logo-completa.png` (477×109, transparente) | `logo ObraFlow_transparente.png` | símbolo + "ObraFlow": tela de login |
-| `logo-completa-grande.png` (790×217) | `logo ObraFlow_gde.png` | impressão e relatórios |
+| `favicon.png` (70×67) | `Favicon ViaObras.png` | ícone da aba do navegador |
+| `logo-simbolo.png` (217×185) | `logo ViaObras.png` | símbolo (capacete + prédios): menu lateral e ícone no celular (`apple-touch-icon`) |
+| `logo-completa.png` (477×109, transparente) | `logo ViaObras_transparente.png` | símbolo + "ViaObras": tela de login |
+| `logo-completa-grande.png` (790×217) | `logo ViaObras_gde.png` | impressão e relatórios |
 
 - O símbolo tem azul-marinho, azul-safira e amarelo (capacete). Sobre o menu grafite, ele fica num fundo claro (`--card`) arredondado, porque o azul-marinho não tem contraste direto sobre o grafite.
 - O amarelo do capacete é da marca. Na interface, a cor de destaque continua sendo o azul-safira (sem laranja nem amarelo nos componentes).

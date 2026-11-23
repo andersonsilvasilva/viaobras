@@ -25,7 +25,7 @@ use Throwable;
  */
 class ImportReferencesCommand extends Command
 {
-    protected $signature = 'obraflow:references:import
+    protected $signature = 'viaobras:references:import
         {--source=SINAPI : Código da fonte}
         {--source-name=SINAPI - Sistema Nacional de Pesquisa de Custos e Índices da Construção Civil : Nome da fonte (na criação)}
         {--publisher=CAIXA / IBGE : Publicador (na criação)}

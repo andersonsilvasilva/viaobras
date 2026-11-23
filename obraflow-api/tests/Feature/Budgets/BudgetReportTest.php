@@ -21,7 +21,7 @@ use Tests\Support\SinapiFixture;
 
 beforeEach(function () {
     Scenario::catalog();
-    Artisan::call('obraflow:references:import', ['--competency' => '2024-12', '--state' => 'MT', '--regime' => 'with_relief',
+    Artisan::call('viaobras:references:import', ['--competency' => '2024-12', '--state' => 'MT', '--regime' => 'with_relief',
         '--resources' => SinapiFixture::insumos(), '--compositions' => SinapiFixture::analitico(), '--families' => SinapiFixture::familias(), '--activate' => true]);
     $this->ds = ReferenceDataset::query()->sole();
     $this->A = Scenario::tenant();
@@ -146,7 +146,7 @@ it('PDF pelo Chrome headless: arquivo PDF com várias páginas, marca d\'água e
         ->and(preg_match('/(src|href)=["\']https?:/i', $html))->toBe(0)
         ->and(preg_match('/url\(["\']?https?:/i', $html))->toBe(0);
 
-    $path = sys_get_temp_dir().'/obraflow-test-'.uniqid().'.pdf';
+    $path = sys_get_temp_dir().'/viaobras-test-'.uniqid().'.pdf';
     $renderer->render($data, $path);
     $pdf = file_get_contents($path);
     expect(substr($pdf, 0, 5))->toBe('%PDF-')->and(preg_match_all('/\/Type\s*\/Page[^s]/', $pdf))->toBeGreaterThanOrEqual(6);
@@ -158,7 +158,7 @@ it('PDF pelo Chrome headless: arquivo PDF com várias páginas, marca d\'água e
 
 it('DOCX pelo PHPWord: seções retrato/paisagem, página X de Y, tabelas e imagens dos gráficos e da marca d\'água', function () {
     $data = ($this->build)(['format' => 'docx', 'notes' => 'DEMO Validade: 30 dias.']);
-    $path = sys_get_temp_dir().'/obraflow-test-'.uniqid().'.docx';
+    $path = sys_get_temp_dir().'/viaobras-test-'.uniqid().'.docx';
     app(DocxReportRenderer::class)->render($data, $path);
 
     $zip = new ZipArchive;

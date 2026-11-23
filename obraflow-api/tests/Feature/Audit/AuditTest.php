@@ -91,7 +91,7 @@ it('TODO evento do catálogo é de fato emitido por alguma operação real', fun
     $b->delete("/api/v1/invitations/{$idRevogado}")->assertNoContent();             // invitation.revoked
     [$idVencido] = $convidar('vencido@total.test');
     DB::table('user_invitations')->where('id', $idVencido)->update(['expires_at' => now()->subDay()]);
-    Artisan::call('obraflow:invitations:expire');                                   // invitation.expired
+    Artisan::call('viaobras:invitations:expire');                                   // invitation.expired
 
     // --- vínculos: suspender, reativar, remover (role.revoked)
     $aceito = User::query()->where('email', 'aceito@total.test')->firstOrFail();
@@ -111,10 +111,10 @@ it('TODO evento do catálogo é de fato emitido por alguma operação real', fun
 
     // --- administração via CLI
     $outro = Scenario::member($tenant, 'admin');
-    Artisan::call('obraflow:user:block', ['email' => $outro->email]);               // auth.user_blocked
-    Artisan::call('obraflow:user:unblock', ['email' => $outro->email]);             // auth.user_unblocked
-    Artisan::call('obraflow:tenant:status', ['slug' => 'obra-total', 'status' => 'suspended']);  // tenant.suspended
-    Artisan::call('obraflow:tenant:status', ['slug' => 'obra-total', 'status' => 'active']);     // tenant.reactivated
+    Artisan::call('viaobras:user:block', ['email' => $outro->email]);               // auth.user_blocked
+    Artisan::call('viaobras:user:unblock', ['email' => $outro->email]);             // auth.user_unblocked
+    Artisan::call('viaobras:tenant:status', ['slug' => 'obra-total', 'status' => 'suspended']);  // tenant.suspended
+    Artisan::call('viaobras:tenant:status', ['slug' => 'obra-total', 'status' => 'active']);     // tenant.reactivated
 
     $emitidos = AuditLog::query()->distinct()->pluck('event')->all();
     // Os eventos da Fase 2 têm cobertura própria (tests/Feature/Registry, "todo evento da Fase 2 é emitido").
@@ -183,12 +183,12 @@ it('eventos auth.*: falha de auditoria NÃO derruba o login, mas nenhum tenant �
 it('registra o contexto da requisição (request_id, IP, user agent, tenant e ator)', function () {
     $this->browser->login($this->adminA->email)->assertOk();
 
-    $this->browser->put('/api/v1/tenant/settings/moeda', ['value' => 'BRL'], ['X-Request-Id' => 'req-abc12345', 'User-Agent' => 'ObraFlowTest/1.0'])->assertOk();
+    $this->browser->put('/api/v1/tenant/settings/moeda', ['value' => 'BRL'], ['X-Request-Id' => 'req-abc12345', 'User-Agent' => 'ViaObrasTest/1.0'])->assertOk();
 
     $log = AuditLog::query()->where('event', AuditEvent::TENANT_UPDATED)->firstOrFail();
     expect($log->request_id)->toBe('req-abc12345')
         ->and($log->ipText())->toBe('127.0.0.1')
-        ->and($log->user_agent)->toBe('ObraFlowTest/1.0')
+        ->and($log->user_agent)->toBe('ViaObrasTest/1.0')
         ->and($log->tenant_id)->toBe($this->A->id)
         ->and($log->user_id)->toBe($this->adminA->id)
         ->and($log->new_values)->toBe(['key' => 'moeda', 'value' => 'BRL'])

@@ -9,6 +9,6 @@ class DocumentVersionRequest extends FormRequest
 {
     public function rules(): array
     {
-        return ['file' => ['required', 'file', 'max:'.(int) config('obraflow.documents.max_kb')]];
+        return ['file' => ['required', 'file', 'max:'.(int) config('viaobras.documents.max_kb')]];
     }
 }

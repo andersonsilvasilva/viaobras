@@ -19,7 +19,7 @@ class ProvisionTenantCommand extends Command
 {
     use ConfirmableTrait;
 
-    protected $signature = 'obraflow:provision
+    protected $signature = 'viaobras:provision
         {--name= : Nome do tenant}
         {--slug= : Slug único (a-z, 0-9 e hífen); padrão: derivado do nome}
         {--admin-email= : E-mail do administrador}

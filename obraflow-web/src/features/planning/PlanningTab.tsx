@@ -48,7 +48,7 @@ const DEFAULT_PREF: Pref = {
   columns: { start: true, end: true, duration_days: true, preds: false, unit: false, quantity: false, unit_cost: false, total_cost: false, total_sale: false },
 }
 
-const PREF = (uuid: string) => `obraflow.planning.${uuid}`
+const PREF = (uuid: string) => `viaobras.planning.${uuid}`
 function readPref(uuid: string): Pref {
   try {
     const saved = JSON.parse(localStorage.getItem(PREF(uuid)) ?? '{}')
@@ -782,7 +782,7 @@ function GanttView({
   )
 
   return (
-    <div ref={boxRef} className="obraflow-gantt h-[60vh] min-h-96 overflow-hidden rounded-lg border">
+    <div ref={boxRef} className="viaobras-gantt h-[60vh] min-h-96 overflow-hidden rounded-lg border">
       <Willow fonts={false}>
         <Tooltip api={ganttApi ?? undefined} content={TipContent}>
           <Gantt

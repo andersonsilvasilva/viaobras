@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 class UnblockUserCommand extends Command
 {
-    protected $signature = 'obraflow:user:unblock {email}';
+    protected $signature = 'viaobras:user:unblock {email}';
 
     protected $description = 'Desbloqueia um usuário (os tokens revogados no bloqueio NÃO são restaurados).';
 

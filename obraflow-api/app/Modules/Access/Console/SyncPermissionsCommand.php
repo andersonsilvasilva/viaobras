@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 
 class SyncPermissionsCommand extends Command
 {
-    protected $signature = 'obraflow:sync-permissions';
+    protected $signature = 'viaobras:sync-permissions';
 
     protected $description = 'Instala/atualiza o catálogo global de permissões (idempotente; nunca apaga).';
 

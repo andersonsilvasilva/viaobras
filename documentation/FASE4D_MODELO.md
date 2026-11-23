@@ -5,7 +5,7 @@
 > **Já decidido pelo responsável (A-53):**
 > - **quando:** agora, antes da 6B;
 > - **motor do PDF:** Chrome headless;
-> - **marca:** a do ObraFlow, sem logo por empresa;
+> - **marca:** a do ViaObras, sem logo por empresa;
 > - **analítico:** as composições entram já na primeira versão.
 >
 > As decisões D-P77 a D-P86 foram aprovadas em 2026-11-18.
@@ -26,7 +26,7 @@ Acesso: na tela do orçamento, botão **Relatório**. Ele abre uma janela para e
 
 | # | Parte | Conteúdo | Opcional? |
 |---|---|---|---|
-| 1 | **Capa** | Marca ObraFlow, título "Orçamento", código e versão (ex.: ORC-003/2026 · v2), situação (aprovado, em revisão, rascunho), obra (código, nome, endereço), cliente, empresa que orça (razão social e CNPJ), data-base e regime de encargos (base SINAPI MT 12/2024, desonerada), data de emissão | Não |
+| 1 | **Capa** | Marca ViaObras, título "Orçamento", código e versão (ex.: ORC-003/2026 · v2), situação (aprovado, em revisão, rascunho), obra (código, nome, endereço), cliente, empresa que orça (razão social e CNPJ), data-base e regime de encargos (base SINAPI MT 12/2024, desonerada), data de emissão | Não |
 | 2 | **Resumo** | Custo direto, custos indiretos, BDI (%), desconto e **valor final**. Totais por etapa (com % do total) e por tipo de insumo (material, mão de obra, equipamento, serviço) | Não |
 | 3 | **Orçamento sintético** | Etapas e itens: item (EAP), código, fonte (SINAPI, catálogo, próprio), descrição, unidade, quantidade, preço unitário sem BDI, preço unitário com BDI e total. Subtotal por etapa e total geral | Não |
 | 4 | **Orçamento analítico** | Cada item com a sua composição: insumos e composições auxiliares com código, descrição, unidade, coeficiente, preço unitário e total. Item sem composição aparece como "preço direto" | Sim (marcado por padrão) |
@@ -35,7 +35,7 @@ Acesso: na tela do orçamento, botão **Relatório**. Ele abre uma janela para e
 | 7 | **Fechamento** | Observações (texto livre digitado na hora, não é gravado), local e data, e campos de assinatura do responsável técnico (nome, CREA/CAU, ART/RRT) e do cliente | Sim |
 
 **Identidade visual (premium):**
-- cabeçalho com a marca ObraFlow e o código do orçamento; rodapé com "página X de Y", data de emissão e "Gerado pelo ObraFlow";
+- cabeçalho com a marca ViaObras e o código do orçamento; rodapé com "página X de Y", data de emissão e "Gerado pelo ViaObras";
 - fonte Geist (licença SIL OFL, embutida no arquivo, sem buscar nada na internet), cores e tokens da marca (`documentation/marca`);
 - tabelas com linhas alternadas, etapas destacadas, números alinhados à direita no formato brasileiro (R$ 1.234,56) e cabeçalho da tabela repetido a cada página;
 - **marca d'água "RASCUNHO"** em versões que não estão aprovadas;
@@ -65,7 +65,7 @@ BudgetReportBuilder ── lê a versão (BudgetCalculator, BdiResolver, AbcCurv
 |---|---|---|
 | **D-P77** | **Biblioteca para comandar o Chrome** | ~~chrome-php/chrome 1.16.1~~ **Substituída pela A-55:** o Chrome é chamado direto pela linha de comando (symfony/process, já instalado), porque a chrome-php exige a extensão `sockets` do PHP. Texto original: **chrome-php/chrome 1.16.1** (MIT, publicada em 06/07/2026). É PHP puro e fala direto com o Chrome, **sem Node** no servidor. O resultado visual é o mesmo das alternativas, porque quem desenha é sempre o Chrome: spatie/browsershot (MIT) exige Node e Puppeteer; Gotenberg (MIT) é um serviço Docker à parte |
 | **D-P78** | **Chrome no servidor** | Caminho do executável por configuração (`CHROME_PATH`). Local: o Chrome já instalado. Produção: Chrome ou Chromium instalado no servidor (ou container). Se não houver Chrome, o PDF responde com erro claro e o XLSX e o DOCX continuam funcionando |
-| **D-P79** | **Biblioteca do DOCX** | **phpoffice/phpword 1.4.0** (publicada em 05/06/2025). A licença é **LGPL-3.0**: pode ser usada como dependência sem abrir o código do ObraFlow, desde que a biblioteca não seja modificada. Precisa do seu aceite. Alternativa sem LGPL: DOCX montado pelo próprio ObraFlow (mais trabalho, menos recursos) |
+| **D-P79** | **Biblioteca do DOCX** | **phpoffice/phpword 1.4.0** (publicada em 05/06/2025). A licença é **LGPL-3.0**: pode ser usada como dependência sem abrir o código do ViaObras, desde que a biblioteca não seja modificada. Precisa do seu aceite. Alternativa sem LGPL: DOCX montado pelo próprio ViaObras (mais trabalho, menos recursos) |
 | **D-P80** | **Permissão** | Quem vê o orçamento (`budgets.view` + acesso à obra) pode gerar o relatório. **Sem permissão nova**, então nada muda no banco |
 | **D-P81** | **Auditoria** | Registrar `budget.report_exported` (formato, partes e versão), porque os dados saem do sistema. Não grava o arquivo |
 | **D-P82** | **Versões permitidas** | Qualquer versão pode ser exportada. As não aprovadas saem com a marca d'água "RASCUNHO" e a situação na capa |
@@ -106,7 +106,7 @@ Nenhuma etapa grava no banco `obraflow` (sem migrations e sem permissões novas)
 
 - **Rota:** `POST /api/v1/budgets/{uuid}/versions/{n}/report` (`budgets.view` + acesso à obra; o mesmo 404 do orçamento para quem não vê). Corpo: `format`, `parts[]` (analytic, bdi, abc, closing), `hide_bdi`, `notes`, `place`, `technician_name`, `technician_registry`, `technician_art`. Resposta: o arquivo, com `Cache-Control: no-store`; o arquivo temporário é apagado após o envio.
 - **Auditoria:** `budget.report_exported` com versão, formato, partes e `hide_bdi`.
-- **XLSX** (`XlsxReportRenderer`, OpenSpout): abas Resumo (com a marca), Sintético, Analítico, BDI, Curva ABC e Fechamento; valores numéricos com formato de moeda e %, sem fórmulas; etapas destacadas nas cores do ObraFlow; A4 paisagem, ajustado à largura. O gráfico da curva ABC entra na etapa 3 (gerado pelo Chrome).
+- **XLSX** (`XlsxReportRenderer`, OpenSpout): abas Resumo (com a marca), Sintético, Analítico, BDI, Curva ABC e Fechamento; valores numéricos com formato de moeda e %, sem fórmulas; etapas destacadas nas cores do ViaObras; A4 paisagem, ajustado à largura. O gráfico da curva ABC entra na etapa 3 (gerado pelo Chrome).
 - **Testes:** +2 na API (conteúdo, opções, auditoria, validação, permissões e isolamento).
 
 ### Etapa 3 — PDF (Chrome headless)
@@ -118,7 +118,7 @@ Nenhuma etapa grava no banco `obraflow` (sem migrations e sem permissões novas)
 
 ### Etapa 4 — DOCX
 
-- **PHPWord 1.4.0** (LGPL-3.0, aceita na D-P79; sem modificações). `DocxReportRenderer`: as mesmas partes do PDF, em seções retrato ou paisagem, com cabeçalho (código, versão e situação), rodapé com "Página X de Y" (campos do Word), tabelas com cabeçalho repetido e linhas que não quebram entre páginas, cores do ObraFlow e fonte Calibri (padrão do Word).
+- **PHPWord 1.4.0** (LGPL-3.0, aceita na D-P79; sem modificações). `DocxReportRenderer`: as mesmas partes do PDF, em seções retrato ou paisagem, com cabeçalho (código, versão e situação), rodapé com "Página X de Y" (campos do Word), tabelas com cabeçalho repetido e linhas que não quebram entre páginas, cores do ViaObras e fonte Calibri (padrão do Word).
 - **Imagens pelo Chrome:** os gráficos da curva ABC (o mesmo SVG do PDF) e a marca d'água "RASCUNHO" em PNG transparente, aplicada no cabeçalho de cada seção em versões não aprovadas. Sem Chrome, o DOCX sai sem essas imagens.
 - Conferido abrindo no Microsoft Word.
 - **Testes:** +1 no relatório (seções, paisagem, campos de página, conteúdo e valor final) e +1 na API (download e imagens).

@@ -105,6 +105,6 @@ final class BudgetReportService
     /** Caminho temporário único com a extensão (sem deixar o arquivo-base do tempnam para trás). */
     private static function tempFile(string $ext): string
     {
-        return sys_get_temp_dir().DIRECTORY_SEPARATOR.'obraflow-'.bin2hex(random_bytes(8)).'.'.$ext;
+        return sys_get_temp_dir().DIRECTORY_SEPARATOR.'viaobras-'.bin2hex(random_bytes(8)).'.'.$ext;
     }
 }

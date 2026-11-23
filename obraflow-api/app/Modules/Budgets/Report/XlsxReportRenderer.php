@@ -21,7 +21,7 @@ use OpenSpout\Writer\XLSX\Writer;
 
 /**
  * Relatório em .xlsx (D-P84): uma aba por parte, valores numéricos fixos (sem fórmulas) com formato de moeda e %,
- * nas cores do ObraFlow. O gráfico da curva ABC entra como imagem PNG, quando fornecido.
+ * nas cores do ViaObras. O gráfico da curva ABC entra como imagem PNG, quando fornecido.
  */
 final class XlsxReportRenderer
 {

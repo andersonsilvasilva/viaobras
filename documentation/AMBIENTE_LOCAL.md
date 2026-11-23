@@ -5,11 +5,11 @@
 Servidor do Laragon (MySQL 8.0.30). Foram criados **somente**:
 
 ```sql
-CREATE DATABASE IF NOT EXISTS obraflow         CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE IF NOT EXISTS viaobras         CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE DATABASE IF NOT EXISTS obraflow_testing CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE USER IF NOT EXISTS 'obraflow_app'@'localhost' IDENTIFIED WITH caching_sha2_password BY '<gerada>';
 CREATE USER IF NOT EXISTS 'obraflow_app'@'127.0.0.1' IDENTIFIED WITH caching_sha2_password BY '<gerada>';
-GRANT ALL PRIVILEGES ON obraflow.*         TO 'obraflow_app'@'localhost', 'obraflow_app'@'127.0.0.1';
+GRANT ALL PRIVILEGES ON viaobras.*         TO 'obraflow_app'@'localhost', 'obraflow_app'@'127.0.0.1';
 GRANT ALL PRIVILEGES ON obraflow_testing.* TO 'obraflow_app'@'localhost', 'obraflow_app'@'127.0.0.1';
 ```
 
@@ -35,7 +35,7 @@ Em produção: o usuário da aplicação deve ter, em `audit_logs`, apenas `SELE
 ## 4. Como adotar o Redis depois
 
 1. Instalar/subir o Redis (Laragon traz `redis-x64`) e definir senha.
-2. `.env`: `SESSION_DRIVER=redis`, `CACHE_STORE=redis`, `QUEUE_CONNECTION=redis`, `REDIS_CLIENT=predis`, `REDIS_HOST/PORT/PASSWORD`, `REDIS_PREFIX=obraflow-` (o cliente **Predis** já está instalado; não precisa da extensão `phpredis`).
+2. `.env`: `SESSION_DRIVER=redis`, `CACHE_STORE=redis`, `QUEUE_CONNECTION=redis`, `REDIS_CLIENT=predis`, `REDIS_HOST/PORT/PASSWORD`, `REDIS_PREFIX=viaobras-` (o cliente **Predis** já está instalado; não precisa da extensão `phpredis`).
 3. `php artisan config:clear`. O `/api/v1/health/ready` passa a exigir o Redis automaticamente.
 4. **Filas:** rodar `php artisan queue:work`. Jobs futuros devem restaurar o `TenantContext` (usar `TenantContext::run`) — ainda não há jobs.
 5. **Cache do Spatie é global** (um registro): chaves de cache de negócio devem ser prefixadas por tenant (`t:{id}:…`).

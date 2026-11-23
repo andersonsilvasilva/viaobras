@@ -1,6 +1,6 @@
 # ETAPA DAS TELAS — LOGIN E CADASTROS (FASES 1–3)
 
-> Autorizada pelo responsável em 2026-11-16 ("pode começar"). Telas no **padrão de layout normativo** ([SCREEN_REFERENCES.md](SCREEN_REFERENCES.md) §"Padrão de layout e apresentação") com a identidade do ObraFlow ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)). Ao final: subir API e frontend para teste no navegador (pedido do responsável).
+> Autorizada pelo responsável em 2026-11-16 ("pode começar"). Telas no **padrão de layout normativo** ([SCREEN_REFERENCES.md](SCREEN_REFERENCES.md) §"Padrão de layout e apresentação") com a identidade do ViaObras ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)). Ao final: subir API e frontend para teste no navegador (pedido do responsável).
 
 ## Sub-etapas
 

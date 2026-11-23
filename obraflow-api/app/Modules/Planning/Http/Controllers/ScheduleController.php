@@ -218,7 +218,7 @@ class ScheduleController extends Controller
         $path = tempnam(sys_get_temp_dir(), 'plan').'.xlsx';
         $importer->template($path);
 
-        return response()->download($path, 'modelo-planejamento-obraflow.xlsx')->deleteFileAfterSend();
+        return response()->download($path, 'modelo-planejamento-viaobras.xlsx')->deleteFileAfterSend();
     }
 
     public function importPreview(ScheduleRequest $request, string $uuid, ScheduleSheetImporter $importer): JsonResponse

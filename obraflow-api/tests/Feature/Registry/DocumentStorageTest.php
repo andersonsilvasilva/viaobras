@@ -77,7 +77,7 @@ it('recusa tipo pelo conteúdo (extensão .pdf com conteúdo de texto/script) e 
         expect(fn () => $this->svc->storeVersion($doc, UploadedFile::fake()->createWithContent('falso.pdf', '<?php echo 1;'), $this->uA))
             ->toThrow(ApiException::class, 'Tipo de arquivo não permitido.');
 
-        config(['obraflow.documents.max_kb' => 1]);
+        config(['viaobras.documents.max_kb' => 1]);
         expect(fn () => $this->svc->storeVersion($doc, pdf(body: str_repeat('a', 2048)), $this->uA))
             ->toThrow(ApiException::class, 'Arquivo vazio ou acima do limite permitido.');
     });

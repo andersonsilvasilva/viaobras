@@ -36,7 +36,7 @@ npm test && npm run lint && npm run build
 | **Fase 2 — integridade** (FK compostas, CHECK, unicidade com soft delete, documentos) | `Feature/Database/RegistryIntegrityTest`, `DocumentIntegrityTest` | 36 |
 | **Fase 2 — modelos e documentos** (escopo fail-closed, normalização, disco privado, URL assinada, append-only) | `Feature/Registry/RegistryModelsTest`, `DocumentStorageTest` | 24 |
 | **Fase 2 — API** (CRUD, isolamento 404, permissões, tokens, validação CPF/CNPJ, acesso por documento, cobertura dos eventos) | `Feature/Registry/RegistryApiTest`, `DocumentApiTest` | 25 |
-| **Fase 2 — isolamento estrutural e papéis de sistema** (escopo em toda tabela com `tenant_id`, FKs compostas; `obraflow:system-roles:sync`) | `Feature/Registry/IsolationStructureTest`, `Feature/Provisioning/SyncSystemRolesTest` | 8 |
+| **Fase 2 — isolamento estrutural e papéis de sistema** (escopo em toda tabela com `tenant_id`, FKs compostas; `viaobras:system-roles:sync`) | `Feature/Registry/IsolationStructureTest`, `Feature/Provisioning/SyncSystemRolesTest` | 8 |
 | **Fase 3 — integridade e modelos de equipes e obras** (FKs compostas, CHECK, unicidade com soft delete, autoria membro do tenant, mesma empresa/obra, append-only, níveis de grupos/fases) | `Feature/Database/TeamsProjectsIntegrityTest`, `Feature/Teams/TeamsProjectsModelsTest` | 43 |
 | **Fase 3 — acesso por obra** (D-P24: manage vê tudo; sem view nada; nível limita; sem vazamento entre tenants; catálogo do member) | `Feature/Teams/ProjectAccessTest` | 5 |
 | **Fase 3 — API de equipes, equipamentos e obras** (permissões por rota e por obra, 404 entre tenants, D-P21, status com histórico, acesso auditado, documentos, tokens, cobertura `phase3()`) | `Feature/Teams/TeamsApiTest`, `Feature/Teams/ProjectsApiTest` | 22 |
@@ -79,7 +79,7 @@ npm test && npm run lint && npm run build
 
 ## 4. CI
 
-`.github/workflows/ci.yml`: matriz **MySQL 8.0 e 8.4**, `composer audit`, Pint, Pest; web com lint, testes, build e `npm audit --omit=dev`. **CI executado e aprovado** (GitHub Actions, commit `eeb84fd`, run 43307638571): API/Pest em **MySQL 8.0 e 8.4**, `composer audit`, Pint, e Web (lint, testes, build, `npm audit --omit=dev`) — todos `success`. A versão do MySQL vem da matriz do workflow (imagem `mysql:8.0`/`mysql:8.4`); o log do passo de versão não foi lido. https://github.com/andersonsilvasilva/obraflow/actions/runs/43307638571
+`.github/workflows/ci.yml`: matriz **MySQL 8.0 e 8.4**, `composer audit`, Pint, Pest; web com lint, testes, build e `npm audit --omit=dev`. **CI executado e aprovado** (GitHub Actions, commit `eeb84fd`, run 43307638571): API/Pest em **MySQL 8.0 e 8.4**, `composer audit`, Pint, e Web (lint, testes, build, `npm audit --omit=dev`) — todos `success`. A versão do MySQL vem da matriz do workflow (imagem `mysql:8.0`/`mysql:8.4`); o log do passo de versão não foi lido. https://github.com/andersonsilvasilva/viaobras/actions/runs/43307638571
 
 ## 5. O que o ambiente de teste precisou simular
 

@@ -22,13 +22,13 @@ class InvitationMail extends Mailable
 
     public function envelope(): Envelope
     {
-        return new Envelope(subject: "Convite para {$this->tenantName} no ObraFlow");
+        return new Envelope(subject: "Convite para {$this->tenantName} no ViaObras");
     }
 
     public function content(): Content
     {
         return new Content(text: 'mail.invitation', with: [
-            'url' => rtrim(config('obraflow.frontend_url'), '/').'/accept-invitation?token='.$this->token,
+            'url' => rtrim(config('viaobras.frontend_url'), '/').'/accept-invitation?token='.$this->token,
         ]);
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Console\Command;
 /** Expira convites pendentes vencidos (agendado de hora em hora). Cada um gera `invitation.expired`. */
 class ExpireInvitationsCommand extends Command
 {
-    protected $signature = 'obraflow:invitations:expire';
+    protected $signature = 'viaobras:invitations:expire';
 
     protected $description = 'Marca como expirados os convites pendentes cujo prazo venceu.';
 

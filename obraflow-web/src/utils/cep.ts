@@ -1,6 +1,6 @@
 /**
  * Consulta de CEP no ViaCEP (serviço público e gratuito). Chamada DIRETA do navegador com `fetch` simples:
- * sem cookies, sem o cabeçalho XSRF e sem passar pelo cliente da API do ObraFlow — só os 8 dígitos do CEP saem.
+ * sem cookies, sem o cabeçalho XSRF e sem passar pelo cliente da API do ViaObras — só os 8 dígitos do CEP saem.
  * Qualquer falha (CEP inexistente, rede, tempo esgotado) devolve null e o usuário preenche à mão.
  */
 export interface CepAddress {

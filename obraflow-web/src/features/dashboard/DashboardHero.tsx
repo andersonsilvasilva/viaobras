@@ -42,7 +42,7 @@ export function DashboardHero() {
 
       <div className="relative flex flex-col gap-5 p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-          <img src="/brand/logo-completa.png" alt="ObraFlow" width={477} height={109} className="h-12 w-auto shrink-0 sm:h-14" />
+          <img src="/brand/logo-completa.png" alt="ViaObras" width={477} height={109} className="h-12 w-auto shrink-0 sm:h-14" />
           <div className="bg-border hidden h-14 w-px sm:block" aria-hidden />
           <div className="min-w-0">
             <h1 className="text-2xl font-semibold tracking-tight">

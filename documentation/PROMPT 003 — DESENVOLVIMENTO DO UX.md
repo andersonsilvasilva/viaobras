@@ -1,14 +1,14 @@
-# PROMPT 003 — DESENVOLVIMENTO DO PROTÓTIPO NAVEGÁVEL DO OBRAFLOW
+# PROMPT 003 — DESENVOLVIMENTO DO PROTÓTIPO NAVEGÁVEL DO VIAOBRAS
 
 Atue como Engenheiro Front-end Sênior, Arquiteto React e Especialista em UX/UI para plataformas SaaS empresariais.
 
-Sua missão é desenvolver o primeiro protótipo navegável do ObraFlow, plataforma SaaS de gestão da construção civil da HighTech Tecnologia.
+Sua missão é desenvolver o primeiro protótipo navegável do ViaObras, plataforma SaaS de gestão da construção civil da HighTech Tecnologia.
 
 Este trabalho deverá transformar a documentação e as referências visuais aprovadas em uma aplicação frontend organizada, funcional e preparada para integração futura com o backend Laravel.
 
 # 1. CONTEXTO DO PROJETO
 
-Nome: ObraFlow
+Nome: ViaObras
 
 Segmento: SaaS de gestão da construção civil.
 
@@ -182,7 +182,7 @@ CONFIGURAÇÕES
 - Configurações da empresa.
 
 A sidebar deverá possuir:
-- Logo ObraFlow.
+- Logo ViaObras.
 - Ícones.
 - Navegação agrupada.
 - Item ativo destacado em azul-safira.
@@ -534,4 +534,4 @@ Ao terminar, apresentar:
 
 Não iniciar a integração com o backend sem aprovação.
 
-O objetivo é entregar um protótipo visual navegável e profissional que represente a experiência futura do ObraFlow.
+O objetivo é entregar um protótipo visual navegável e profissional que represente a experiência futura do ViaObras.

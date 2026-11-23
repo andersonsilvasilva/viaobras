@@ -36,7 +36,7 @@ final class ChromeRenderer
     private function run(string $html, array $args, string $outPath): void
     {
         $binary = $this->binary() ?? throw new DomainRuleException('PDF indisponível: o Chrome não foi encontrado no servidor (configure CHROME_PATH). O XLSX e o DOCX continuam disponíveis.');
-        $dir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'obraflow-chrome-'.bin2hex(random_bytes(6));
+        $dir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'viaobras-chrome-'.bin2hex(random_bytes(6));
         File::ensureDirectoryExists($dir);
         $input = $dir.DIRECTORY_SEPARATOR.'report.html';
         file_put_contents($input, $html);
@@ -57,10 +57,10 @@ final class ChromeRenderer
             '--virtual-time-budget=5000',
             '--user-data-dir='.$dir.DIRECTORY_SEPARATOR.'profile',
             '--proxy-server=127.0.0.1:9', // sem rede: o HTML não busca nada fora (tudo embutido)
-        ], config('obraflow.reports.chrome_no_sandbox') ? ['--no-sandbox'] : [], $args, ['file:///'.str_replace('\\', '/', $input)]);
+        ], config('viaobras.reports.chrome_no_sandbox') ? ['--no-sandbox'] : [], $args, ['file:///'.str_replace('\\', '/', $input)]);
 
         try {
-            $process = new Process($cmd, $dir, null, null, (float) config('obraflow.reports.timeout', 60));
+            $process = new Process($cmd, $dir, null, null, (float) config('viaobras.reports.timeout', 60));
             $process->run();
         } catch (ProcessTimedOutException) {
             throw new DomainRuleException('O relatório demorou demais para ser gerado. Tente sem o analítico.');
@@ -76,7 +76,7 @@ final class ChromeRenderer
 
     private function binary(): ?string
     {
-        $configured = config('obraflow.reports.chrome_path');
+        $configured = config('viaobras.reports.chrome_path');
         if (is_string($configured) && $configured !== '') {
             return is_file($configured) ? $configured : null;
         }

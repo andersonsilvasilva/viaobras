@@ -72,7 +72,7 @@ final class InvitationService
                     'role_id' => $role->getKey(),
                     'token_hash' => UserInvitation::hashToken($plain),
                     'status' => InvitationStatus::Pending,
-                    'expires_at' => now()->addDays((int) config('obraflow.invitation_ttl_days')),
+                    'expires_at' => now()->addDays((int) config('viaobras.invitation_ttl_days')),
                 ])->save();
 
                 $this->audit->record(AuditEvent::INVITATION_CREATED, tenantId: $tenant->getKey(), userId: $actor->getKey(),

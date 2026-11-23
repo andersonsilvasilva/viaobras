@@ -1,8 +1,8 @@
-# PROMPT 002 — IDENTIDADE VISUAL, DESIGN SYSTEM E REFERÊNCIAS DE INTERFACE DO OBRAFLOW
+# PROMPT 002 — IDENTIDADE VISUAL, DESIGN SYSTEM E REFERÊNCIAS DE INTERFACE DO VIAOBRAS
 
 Atue como Product Designer sênior, especialista em UX/UI para sistemas SaaS empresariais, e Front-end Architect.
 
-Seu objetivo é estabelecer a identidade visual e as diretrizes de interface do ObraFlow, plataforma SaaS de gestão da construção civil desenvolvida pela HighTech Tecnologia.
+Seu objetivo é estabelecer a identidade visual e as diretrizes de interface do ViaObras, plataforma SaaS de gestão da construção civil desenvolvida pela HighTech Tecnologia.
 
 IMPORTANTE: Antes de implementar qualquer tela, analise a documentação existente e todas as imagens de referência disponíveis em:
 
@@ -16,7 +16,7 @@ Não copie literalmente a identidade visual de outro sistema. Utilize as referê
 
 ## 1. IDENTIDADE VISUAL OFICIAL
 
-Nome: ObraFlow
+Nome: ViaObras
 
 Segmento: Gestão empresarial e operacional da construção civil.
 
@@ -85,7 +85,7 @@ Criar uma estrutura visual compartilhada por todos os módulos.
 
 Navegação lateral com:
 
-- Logo ObraFlow.
+- Logo ViaObras.
 - Dashboard.
 - Empresas.
 - Clientes.
@@ -353,7 +353,7 @@ Documentar:
 - Imagens analisadas.
 - Características de cada tela.
 - Funcionalidades identificadas.
-- Decisões de adaptação para o ObraFlow.
+- Decisões de adaptação para o ViaObras.
 
 Atualizar também:
 
@@ -399,4 +399,4 @@ Ao terminar, apresentar:
 
 Não iniciar o desenvolvimento funcional do sistema sem aprovação.
 
-O resultado deverá estabelecer uma identidade visual consistente, profissional e escalável para todo o ObraFlow.
+O resultado deverá estabelecer uma identidade visual consistente, profissional e escalável para todo o ViaObras.

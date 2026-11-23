@@ -50,7 +50,7 @@ final class DocxReportRenderer
         $m = $data['meta'];
         $info = $this->word->getDocInfo();
         $info->setTitle("Orçamento {$m['code']} · v{$m['version']}");
-        $info->setCreator('ObraFlow');
+        $info->setCreator('ViaObras');
         $info->setCompany((string) ($data['company']['name'] ?? ''));
 
         $this->cover();
@@ -120,7 +120,7 @@ final class DocxReportRenderer
         $box->addCell(2500, ['bgColor' => self::SOFT, 'valign' => 'center'])->addText(ReportFormat::money($t['final_price']), ['size' => 22, 'bold' => true, 'color' => self::DEEP], ['alignment' => Jc::END]);
 
         $s->addTextBreak(6);
-        $s->addText("Emitido em {$m['issued_at']} por {$m['issued_by']} · Gerado pelo ObraFlow", ['size' => 8, 'color' => self::MUTED]);
+        $s->addText("Emitido em {$m['issued_at']} por {$m['issued_by']} · Gerado pelo ViaObras", ['size' => 8, 'color' => self::MUTED]);
     }
 
     private function summary(): void
@@ -327,12 +327,12 @@ final class DocxReportRenderer
         $this->watermark($s, $header);
         $ht = $header->addTable(['width' => 5000, 'unit' => TblWidth::PERCENT]);
         $ht->addRow();
-        $ht->addCell(5000)->addText("ObraFlow · Orçamento {$m['code']} · versão {$m['version']}", ['size' => 7.5, 'color' => self::MUTED]);
+        $ht->addCell(5000)->addText("ViaObras · Orçamento {$m['code']} · versão {$m['version']}", ['size' => 7.5, 'color' => self::MUTED]);
         $ht->addCell(5000)->addText($m['draft'] ? 'RASCUNHO · versão não aprovada' : $m['status_label'], ['size' => 7.5, 'bold' => true, 'color' => $m['draft'] ? 'B45309' : '16A36A'], ['alignment' => Jc::END]);
         $footer = $s->addFooter();
         $ft = $footer->addTable(['width' => 5000, 'unit' => TblWidth::PERCENT]);
         $ft->addRow();
-        $ft->addCell(5000)->addText("Emitido em {$m['issued_at']} · Gerado pelo ObraFlow", ['size' => 7.5, 'color' => self::MUTED]);
+        $ft->addCell(5000)->addText("Emitido em {$m['issued_at']} · Gerado pelo ViaObras", ['size' => 7.5, 'color' => self::MUTED]);
         $ft->addCell(5000)->addPreserveText('Página {PAGE} de {NUMPAGES}', ['size' => 7.5, 'bold' => true, 'color' => self::DEEP], ['alignment' => Jc::END]);
 
         $s->addText($number, ['size' => 8, 'bold' => true, 'color' => self::SAPPHIRE, 'spacing' => 40], ['spaceAfter' => 0]);

@@ -1,8 +1,8 @@
-# PROMPT 001 — INICIALIZAÇÃO DO OBRAFLOW
+# PROMPT 001 — INICIALIZAÇÃO DO VIAOBRAS
 
-Você atuará como arquiteto de software e engenheiro full-stack responsável pela fundação técnica do ObraFlow.
+Você atuará como arquiteto de software e engenheiro full-stack responsável pela fundação técnica do ViaObras.
 
-O ObraFlow é um ERP SaaS multi-tenant para construção civil, desenvolvido pela HighTech Tecnologia.
+O ViaObras é um ERP SaaS multi-tenant para construção civil, desenvolvido pela HighTech Tecnologia.
 
 ## OBJETIVO DESTA TAREFA
 
@@ -41,7 +41,7 @@ Infraestrutura:
 
 Criar:
 
-obraflow/
+viaobras/
 - obraflow-api/
 - obraflow-web/
 - infrastructure/

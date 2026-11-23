@@ -23,9 +23,9 @@ body{margin:0;font-family:'Geist',Arial,sans-serif;font-size:9.5pt;color:var(--g
 /* ---------- páginas: retrato padrão, paisagem para as tabelas largas, capa sem margem ---------- */
 @page{
   size:A4 portrait; margin:20mm 14mm 17mm 14mm;
-  @top-left{content:"ObraFlow  ·  Orçamento {{ $m['code'] }}  ·  versão {{ $m['version'] }}";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#6b7280;vertical-align:bottom;padding-bottom:3mm}
+  @top-left{content:"ViaObras  ·  Orçamento {{ $m['code'] }}  ·  versão {{ $m['version'] }}";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#6b7280;vertical-align:bottom;padding-bottom:3mm}
   @top-right{content:"{{ $m['draft'] ? 'RASCUNHO · versão não aprovada' : $m['status_label'].($m['approved_at'] ? ' em '.$m['approved_at'] : '') }}";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;font-weight:600;color:{{ $m['draft'] ? '#b45309' : '#16a36a' }};vertical-align:bottom;padding-bottom:3mm}
-  @bottom-left{content:"Emitido em {{ $m['issued_at'] }}  ·  Gerado pelo ObraFlow";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#6b7280;vertical-align:top;padding-top:3mm}
+  @bottom-left{content:"Emitido em {{ $m['issued_at'] }}  ·  Gerado pelo ViaObras";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#6b7280;vertical-align:top;padding-top:3mm}
   @bottom-right{content:"Página " counter(page) " de " counter(pages);font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#0a2e66;font-weight:600;vertical-align:top;padding-top:3mm}
 }
 @page wide{size:A4 landscape; margin:18mm 12mm 15mm 12mm}
@@ -134,7 +134,7 @@ tr.sub td{color:#4b5563}
 {{-- ===================================================== CAPA --}}
 <div class="cover">
   <div class="band"></div>
-  <div class="brand"><img src="{{ $logo }}" alt="ObraFlow"></div>
+  <div class="brand"><img src="{{ $logo }}" alt="ViaObras"></div>
   <div class="heading">
     <div class="eyebrow">Proposta orçamentária</div>
     <h1>Orçamento</h1>
@@ -154,7 +154,7 @@ tr.sub td{color:#4b5563}
       <div class="v">{{ $F::money($t['final_price']) }}</div>
     </div>
   </div>
-  <div class="foot"><span>Emitido em {{ $m['issued_at'] }} por {{ $m['issued_by'] }}</span><span>Gerado pelo ObraFlow</span></div>
+  <div class="foot"><span>Emitido em {{ $m['issued_at'] }} por {{ $m['issued_by'] }}</span><span>Gerado pelo ViaObras</span></div>
 </div>
 
 {{-- ===================================================== RESUMO --}}

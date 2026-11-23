@@ -131,7 +131,7 @@ Todas as rotas em `tenant.required`; entidades por uuid (funcionários, equipame
 
 ## Fase 4A — Referências técnicas (implementado)
 
-Dados **globais e somente leitura** (D-P29), iguais para todos os tenants. As rotas ficam em `tenant.required` e exigem `references.view`. Não há rota de escrita: as bases entram só pelo comando `obraflow:references:import` (D-P30).
+Dados **globais e somente leitura** (D-P29), iguais para todos os tenants. As rotas ficam em `tenant.required` e exigem `references.view`. Não há rota de escrita: as bases entram só pelo comando `viaobras:references:import` (D-P30).
 
 | Rota | Retorno |
 |---|---|

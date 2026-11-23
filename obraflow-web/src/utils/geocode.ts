@@ -1,7 +1,7 @@
 /**
  * Coordenadas a partir do endereço da obra (A-47) pelo Nominatim (OpenStreetMap, serviço público e gratuito).
  * Só roda quando o usuário pede ("Localizar pelo endereço") — política de uso do Nominatim: uma consulta por vez,
- * sem automação em massa. Chamada direta do navegador, sem cookies nem cabeçalhos do ObraFlow. Falha → null.
+ * sem automação em massa. Chamada direta do navegador, sem cookies nem cabeçalhos do ViaObras. Falha → null.
  */
 export interface GeoPoint {
   lat: number

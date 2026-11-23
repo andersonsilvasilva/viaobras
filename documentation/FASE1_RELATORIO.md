@@ -57,7 +57,7 @@
 | R9 | Cada requisição de negócio faz 1 consulta de vínculo + auditoria síncrona; sem cache de propósito | Medir antes de otimizar |
 | R10 | Política de retenção/particionamento de `audit_logs` e `failed_jobs` (dados pessoais) indefinida (D-P06/P07) | Pendente |
 | R11 | MFA e TLS/HSTS/CSP não implementados | Fases futuras |
-| R12 | Banco compartilhado com outros projetos no Laragon | Mitigado: usuário com acesso só a `obraflow*` |
+| R12 | Banco compartilhado com outros projetos no Laragon | Mitigado: usuário com acesso só a `viaobras*` |
 
 ## 5. Pendências (itens que não foram feitos)
 

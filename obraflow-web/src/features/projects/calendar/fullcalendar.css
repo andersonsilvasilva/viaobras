@@ -1,8 +1,8 @@
 /*
- * FullCalendar 7 (tema "classic") com a identidade do ObraFlow (D-P61): as variáveis do tema apontam para os
- * tokens de src/index.css — nenhuma cor fixa aqui. Escopo: .obraflow-calendar.
+ * FullCalendar 7 (tema "classic") com a identidade do ViaObras (D-P61): as variáveis do tema apontam para os
+ * tokens de src/index.css — nenhuma cor fixa aqui. Escopo: .viaobras-calendar.
  */
-.obraflow-calendar {
+.viaobras-calendar {
     --fc-classic-button: var(--card);
     --fc-classic-button-border: var(--input);
     --fc-classic-button-strong: var(--primary);
@@ -25,17 +25,17 @@
 }
 
 /* botão ativo (visão escolhida) e "Hoje" em azul, texto branco */
-.obraflow-calendar [aria-pressed='true'],
-.obraflow-calendar button[aria-selected='true'] {
+.viaobras-calendar [aria-pressed='true'],
+.viaobras-calendar button[aria-selected='true'] {
     color: var(--primary-foreground);
 }
 
 /* dia da semana sem horário de trabalho (D-P64) */
-.obraflow-calendar .of-day-off {
+.viaobras-calendar .of-day-off {
     background-color: var(--muted);
 }
 
 /* dia com exceção (não trabalhado) */
-.obraflow-calendar .of-day-exception {
+.viaobras-calendar .of-day-exception {
     background-color: var(--warning-soft);
 }

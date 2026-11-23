@@ -138,7 +138,7 @@ class DocumentController extends Controller
 
         return response()->json(['data' => [
             'url' => $this->storage->temporaryUrl($version, $request->user()),
-            'expires_in_minutes' => (int) config('obraflow.documents.signed_url_minutes'),
+            'expires_in_minutes' => (int) config('viaobras.documents.signed_url_minutes'),
         ]]);
     }
 

@@ -72,7 +72,7 @@
 
 | Atividade | Resultado |
 |---|---|
-| Leitura de cadastros ao papel `member` da HighTech | ✅ `obraflow:system-roles:sync hightech --role=member` (comando idempotente, só acrescenta). Lista apresentada antes (simulação): `units.view`, `companies.view`, `customers.view`, `suppliers.view`, `documents.view`. Nenhuma permissão de escrita, administrativa ou de outros módulos. `member` = 9 permissões, todas de consulta. Evento `permission.granted` (13º da auditoria). Segunda execução: "nada a fazer" |
+| Leitura de cadastros ao papel `member` da HighTech | ✅ `viaobras:system-roles:sync hightech --role=member` (comando idempotente, só acrescenta). Lista apresentada antes (simulação): `units.view`, `companies.view`, `customers.view`, `suppliers.view`, `documents.view`. Nenhuma permissão de escrita, administrativa ou de outros módulos. `member` = 9 permissões, todas de consulta. Evento `permission.granted` (13º da auditoria). Segunda execução: "nada a fazer" |
 | Testes da alteração | ✅ `Feature/Provisioning/SyncSystemRolesTest` (5): simulação não grava; concede só leitura; audita; idempotente; não remove permissões; não toca outros papéis nem outro tenant; efeito na API (lê, não escreve; `audit-logs` continua 403) |
 | Referência `Cadastro de Produtos.png` | ✅ Analisada em [SCREEN_REFERENCES.md](SCREEN_REFERENCES.md) (só o visível; sem implementação) |
 | Isolamento após as mudanças | ✅ 140/140 em `Registry`, `Tenancy` e `Database` (inclui a revisão estrutural); suíte completa 291/291 |

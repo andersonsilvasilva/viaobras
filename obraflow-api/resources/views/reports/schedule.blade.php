@@ -19,8 +19,8 @@ html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 body{margin:0;font-family:'Geist',Arial,sans-serif;font-size:8.6pt;color:var(--graphite);line-height:1.35;font-variant-numeric:tabular-nums}
 @page{
   size:A4 landscape;margin:16mm 11mm 14mm 11mm;
-  @top-left{content:"ObraFlow  ·  Orçamento sintético do planejamento  ·  {{ $m['project_code'] }}";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#6b7280;vertical-align:bottom;padding-bottom:3mm}
-  @bottom-left{content:"Emitido em {{ $m['issued_at'] }}  ·  Gerado pelo ObraFlow";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#6b7280;vertical-align:top;padding-top:3mm}
+  @top-left{content:"ViaObras  ·  Orçamento sintético do planejamento  ·  {{ $m['project_code'] }}";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#6b7280;vertical-align:bottom;padding-bottom:3mm}
+  @bottom-left{content:"Emitido em {{ $m['issued_at'] }}  ·  Gerado pelo ViaObras";font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#6b7280;vertical-align:top;padding-top:3mm}
   @bottom-right{content:"Página " counter(page) " de " counter(pages);font-family:'Geist',Arial,sans-serif;font-size:7.5pt;color:#0a2e66;font-weight:600;vertical-align:top;padding-top:3mm}
 }
 .head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--sapphire);padding-bottom:3mm;margin-bottom:4mm}
@@ -55,7 +55,7 @@ tr.item td{color:#4b5563;font-size:7.8pt}
     <div class="sub">{{ $m['project_code'] ? $m['project_code'].' — ' : '' }}{{ $m['project_name'] }}{{ $m['company'] ? ' · '.$m['company'] : '' }}</div>
     <div class="sub">{{ $m['origin'] }} · duração em {{ $m['duration_mode'] }} · encargos: {{ $m['regime'] }} · período {{ $m['start'] ?? '—' }} a {{ $m['end'] ?? '—' }}</div>
   </div>
-  <img src="{{ $logo }}" alt="ObraFlow">
+  <img src="{{ $logo }}" alt="ViaObras">
 </div>
 
 <div class="kpis">

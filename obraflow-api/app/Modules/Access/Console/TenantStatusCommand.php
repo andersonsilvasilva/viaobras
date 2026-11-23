@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 /** Suspende, cancela ou reativa um tenant (efeito imediato: SetTenantContext revalida a cada requisição). */
 class TenantStatusCommand extends Command
 {
-    protected $signature = 'obraflow:tenant:status {slug} {status : active|suspended|canceled}';
+    protected $signature = 'viaobras:tenant:status {slug} {status : active|suspended|canceled}';
 
     protected $description = 'Altera o status de um tenant (auditado).';
 

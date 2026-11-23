@@ -75,7 +75,7 @@ describe('sincronização entre abas (BroadcastChannel)', () => {
     onTenantStale(stale)
     initTenantSync()
 
-    const outraAba = new BroadcastChannel('obraflow:tenant')
+    const outraAba = new BroadcastChannel('viaobras:tenant')
     outraAba.postMessage({ type: 'tenant-changed', uuid: 'tenant-b' })
     await tick()
     outraAba.close()
@@ -90,7 +90,7 @@ describe('sincronização entre abas (BroadcastChannel)', () => {
     onTenantStale(stale)
     initTenantSync()
 
-    const outraAba = new BroadcastChannel('obraflow:tenant')
+    const outraAba = new BroadcastChannel('viaobras:tenant')
     outraAba.postMessage({ type: 'tenant-changed', uuid: 'tenant-a' })
     outraAba.postMessage({ type: 'outra-coisa', uuid: 'tenant-b' })
     await tick()
@@ -105,7 +105,7 @@ describe('sincronização entre abas (BroadcastChannel)', () => {
     initTenantSync()
 
     const recebido: unknown[] = []
-    const outraAba = new BroadcastChannel('obraflow:tenant')
+    const outraAba = new BroadcastChannel('viaobras:tenant')
     outraAba.onmessage = (event) => recebido.push(event.data)
 
     setActiveTenant('tenant-b')

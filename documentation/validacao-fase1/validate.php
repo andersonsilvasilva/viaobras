@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 const HOST = '127.0.0.1';
 const PORT = 3399;
-const DB = 'obraflow_sandbox';
+const DB = 'viaobras_sandbox';
 
 $pass = 0; $fail = 0; $failures = [];
 

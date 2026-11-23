@@ -1,5 +1,5 @@
 /**
- * Erro padronizado da API ObraFlow.
+ * Erro padronizado da API ViaObras.
  * Espelha o formato do backend: { error: { code, message, details?, request_id } }
  */
 export class ApiError extends Error {

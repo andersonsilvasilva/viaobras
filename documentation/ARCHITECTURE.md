@@ -40,7 +40,7 @@ app/
     │                  # middlewares SetTenantContext / EnsureUserActive, TenantController, TenantSettingController
     ├── Auth/          # login/logout/me, recuperação de senha, tokens (IssueApiToken), seleção de tenant, MePayload
     ├── Access/        # MembershipService, RoleService, InvitationService, ProvisionTenant, PrivilegeGuard,
-    │                  # LastAdminGuard, TenantLock, PermissionCatalog + comandos Artisan (obraflow:*)
+    │                  # LastAdminGuard, TenantLock, PermissionCatalog + comandos Artisan (viaobras:*)
     └── Audit/         # AuditLogger, AuditSanitizer, AuditEvent (catálogo), AuditLogController
 routes/
 ├── api.php            # prefixo /api/v1, carrega routes/api/v1/*.php

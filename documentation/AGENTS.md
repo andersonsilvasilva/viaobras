@@ -2,7 +2,7 @@
 
 ## Identidade do projeto
 
-Você está trabalhando no ObraFlow, uma plataforma SaaS multi-tenant de gestão para construção civil, desenvolvida pela HighTech Tecnologia.
+Você está trabalhando no ViaObras, uma plataforma SaaS multi-tenant de gestão para construção civil, desenvolvida pela HighTech Tecnologia.
 
 Seu objetivo é implementar funcionalidades com qualidade de produção, segurança, modularidade e aderência à arquitetura documentada.
 

@@ -8,12 +8,12 @@ Sem interface de superadmin nesta fase (decisão da aprovação da Fase 1). A ad
 cd obraflow-api
 cp .env.example .env && php artisan key:generate        # preencha DB_PASSWORD (usuário exclusivo, nunca root)
 php artisan migrate                                       # as 15 tabelas da Fase 1
-php artisan obraflow:provision --name="Minha Construtora" --admin-email=admin@empresa.com --admin-name="Fulano"
+php artisan viaobras:provision --name="Minha Construtora" --admin-email=admin@empresa.com --admin-name="Fulano"
 ```
 
-O catálogo de permissões é instalado pelo próprio provisionamento (idempotente). Para reinstalá-lo/atualizá-lo: `php artisan obraflow:sync-permissions`.
+O catálogo de permissões é instalado pelo próprio provisionamento (idempotente). Para reinstalá-lo/atualizá-lo: `php artisan viaobras:sync-permissions`.
 
-## 2. `obraflow:provision`
+## 2. `viaobras:provision`
 
 Cria, **numa única transação**: tenant ativo, administrador (ou vincula um existente), os 3 papéis de sistema (`admin`, `member`, `viewer`, não excluíveis nem editáveis), o vínculo e a atribuição do papel `admin`. Audita `tenant.provisioned`, `membership.created`, `role.created`, `permission.granted` e `role.assigned`.
 
@@ -32,11 +32,11 @@ Cria, **numa única transação**: tenant ativo, administrador (ou vincula um ex
 
 | Comando | Para quê |
 |---|---|
-| `obraflow:user:block {email} [--force]` | Bloqueia o usuário (revoga tokens; perde sessão na próxima requisição). **Recusa** se for o último administrador de algum tenant, salvo `--force`. Audita `auth.user_blocked` |
-| `obraflow:user:unblock {email}` | Desbloqueia (tokens revogados não voltam). Audita `auth.user_unblocked` |
-| `obraflow:tenant:status {slug} {active\|suspended\|canceled}` | Suspende/cancela/reativa; vale na próxima requisição. Audita `tenant.suspended`/`tenant.reactivated` |
-| `obraflow:invitations:expire` | Expira convites vencidos (**agendado de hora em hora**; audita `invitation.expired`). Requer o agendador (`php artisan schedule:work` / cron `schedule:run`) |
-| `obraflow:sync-permissions` | Instala/atualiza o catálogo global de permissões (nunca apaga) |
+| `viaobras:user:block {email} [--force]` | Bloqueia o usuário (revoga tokens; perde sessão na próxima requisição). **Recusa** se for o último administrador de algum tenant, salvo `--force`. Audita `auth.user_blocked` |
+| `viaobras:user:unblock {email}` | Desbloqueia (tokens revogados não voltam). Audita `auth.user_unblocked` |
+| `viaobras:tenant:status {slug} {active\|suspended\|canceled}` | Suspende/cancela/reativa; vale na próxima requisição. Audita `tenant.suspended`/`tenant.reactivated` |
+| `viaobras:invitations:expire` | Expira convites vencidos (**agendado de hora em hora**; audita `invitation.expired`). Requer o agendador (`php artisan schedule:work` / cron `schedule:run`) |
+| `viaobras:sync-permissions` | Instala/atualiza o catálogo global de permissões (nunca apaga) |
 
 ## 4. Papéis de sistema
 
@@ -55,8 +55,8 @@ Regras: ninguém concede o que não possui (`403 privilege_escalation`); o **úl
 ## Alinhar papéis de sistema de tenants existentes
 
 ```bash
-php artisan obraflow:system-roles:sync <slug> --role=member --dry-run   # mostra a lista exata
-php artisan obraflow:system-roles:sync <slug> --role=member             # pede confirmação; --yes para não pedir
+php artisan viaobras:system-roles:sync <slug> --role=member --dry-run   # mostra a lista exata
+php artisan viaobras:system-roles:sync <slug> --role=member             # pede confirmação; --yes para não pedir
 ```
 
 Só **acrescenta** as permissões que faltam conforme `PermissionCatalog::systemRoles()`; nunca remove, nunca toca papéis personalizados; idempotente; cada papel alterado gera `permission.granted`. Novas permissões do catálogo valem para tenants **novos** automaticamente — para os existentes, use este comando com autorização.
@@ -65,4 +65,4 @@ Só **acrescenta** as permissões que faltam conforme `PermissionCatalog::system
 
 **Atualização 2026-11-13:** CNPJ gravado (`61693043000194`, autorizado, evento `tenant.updated`). Razão social gravada em 2026-11-13 (`HIGHTECH TECNOLOGIA CONSULTORIA E DESENVOLVIMENTO LTDA`, autorizada, evento `tenant.updated`). **Pendência encerrada.**
 
-Originalmente, razão social (`tenants.legal_name`) e CNPJ (`tenants.document_number`) do tenant `hightech` estavam **vazios de propósito**: o comando `obraflow:provision` não os recebe e **não foram inventados**. Para preenchê-los é preciso (1) os valores reais, fornecidos pelo responsável, e (2) autorização expressa para alterar o tenant inicial (via novas opções do comando ou rotina de atualização cadastral). Nada foi alterado no banco.
+Originalmente, razão social (`tenants.legal_name`) e CNPJ (`tenants.document_number`) do tenant `hightech` estavam **vazios de propósito**: o comando `viaobras:provision` não os recebe e **não foram inventados**. Para preenchê-los é preciso (1) os valores reais, fornecidos pelo responsável, e (2) autorização expressa para alterar o tenant inicial (via novas opções do comando ou rotina de atualização cadastral). Nada foi alterado no banco.

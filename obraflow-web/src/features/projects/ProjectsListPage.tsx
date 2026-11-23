@@ -20,7 +20,7 @@ import { projectBody, projectFields, projectToForm, useProjectLookups } from './
 type Situation = '' | 'active' | 'inactive'
 type View = 'grid' | 'list'
 
-const VIEW_KEY = 'obraflow.projects.view'
+const VIEW_KEY = 'viaobras.projects.view'
 const SOON = 'em breve'
 
 /** Indicadores do topo que dependem de fases futuras (A-46: aparecem com "—", nunca com valor inventado). */

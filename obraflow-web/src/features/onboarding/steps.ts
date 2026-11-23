@@ -1,5 +1,5 @@
 /**
- * Percurso de trabalho recomendado no ObraFlow (do cadastro à aprovação do orçamento).
+ * Percurso de trabalho recomendado no ViaObras (do cadastro à aprovação do orçamento).
  * Cada passo diz como saber se já foi feito (consulta à API) e qual permissão precisa para ver/fazer.
  */
 export interface Step {

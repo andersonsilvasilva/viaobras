@@ -15,7 +15,7 @@ beforeEach(function () {
     Scenario::catalog();
     $this->A = Scenario::tenant();
     $this->B = Scenario::tenant();
-    Artisan::call('obraflow:references:import', ['--competency' => '2024-12', '--state' => 'MT', '--location' => 'CUIABA', '--regime' => 'with_relief',
+    Artisan::call('viaobras:references:import', ['--competency' => '2024-12', '--state' => 'MT', '--location' => 'CUIABA', '--regime' => 'with_relief',
         '--resources' => SinapiFixture::insumos(), '--compositions' => SinapiFixture::analitico(), '--families' => SinapiFixture::familias(), '--activate' => true]);
     $this->ds = ReferenceDataset::query()->sole()->id;
     $this->b = new Browser($this);

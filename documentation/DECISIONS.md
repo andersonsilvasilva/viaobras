@@ -44,7 +44,7 @@ Formato: ID · data · decisão · justificativa. Decisões de dados: [DB_DECISI
 | A-53 | 2026-11-18 | **Relatório do orçamento (4D)**, pedido do responsável: PDF, XLSX e DOCX com acabamento premium. Escolhas do responsável:
 - fazer agora, antes da 6B;
 - PDF pelo Chrome headless;
-- marca do ObraFlow (sem logo por empresa);
+- marca do ViaObras (sem logo por empresa);
 - analítico (composições) já na primeira versão.
 
 As decisões D-P77…D-P86 aguardam aprovação | [FASE4D_MODELO.md](FASE4D_MODELO.md) |
@@ -70,7 +70,7 @@ Migration `410001`, aplicada no `obraflow` com autorização (80 migrations). Ti
 - abas Todas/Ativas/Inativas, filtros, indicadores, cards, menu ⋮ e aba **Geral** na obra;
 - indicadores ainda sem dados (financeiro, compras, RDO, atividades) aparecem como "em breve", nunca com valor inventado;
 - **encarregado** vira campo da obra (funcionário da mesma empresa, FK composta; migration `360001`, aplicada no `obraflow` com autorização: 73 migrations);
-- busca de CEP no ViaCEP (chamada direta do navegador, sem cookies nem cabeçalhos do ObraFlow). | [SCREEN_REFERENCES.md](SCREEN_REFERENCES.md) |
+- busca de CEP no ViaCEP (chamada direta do navegador, sem cookies nem cabeçalhos do ViaObras). | [SCREEN_REFERENCES.md](SCREEN_REFERENCES.md) |
 | A-45 | 2026-11-17 | **Contrato sempre dentro da obra** (obra obrigatória; acesso só pela aba Contratos da obra, sem menu geral), mantendo o modelo completo da Fase 5. **Calendário e horários da obra aprovados (D-P57…D-P64)** e executados antes da 5A: exceções por obra (única ou recorrente), importação de fins de semana e feriados nacionais, FullCalendar 7.0.2, horário-padrão da empresa herdado pela obra | [CALENDARIO_OBRA_MODELO.md](CALENDARIO_OBRA_MODELO.md), [FASE5_MODELO.md](FASE5_MODELO.md) |
 | A-44 | 2026-11-17 | **Fase 5 autorizada; D-P44…D-P56 aprovadas** (5A Contratos e 5B Medições com homologações próprias; contrato com cliente ou fornecedor por FK direta; itens do orçamento aprovado; aditivos com aviso de 25%; CTR-NNN/AAAA; sem reajuste; medição sempre com contrato, uma aberta por vez, sem passar do contratado, estorno na seguinte; retenção opcional; anexos pelos documentos; acesso por obra e separação de funções na aprovação). Acesso pela obra e por Comercial → Contratos | [FASE5_MODELO.md](FASE5_MODELO.md) |
 | A-43 | 2026-11-17 | **Partes 4B (Orçamentos) e 4C (Catálogo de insumos) homologadas** pelo responsável após teste no navegador. Fase 4 concluída; composições próprias (D-P42) seguem adiadas. Próxima fase **não** autorizada | [FASE4_MODELO.md](FASE4_MODELO.md), [FASE4C_MODELO.md](FASE4C_MODELO.md) |
@@ -84,7 +84,7 @@ Migration `410001`, aplicada no `obraflow` com autorização (80 migrations). Ti
 | A-35 | 2026-11-16 | Fase 3 implementada (etapas 1–6). Banco `obraflow`: instaladas 6 permissões e `member` da HighTech + `equipment.view`/`projects.view` (autorizado: "pode executar todas"). `migrate` da Fase 3 (14 migrations) e 6 permissões ao `admin` da HighTech executados com autorização posterior | [FASE3_RELATORIO.md](FASE3_RELATORIO.md) |
 | A-34 | 2026-11-16 | **Modelo da Fase 3 aprovado** (D-P19…D-P28 conforme a recomendação). Etapas 1 a 3 executadas juntas a pedido do responsável | [FASE3_MODELO.md](FASE3_MODELO.md) |
 | A-33 | 2026-11-16 | **Padrão de layout e apresentação** definido pelo responsável a partir das telas de referência (moldura, sidebar, listagens, formulários, modais, configurações); normativo; identidade continua azul-safira. **Antimalware dispensado** (R2). Risco de URL assinada reconfirmado (R1). **Fase 3 autorizada** | [SCREEN_REFERENCES.md](SCREEN_REFERENCES.md), [FASE2_RELATORIO.md](FASE2_RELATORIO.md) |
-| A-32 | 2026-11-16 | **Homologação técnica da Fase 2 aprovada** (condicionada; condições cumpridas). `member` da HighTech recebe só leitura de cadastros via `obraflow:system-roles:sync` (auditado, idempotente). Riscos de anexos aceitos com condições (URL ≤ 5 min; sem antimalware ⇒ não seguro para produção; S3 sem migração). Fase 3 **não** autorizada | [FASE2_RELATORIO.md](FASE2_RELATORIO.md) §7 |
+| A-32 | 2026-11-16 | **Homologação técnica da Fase 2 aprovada** (condicionada; condições cumpridas). `member` da HighTech recebe só leitura de cadastros via `viaobras:system-roles:sync` (auditado, idempotente). Riscos de anexos aceitos com condições (URL ≤ 5 min; sem antimalware ⇒ não seguro para produção; S3 sem migração). Fase 3 **não** autorizada | [FASE2_RELATORIO.md](FASE2_RELATORIO.md) §7 |
 | A-26 | 2026-11-12 | `documentation/telas_modelos.zip` e os `.zip` do SINAPI foram removidos pelo usuário (duplicavam as pastas); as pastas SINAPI de MT (2024-12, Desonerado/Não Desonerado) permanecem como **referência**, sem importação | — |
 
 ## Divergências registradas

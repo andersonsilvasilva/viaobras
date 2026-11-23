@@ -20,7 +20,7 @@ use Spatie\Permission\PermissionRegistrar;
  */
 class SyncSystemRolesCommand extends Command
 {
-    protected $signature = 'obraflow:system-roles:sync {slug : slug do tenant} {--role=* : papel(is) de sistema (obrigatório)} {--dry-run : apenas mostra o que seria concedido} {--yes : não pedir confirmação}';
+    protected $signature = 'viaobras:system-roles:sync {slug : slug do tenant} {--role=* : papel(is) de sistema (obrigatório)} {--dry-run : apenas mostra o que seria concedido} {--yes : não pedir confirmação}';
 
     protected $description = 'Acrescenta a papéis de sistema de um tenant as permissões que faltam conforme o catálogo (auditado; nunca remove).';
 
@@ -95,7 +95,7 @@ class SyncSystemRolesCommand extends Command
                     $role->givePermissionTo($missing);
                     $audit->record(AuditEvent::PERMISSION_GRANTED, tenantId: $tenant->id, userId: null,
                         entityType: 'role', entityId: $role->id, new: ['role' => $name, 'permissions' => $missing],
-                        metadata: ['source' => 'artisan', 'command' => 'obraflow:system-roles:sync']);
+                        metadata: ['source' => 'artisan', 'command' => 'viaobras:system-roles:sync']);
                 }
             });
         });

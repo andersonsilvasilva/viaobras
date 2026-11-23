@@ -33,7 +33,7 @@ A regra de repetição é **gravada uma vez**, e as ocorrências são **calculad
 | **D-P58** | Repetição | **Única** ou **Recorrente**, repetindo a cada N **dias, semanas, quinzenas, meses ou anos**, com fim opcional. Sem fim, vale até o término previsto da obra; sem término previsto, por tempo indeterminado |
 | **D-P59** | "Importar sábados e domingos" | Cria **duas exceções recorrentes semanais** ("Sábado" e "Domingo") a partir do início da obra, e não uma linha por dia. Se já existirem, não duplica |
 | **D-P60** | Feriados nacionais | **Botão "Importar feriados nacionais do ano"**, calculado no próprio sistema (datas fixas e as que dependem da Páscoa: Carnaval, Sexta-feira Santa, Corpus Christi), sem serviço externo. Feriados estaduais e municipais são lançados à mão |
-| **D-P61** | Biblioteca | **FullCalendar 7.0.2** (`@fullcalendar/react`, licença MIT), a mesma versão do Veloterap, com as visões **Mensal, Semanal e Diário**, em português, com as cores do ObraFlow (azul-safira), sem o tema roxo do Veloterap. Clicar num dia abre "Nova exceção" com a data preenchida; clicar numa exceção abre a edição |
+| **D-P61** | Biblioteca | **FullCalendar 7.0.2** (`@fullcalendar/react`, licença MIT), a mesma versão do Veloterap, com as visões **Mensal, Semanal e Diário**, em português, com as cores do ViaObras (azul-safira), sem o tema roxo do Veloterap. Clicar num dia abre "Nova exceção" com a data preenchida; clicar numa exceção abre a edição |
 | **D-P63** | **Horário de trabalho**: da empresa ou da obra? | **Os dois:** a empresa tem um **horário-padrão** (Cadastros → Empresas → aba Horários), e a obra **herda** esse padrão até alguém ajustá-lo na aba Horários da obra. O botão "Voltar ao padrão da empresa" restaura a herança. Até **2 períodos por dia** (manhã e tarde), como no Brickup. A tela mostra as horas por dia e por semana (ex.: seg–qui 8 h, sex 9 h = 41 h) |
 | **D-P64** | Dia sem horário × exceção | Dia da semana **sem horário** já aparece como **não trabalhado** no calendário, sem precisar de exceção. As exceções servem para **datas** (feriados, paradas). O "Importar sábados e domingos" (D-P59) continua disponível para obras que não usam horário |
 | **D-P62** | Permissões | **Sem permissão nova:** ver segue o acesso à obra (`projects.view` + nível `view`); criar, editar e excluir exige nível `edit` na obra (D-P24). Exceção pode ser excluída (é configuração, não histórico), com auditoria. Horário da empresa: `companies.view` / `companies.manage` |
@@ -84,7 +84,7 @@ Na obra, a nova aba **Calendário** tem duas colunas. Em telas estreitas, a list
 ### Etapa 2 — telas (concluída)
 
 - **Obra, aba Calendário:** lista de exceções ao lado do calendário.
-  - FullCalendar 7.0.2, tema "classic" ligado aos tokens do ObraFlow (`calendar/fullcalendar.css`, sem cores fixas).
+  - FullCalendar 7.0.2, tema "classic" ligado aos tokens do ViaObras (`calendar/fullcalendar.css`, sem cores fixas).
   - Visões Mensal, Semanal e Diária, em português.
   - Dias com exceção ficam em destaque; dias da semana sem horário ficam acinzentados.
   - Clicar num dia abre "Nova exceção" com a data; clicar numa exceção abre a edição.

@@ -215,7 +215,7 @@ class AppServiceProvider extends ServiceProvider
     private function configureMailLinks(): void
     {
         // Link de recuperação aponta para o FRONTEND (SPA), não para a API.
-        ResetPassword::createUrlUsing(fn ($user, string $token) => rtrim(config('obraflow.frontend_url'), '/')
+        ResetPassword::createUrlUsing(fn ($user, string $token) => rtrim(config('viaobras.frontend_url'), '/')
             .'/reset-password?token='.$token.'&email='.urlencode($user->getEmailForPasswordReset()));
     }
 

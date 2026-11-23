@@ -18,7 +18,7 @@ class StoreTokenRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:100'],
             // Expiração OBRIGATÓRIA e limitada (política D-20 / A11).
-            'expires_in_days' => ['required', 'integer', 'min:1', 'max:'.(int) config('obraflow.api_token_max_days')],
+            'expires_in_days' => ['required', 'integer', 'min:1', 'max:'.(int) config('viaobras.api_token_max_days')],
             // Menor privilégio (D-29): abilities OBRIGATÓRIAS, do catálogo, sem curinga e sem gestão de acesso.
             'abilities' => ['required', 'array', 'min:1', 'max:30'],
             'abilities.*' => ['string', 'distinct', Rule::in(PermissionCatalog::tokenAssignable())],

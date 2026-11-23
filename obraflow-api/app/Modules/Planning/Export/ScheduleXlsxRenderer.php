@@ -20,7 +20,7 @@ use OpenSpout\Writer\XLSX\Writer;
 
 /**
  * Orçamento sintético do planejamento em .xlsx (6B, D-P73/D-P96): aba com as 28 colunas (como a exportação do Brickup),
- * aba dos recursos de cada atividade e aba do cronograma. Valores numéricos fixos (sem fórmulas), nas cores do ObraFlow.
+ * aba dos recursos de cada atividade e aba do cronograma. Valores numéricos fixos (sem fórmulas), nas cores do ViaObras.
  */
 final class ScheduleXlsxRenderer
 {

@@ -204,10 +204,10 @@ it('copia insumos da base de referência para o catálogo: cópia editável, ide
     $B = Scenario::tenant();
     $args = ['--tenant' => $this->A->id, '--user' => $this->admin->id, '--dataset' => $ds, '--kinds' => 'material,labor'];
 
-    $this->artisan('obraflow:catalog:copy-references', $args + ['--dry-run' => true])->assertSuccessful();
+    $this->artisan('viaobras:catalog:copy-references', $args + ['--dry-run' => true])->assertSuccessful();
     expect(DB::table('resources')->count())->toBe(0);
 
-    $this->artisan('obraflow:catalog:copy-references', $args)->assertSuccessful();
+    $this->artisan('viaobras:catalog:copy-references', $args)->assertSuccessful();
     $rows = DB::table('resources')->where('tenant_id', $this->A->id)->orderBy('code')->get();
     expect($rows->pluck('code')->all())->toBe(['00001', '00002', '00004', '00005', '00006']) // equipamento não pedido
         ->and($rows[0]->kind)->toBe('material')->and($rows[0]->price)->toBe('1.25')->and($rows[0]->price_date)->toBe('2024-12-01')
@@ -223,10 +223,10 @@ it('copia insumos da base de referência para o catálogo: cópia editável, ide
     // cópia editável pela API e idempotência
     $uuid = $rows[0]->uuid;
     $this->b->put("/api/v1/resources/{$uuid}", ['price' => '1.40'])->assertOk()->assertJsonPath('data.price', '1.40');
-    $this->artisan('obraflow:catalog:copy-references', $args)->assertSuccessful();
+    $this->artisan('viaobras:catalog:copy-references', $args)->assertSuccessful();
     expect(DB::table('resources')->count())->toBe(5)
         ->and(DB::table('resources')->where('uuid', $uuid)->value('price'))->toBe('1.40');
 
     // usuário de fora do tenant é recusado
-    $this->artisan('obraflow:catalog:copy-references', ['--user' => Scenario::member($B)->id] + $args)->assertFailed();
+    $this->artisan('viaobras:catalog:copy-references', ['--user' => Scenario::member($B)->id] + $args)->assertFailed();
 });

@@ -19,7 +19,7 @@ use Tests\Support\SinapiFixture;
 beforeEach(function () {
     RateLimiter::clear('login');
     Scenario::catalog();
-    Artisan::call('obraflow:references:import', ['--competency' => '2024-12', '--state' => 'MT', '--regime' => 'with_relief',
+    Artisan::call('viaobras:references:import', ['--competency' => '2024-12', '--state' => 'MT', '--regime' => 'with_relief',
         '--resources' => SinapiFixture::insumos(), '--compositions' => SinapiFixture::analitico(), '--families' => SinapiFixture::familias(), '--activate' => true]);
     $this->ds = ReferenceDataset::query()->sole()->id;
     $this->A = Scenario::tenant();
@@ -306,5 +306,5 @@ it('relatório DOCX (4D) pela API: gráficos e marca d\'água como imagem quando
     $media = array_filter(array_map(fn ($i) => $zip->getNameIndex($i), range(0, $zip->numFiles - 1)), fn ($n) => str_starts_with($n, 'word/media/'));
     $zip->close();
     $chrome = app(ChromeRenderer::class)->available();
-    expect(count($media))->toBeGreaterThanOrEqual($chrome ? 4 : 1); // marca ObraFlow + 2 gráficos + marca d'água
+    expect(count($media))->toBeGreaterThanOrEqual($chrome ? 4 : 1); // marca ViaObras + 2 gráficos + marca d'água
 });

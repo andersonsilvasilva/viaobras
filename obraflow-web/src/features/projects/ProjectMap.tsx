@@ -9,7 +9,7 @@ import { getErrorMessage } from '@/lib/api-error'
 import { geocodeAddress } from '@/utils/geocode'
 import { projectsApi, type Project } from './api'
 
-/** Pino com as cores do ObraFlow (sem imagens externas): ícone desenhado em CSS. */
+/** Pino com as cores do ViaObras (sem imagens externas): ícone desenhado em CSS. */
 const pin = L.divIcon({
   className: '',
   html: '<span class="block size-5 -translate-y-2 rotate-45 rounded-full rounded-br-none border-2 border-(--primary-foreground) bg-(--primary) shadow"></span>',

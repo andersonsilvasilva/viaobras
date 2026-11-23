@@ -87,7 +87,7 @@ No banco: FK `(tenant_id, kind, group_id)` (grupo do mesmo tipo) e CHECK de carg
 
 ### Cópia da base SINAPI para o catálogo
 
-Comando `obraflow:catalog:copy-references --tenant= --user= --dataset= --kinds=material,labor [--dry-run]`:
+Comando `viaobras:catalog:copy-references --tenant= --user= --dataset= --kinds=material,labor [--dry-run]`:
 - Cada insumo da base vira uma **cópia editável** no catálogo, com código, descrição, unidade e preço oficial. A data do preço é o 1º dia da competência, e a origem fica nas observações (base, UF, competência, regime e código).
 - A base de referência não é alterada (D-08). Mudar o preço no catálogo não mexe na base nem nos orçamentos.
 - **Pode ser rodado de novo** sem duplicar: se já existe um insumo com o mesmo código (ativo) ou com o mesmo nome no mesmo tipo, ele é pulado. Edições feitas no catálogo são preservadas.

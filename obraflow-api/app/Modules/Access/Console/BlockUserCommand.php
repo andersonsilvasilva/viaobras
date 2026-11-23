@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 /** Bloqueio global de usuário (administração de plataforma só via CLI nesta fase). */
 class BlockUserCommand extends Command
 {
-    protected $signature = 'obraflow:user:block {email} {--force : Bloqueia mesmo sendo o último administrador de algum tenant}';
+    protected $signature = 'viaobras:user:block {email} {--force : Bloqueia mesmo sendo o último administrador de algum tenant}';
 
     protected $description = 'Bloqueia um usuário: perde sessões e tokens imediatamente.';
 

@@ -24,7 +24,7 @@ final class ScheduleExportService
     public function generate(Project $project, Schedule $schedule, string $format, User $user): array
     {
         $data = $this->builder->build($project, $schedule, $format, $user);
-        $path = sys_get_temp_dir().DIRECTORY_SEPARATOR.'obraflow-'.bin2hex(random_bytes(8)).'.'.$format;
+        $path = sys_get_temp_dir().DIRECTORY_SEPARATOR.'viaobras-'.bin2hex(random_bytes(8)).'.'.$format;
 
         if ($format === 'pdf') {
             $html = view('reports.schedule', ['data' => $data, 'fontFace' => ReportAssets::fontFace(), 'logo' => ReportAssets::logo('logo-completa')])->render();

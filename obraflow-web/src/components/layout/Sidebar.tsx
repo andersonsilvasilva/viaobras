@@ -14,7 +14,7 @@ interface SidebarProps {
   onNavigate?: () => void
 }
 
-const OPEN_KEY = 'obraflow:nav-groups'
+const OPEN_KEY = 'viaobras:nav-groups'
 
 /** Escolhas manuais de abrir/fechar grupos (chave do grupo → aberto). */
 function readToggled(): Record<string, boolean> {
@@ -227,7 +227,7 @@ function OrganizationSwitcher({ collapsed, onToggle }: { collapsed: boolean; onT
         {collapsed ? (
           <span className="flex flex-col items-center gap-1">
             <span className="rounded-md bg-(--card) p-0.5">
-              <img src="/brand/logo-simbolo.png" alt="ObraFlow" width={217} height={185} className="h-6 w-auto" />
+              <img src="/brand/logo-simbolo.png" alt="ViaObras" width={217} height={185} className="h-6 w-auto" />
             </span>
             <ChevronsRight className="size-4" />
           </span>

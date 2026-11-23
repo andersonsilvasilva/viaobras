@@ -142,7 +142,7 @@ it('enforceMorphMap: o alias de usuário é "user" e classes fora do mapa são r
     expect(fn () => $unmapped->getMorphClass())->toThrow(ClassMorphViolationException::class);
 });
 
-it('o Sanctum usa o modelo de token do ObraFlow (com tenant)', function () {
+it('o Sanctum usa o modelo de token do ViaObras (com tenant)', function () {
     expect(Sanctum::$personalAccessTokenModel)->toBe(PersonalAccessToken::class);
 });
 

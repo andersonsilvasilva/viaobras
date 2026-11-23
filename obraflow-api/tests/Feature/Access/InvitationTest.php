@@ -241,7 +241,7 @@ it('a rotina agendada expira os vencidos e preserva os válidos', function () {
 
     $this->travel(8)->days(); // só o v1 (7 dias) vence
 
-    expect(Artisan::call('obraflow:invitations:expire'))->toBe(0);
+    expect(Artisan::call('viaobras:invitations:expire'))->toBe(0);
 
     expect(UserInvitation::query()->withoutGlobalScopes()->find($vencido)->status)->toBe(InvitationStatus::Expired)
         ->and(UserInvitation::query()->withoutGlobalScopes()->find($valido)->status)->toBe(InvitationStatus::Pending);
@@ -249,7 +249,7 @@ it('a rotina agendada expira os vencidos e preserva os válidos', function () {
     $log = AuditLog::query()->where('event', AuditEvent::INVITATION_EXPIRED)->firstOrFail();
     expect($log->user_id)->toBeNull()->and($log->metadata['source'])->toBe('system');
 
-    Artisan::call('obraflow:invitations:expire'); // idempotente
+    Artisan::call('viaobras:invitations:expire'); // idempotente
     expect(AuditLog::query()->where('event', AuditEvent::INVITATION_EXPIRED)->count())->toBe(1);
 });
 

@@ -10,8 +10,8 @@
  * O valor fica em sessionStorage (por aba). Falhas de armazenamento nunca quebram a aplicação.
  */
 
-const STORAGE_KEY = 'obraflow:active-tenant'
-const CHANNEL_NAME = 'obraflow:tenant'
+const STORAGE_KEY = 'viaobras:active-tenant'
+const CHANNEL_NAME = 'viaobras:tenant'
 
 export const TENANT_HINT_HEADER = 'X-Tenant-Hint'
 

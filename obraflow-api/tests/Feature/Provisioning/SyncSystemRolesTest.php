@@ -11,7 +11,7 @@ use Tests\Support\Browser;
 use Tests\Support\Scenario;
 
 /*
- * obraflow:system-roles:sync — alinha papéis de sistema de tenants EXISTENTES ao catálogo, só acrescentando.
+ * viaobras:system-roles:sync — alinha papéis de sistema de tenants EXISTENTES ao catálogo, só acrescentando.
  * Cenário reproduz a HighTech: papel `member` criado antes da Fase 2 (4 permissões).
  */
 
@@ -38,7 +38,7 @@ beforeEach(function () {
 it('--dry-run lista exatamente as permissões de leitura que faltam e não grava nada', function () {
     $antes = AuditLog::query()->count();
 
-    Artisan::call('obraflow:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['member'], '--dry-run' => true]);
+    Artisan::call('viaobras:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['member'], '--dry-run' => true]);
 
     expect(Artisan::output())->toContain(implode(', ', LEITURA_CADASTROS))->toContain('Simulação')
         ->and(permsOf($this->A, 'member'))->toBe(collect(MEMBER_FASE1)->sort()->values()->all())
@@ -46,7 +46,7 @@ it('--dry-run lista exatamente as permissões de leitura que faltam e não grava
 });
 
 it('concede só leitura (cadastros, equipamentos, obras) ao member, audita, e é idempotente', function () {
-    Artisan::call('obraflow:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['member'], '--yes' => true, '--no-interaction' => true]);
+    Artisan::call('viaobras:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['member'], '--yes' => true, '--no-interaction' => true]);
 
     $esperado = collect([...MEMBER_FASE1, ...LEITURA_CADASTROS])->sort()->values()->all();
     expect(permsOf($this->A, 'member'))->toBe($esperado);
@@ -56,7 +56,7 @@ it('concede só leitura (cadastros, equipamentos, obras) ao member, audita, e é
 
     // segunda execução: nada muda, nenhum evento novo
     $eventos = AuditLog::query()->count();
-    Artisan::call('obraflow:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['member'], '--yes' => true, '--no-interaction' => true]);
+    Artisan::call('viaobras:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['member'], '--yes' => true, '--no-interaction' => true]);
     expect(Artisan::output())->toContain('Nada a fazer')
         ->and(AuditLog::query()->count())->toBe($eventos)
         ->and(permsOf($this->A, 'member'))->toBe($esperado);
@@ -68,7 +68,7 @@ it('não concede escrita, não mexe em outros papéis nem em outro tenant e nunc
     $adminAntes = permsOf($this->A, 'admin');
     $viewerAntes = permsOf($this->A, 'viewer');
 
-    Artisan::call('obraflow:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['member'], '--yes' => true, '--no-interaction' => true]);
+    Artisan::call('viaobras:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['member'], '--yes' => true, '--no-interaction' => true]);
 
     $member = permsOf($this->A, 'member');
     expect(array_filter($member, fn ($p) => str_ends_with($p, '.manage') || str_ends_with($p, '.invite') || str_ends_with($p, '.update')))->toBe([])
@@ -79,13 +79,13 @@ it('não concede escrita, não mexe em outros papéis nem em outro tenant e nunc
 });
 
 it('recusa papel fora dos de sistema, papel ausente no comando e tenant inexistente', function () {
-    expect(Artisan::call('obraflow:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['gerente'], '--no-interaction' => true]))->toBe(1)
-        ->and(Artisan::call('obraflow:system-roles:sync', ['slug' => $this->A->slug, '--no-interaction' => true]))->toBe(1)
-        ->and(Artisan::call('obraflow:system-roles:sync', ['slug' => 'nao-existe', '--role' => ['member'], '--no-interaction' => true]))->toBe(1);
+    expect(Artisan::call('viaobras:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['gerente'], '--no-interaction' => true]))->toBe(1)
+        ->and(Artisan::call('viaobras:system-roles:sync', ['slug' => $this->A->slug, '--no-interaction' => true]))->toBe(1)
+        ->and(Artisan::call('viaobras:system-roles:sync', ['slug' => 'nao-existe', '--role' => ['member'], '--no-interaction' => true]))->toBe(1);
 });
 
 it('efeito prático: member passa a LER cadastros, mas continua sem escrever; isolamento preservado', function () {
-    Artisan::call('obraflow:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['member'], '--yes' => true, '--no-interaction' => true]);
+    Artisan::call('viaobras:system-roles:sync', ['slug' => $this->A->slug, '--role' => ['member'], '--yes' => true, '--no-interaction' => true]);
     $user = Scenario::member($this->A, 'member');
     $b = new Browser($this);
     $b->login($user->email)->assertOk();

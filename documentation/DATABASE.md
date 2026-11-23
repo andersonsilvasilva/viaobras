@@ -1,4 +1,4 @@
-# DATABASE.md — MODELO DE DADOS DO OBRAFLOW
+# DATABASE.md — MODELO DE DADOS DO VIAOBRAS
 
 > **Status:** a **Fase 1 (15 tabelas) está IMPLEMENTADA** (migrations aplicadas no MySQL 8.0.30; 8.4 pendente no CI). O restante deste documento é a **proposta** das fases seguintes: nenhuma outra migration foi criada.
 > Este documento **substitui** o rascunho anterior, que colocava `tenant_id` em `users` — decisão revogada (ver [DB_DECISIONS.md](DB_DECISIONS.md) D-02).

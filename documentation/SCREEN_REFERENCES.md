@@ -1,12 +1,12 @@
 # SCREEN_REFERENCES.md — ANÁLISE DAS TELAS DE REFERÊNCIA
 
-Pasta analisada: `documentation/telas/` — **todas as 24 imagens analisadas** (1–13 na fase de protótipo; 14 em 2026-11-16; 15–24 em 2026-11-16). O **padrão de layout e apresentação desejado pelo responsável** está em §"Padrão de layout e apresentação" e é **normativo** para todas as telas do ObraFlow. A pasta `planilha para importar recursos/` (planilhas `employee`, `equipment`, `fornecedores`, `product`) **não** contém telas e não foi analisada aqui.
+Pasta analisada: `documentation/telas/` — **todas as 24 imagens analisadas** (1–13 na fase de protótipo; 14 em 2026-11-16; 15–24 em 2026-11-16). O **padrão de layout e apresentação desejado pelo responsável** está em §"Padrão de layout e apresentação" e é **normativo** para todas as telas do ViaObras. A pasta `planilha para importar recursos/` (planilhas `employee`, `equipment`, `fornecedores`, `product`) **não** contém telas e não foi analisada aqui.
 
-> **As referências são capturas de um produto de terceiros** (identidade laranja, nome e logo próprios, conta de usuário visível). Foram usadas **somente** para entender organização, hierarquia, funcionalidades e fluxo. **Não** foram copiados identidade, nome, logo, cores, textos de marca nem códigos/atividades de exemplo. Os dados do ObraFlow são fictícios (`DEMO-*`).
+> **As referências são capturas de um produto de terceiros** (identidade laranja, nome e logo próprios, conta de usuário visível). Foram usadas **somente** para entender organização, hierarquia, funcionalidades e fluxo. **Não** foram copiados identidade, nome, logo, cores, textos de marca nem códigos/atividades de exemplo. Os dados do ViaObras são fictícios (`DEMO-*`).
 
 ## Imagens analisadas
 
-| # | Arquivo | O que mostra | Funcionalidades identificadas | Adaptação no ObraFlow |
+| # | Arquivo | O que mostra | Funcionalidades identificadas | Adaptação no ViaObras |
 |---|---|---|---|---|
 | 1 | `dashboard_principal.png` | Lista de obras (grade/lista) com cartões de indicadores e filtros | Abas Todas/Ativas/Inativas; busca; filtros cliente/responsável; indicadores (obras, despesas/receitas do dia e em aberto, saúde financeira, pedidos, cotações pendentes); cartão de obra com progresso e "Acessar"; sidebar por módulos | **Dashboard** executivo com KPIs, 5 gráficos, alertas e atividades (`features/dashboard`); **Obras** em tabela com filtros (cliente, responsável, situação, período) e progresso (`features/projects`). Grade/lista e abas de situação ficam como evolução |
 | 2 | `cadastrar orçamento.png` | Tela "Orçamento Manual" com guia de onboarding | Título, data, status (desabilitado), estado, encargo social, bloco opcional "Mais informações", atalhos "Criar orçamento inteligente" e "Ver todos" | `BudgetCreatePage`: tipo (cliente/manual/referência), campos gerais, **Estado** e **Encargos sociais** (regime a confirmar — D-P03), ações Cancelar/Criar. Guia de onboarding não adotado |
@@ -67,15 +67,15 @@ Somente o que está **visível** na captura; nada foi implementado (decisão do 
 
 **Organização visual:** página em cartão branco único; barra de ações à esquerda e "Adicionar" à direita; tabela densa com linhas de altura uniforme; nomes de itens às vezes em caixa alta (dados importados).
 
-**Relação com o ObraFlow (sem implementar)**
+**Relação com o ViaObras (sem implementar)**
 - Unidade de medida já existe por tenant (`units_of_measure`, D-P14); um futuro cadastro de materiais a referenciaria.
 - Grupo/subgrupo, preço e o próprio catálogo de materiais **não existem** no modelo atual; dependem da fase de recursos/insumos (orçamentos, Fase 4) e de aprovação.
-- "Fornecedores" aparece como subitem de Recursos na referência; no ObraFlow, fornecedores já são cadastro da Fase 2 (vínculo com materiais **não** está modelado).
+- "Fornecedores" aparece como subitem de Recursos na referência; no ViaObras, fornecedores já são cadastro da Fase 2 (vínculo com materiais **não** está modelado).
 - Adaptação segue as decisões gerais deste documento (identidade azul-safira, dados `DEMO-*`, sem valores oficiais).
 
 ## Padrão de layout e apresentação (definido pelo responsável, 2026-11-16)
 
-**Normativo.** O responsável definiu que o layout e a apresentação das telas de referência são o padrão desejado para o ObraFlow. Toda tela nova segue as regras abaixo. **Cores, marca e logo continuam sendo os do ObraFlow** ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md): azul-safira no lugar do laranja das capturas; sidebar grafite). O que se adota é a **estrutura, a hierarquia e o comportamento**, não a identidade do produto de terceiros.
+**Normativo.** O responsável definiu que o layout e a apresentação das telas de referência são o padrão desejado para o ViaObras. Toda tela nova segue as regras abaixo. **Cores, marca e logo continuam sendo os do ViaObras** ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md): azul-safira no lugar do laranja das capturas; sidebar grafite). O que se adota é a **estrutura, a hierarquia e o comportamento**, não a identidade do produto de terceiros.
 
 ### Estrutura geral (G)
 - **G1 — Moldura:** sidebar fixa à esquerda + área de conteúdo com fundo cinza-claro; o conteúdo vive em **um cartão branco** de cantos suaves e borda fina.
@@ -88,7 +88,7 @@ Somente o que está **visível** na captura; nada foi implementado (decisão do 
 - **L1 — Barra de ferramentas:** à esquerda **busca "Buscar por nome"** com ícone de lupa, seguida dos **filtros em lista suspensa** ("Selecione um grupo") e de botões só-ícone (importar/exportar); à direita o botão principal **"+ Adicionar"**.
 - **L2 — Ação em massa:** quando houver seleção por linha, botão "Excluir tudo" à esquerda da barra, **desabilitado** sem seleção (exclusão em massa exige confirmação e respeita bloqueio por uso — erro `in_use`).
 - **L3 — Tabela:** cabeçalho cinza-claro em negrito; caixa de seleção opcional na 1ª coluna; colunas ordenáveis com indicador ▲▼; filtro por coluna (funil) quando útil; linhas de altura uniforme separadas por linha fina; valores monetários como `R$ 0,00`; campos vazios em branco.
-- **L4 — Ações por linha:** coluna final com botões só-ícone, nesta ordem: **documentos/anexos** (ícone de pasta — no ObraFlow, abre os documentos vinculados, Fase 2), **editar** (lápis), **excluir** (lixeira, com confirmação). Cada ícone com rótulo acessível e dica.
+- **L4 — Ações por linha:** coluna final com botões só-ícone, nesta ordem: **documentos/anexos** (ícone de pasta — no ViaObras, abre os documentos vinculados, Fase 2), **editar** (lápis), **excluir** (lixeira, com confirmação). Cada ícone com rótulo acessível e dica.
 - **L5 — Paginação:** abaixo da tabela, à direita: anterior/próxima, números de página com a atual destacada e seletor "**10 / Página**" (opções maiores para listas longas).
 - **L6 — Rolagem:** a tabela rola dentro do cartão quando excede a altura; cabeçalho fixo.
 
@@ -111,8 +111,8 @@ Somente o que está **visível** na captura; nada foi implementado (decisão do 
 - **C7 — Lista de regras com interruptor** à direita de cada regra; regra indisponível exibe **cadeado** e fica desabilitada.
 - **C8 — Contadores de contexto** acima da tabela ("1 usuário contratado"); ação indisponível aparece desabilitada com cadeado, não some.
 
-### Ajustes obrigatórios do ObraFlow sobre o padrão
-1. **Identidade:** azul-safira/grafite, logo e nome do ObraFlow; nada de laranja, nome ou logo do produto de referência.
+### Ajustes obrigatórios do ViaObras sobre o padrão
+1. **Identidade:** azul-safira/grafite, logo e nome do ViaObras; nada de laranja, nome ou logo do produto de referência.
 2. **Acessibilidade:** botões só-ícone com `aria-label` e dica; modais com foco preso e Esc; tabela com `caption`/`scope`; aviso amarelo com texto (não só cor); contraste AA.
 3. **Responsividade:** em telas estreitas, sidebar vira gaveta, barra de ferramentas quebra em linhas, tabela permite rolagem horizontal e modais de 2 colunas viram 1.
 4. **Estados:** toda listagem tem carregando, vazio (com chamada para "Adicionar") e erro ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) §6).
@@ -141,7 +141,7 @@ Somente o que está **visível** na captura; nada foi implementado (decisão do 
 
 ## Referências do Brickup (vídeo de treinamento, 2026-11-17)
 
-Enviadas pelo responsável em vídeo do Brickup, o sistema que ele usa hoje. Os prints **não** ficam no repositório, porque mostram nome e e-mail de terceiros. Usamos a organização e os campos como referência; a aparência segue a identidade do ObraFlow.
+Enviadas pelo responsável em vídeo do Brickup, o sistema que ele usa hoje. Os prints **não** ficam no repositório, porque mostram nome e e-mail de terceiros. Usamos a organização e os campos como referência; a aparência segue a identidade do ViaObras.
 
 | Tela | O que mostra | Onde entra |
 |---|---|---|

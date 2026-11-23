@@ -19,7 +19,7 @@ class DocumentRequest extends FormRequest
             'category_id' => ['nullable', 'integer', Rule::exists('document_categories', 'id')->where('tenant_id', $tenantId)],
             'status' => [$creating ? 'prohibited' : 'sometimes', Rule::in(['active', 'archived'])],
             'visibility' => ['sometimes', Rule::in(['private', 'restricted'])],
-            'file' => [$creating ? 'sometimes' : 'prohibited', 'file', 'max:'.(int) config('obraflow.documents.max_kb')],
+            'file' => [$creating ? 'sometimes' : 'prohibited', 'file', 'max:'.(int) config('viaobras.documents.max_kb')],
         ];
     }
 }

@@ -1,8 +1,8 @@
-# PROMPT 004 — MODELAGEM COMPLETA DO BANCO DE DADOS DO OBRAFLOW
+# PROMPT 004 — MODELAGEM COMPLETA DO BANCO DE DADOS DO VIAOBRAS
 
 Atue como Arquiteto de Dados Sênior, especialista em MySQL, Laravel, sistemas ERP e arquitetura SaaS multi-tenant.
 
-Sua missão é projetar o modelo de dados do ObraFlow, plataforma SaaS de gestão da construção civil desenvolvida pela HighTech Tecnologia.
+Sua missão é projetar o modelo de dados do ViaObras, plataforma SaaS de gestão da construção civil desenvolvida pela HighTech Tecnologia.
 
 O objetivo é criar uma modelagem robusta, normalizada, escalável, segura e preparada para suportar todas as funcionalidades previstas no produto.
 
@@ -58,7 +58,7 @@ Todos os registros operacionais deverão possuir contexto de tenant.
 
 # 3. ARQUITETURA MULTI-TENANT — REGRA FUNDAMENTAL
 
-O ObraFlow utilizará arquitetura multi-tenant com banco de dados compartilhado e isolamento lógico por organização.
+O ViaObras utilizará arquitetura multi-tenant com banco de dados compartilhado e isolamento lógico por organização.
 
 Cada tenant representa uma organização contratante do SaaS.
 
@@ -294,7 +294,7 @@ Prever contratos vinculados a clientes, fornecedores, empresas e obras, conforme
 
 ## 5.6 Orçamentos
 
-Este será um dos domínios mais importantes do ObraFlow.
+Este será um dos domínios mais importantes do ViaObras.
 
 Modelar:
 
@@ -771,4 +771,4 @@ A modelagem deverá ser apresentada para revisão humana.
 
 Aguarde aprovação expressa antes de criar migrations definitivas ou modificar qualquer banco de dados.
 
-O objetivo é construir uma base de dados profissional, segura, escalável e sustentável para o ObraFlow.
+O objetivo é construir uma base de dados profissional, segura, escalável e sustentável para o ViaObras.

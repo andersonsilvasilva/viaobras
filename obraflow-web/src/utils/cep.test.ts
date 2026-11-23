@@ -12,7 +12,7 @@ describe('consulta de CEP (ViaCEP)', () => {
     expect(spy.mock.calls[0][0]).toBe('https://viacep.com.br/ws/78068727/json/')
     const init = spy.mock.calls[0][1] as RequestInit
     expect(init.credentials).toBe('omit')
-    expect(init.headers).toBeUndefined() // nenhum cabeçalho do ObraFlow (XSRF, tenant) vai para fora
+    expect(init.headers).toBeUndefined() // nenhum cabeçalho do ViaObras (XSRF, tenant) vai para fora
   })
 
   it('CEP inexistente, falha de rede ou CEP incompleto → null (preenchimento manual)', async () => {

@@ -27,7 +27,7 @@ use Illuminate\Support\Str;
  */
 class CopySinapiResourcesCommand extends Command
 {
-    protected $signature = 'obraflow:catalog:copy-references
+    protected $signature = 'viaobras:catalog:copy-references
         {--tenant= : ID do tenant de destino}
         {--user= : ID do usuário responsável (auditoria; precisa ser membro do tenant)}
         {--dataset= : ID da base de referência de origem (o regime define o preço da mão de obra)}

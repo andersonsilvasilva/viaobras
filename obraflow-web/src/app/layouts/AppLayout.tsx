@@ -6,7 +6,7 @@ import { Sidebar } from '@/components/layout/Sidebar'
 import { Topbar } from '@/components/layout/Topbar'
 import { cn } from '@/lib/utils'
 
-const STORAGE_KEY = 'obraflow:sidebar-collapsed'
+const STORAGE_KEY = 'viaobras:sidebar-collapsed'
 
 function readCollapsed(): boolean {
   try {

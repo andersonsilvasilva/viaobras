@@ -44,7 +44,7 @@ Convenções herdadas: datas UTC; CNPJ/CPF gravados **só com dígitos** e valid
 
 ## 4. Permissões e API (resumo)
 
-Novas permissões no catálogo (sincronizadas por `obraflow:sync-permissions`; **papéis existentes só mudam com autorização**): `companies.view/manage`, `customers.view/manage`, `suppliers.view/manage`, `documents.view/manage`, `units.view/manage`. Tokens: `*.view` podem ser abilities; `*.manage` apenas conforme a regra D-29. Rotas em `routes/api/v1/registry.php` sob `tenant.required`; Form Requests escopados ao tenant; Policies; respostas 404 idênticas para inexistente × outro tenant; API Resources sem vazar atributos; auditoria das mutações (novos eventos no catálogo).
+Novas permissões no catálogo (sincronizadas por `viaobras:sync-permissions`; **papéis existentes só mudam com autorização**): `companies.view/manage`, `customers.view/manage`, `suppliers.view/manage`, `documents.view/manage`, `units.view/manage`. Tokens: `*.view` podem ser abilities; `*.manage` apenas conforme a regra D-29. Rotas em `routes/api/v1/registry.php` sob `tenant.required`; Form Requests escopados ao tenant; Policies; respostas 404 idênticas para inexistente × outro tenant; API Resources sem vazar atributos; auditoria das mutações (novos eventos no catálogo).
 
 ## 5. Etapas de implementação (após aprovação)
 

@@ -10,7 +10,7 @@ Evidência de que o esquema proposto em [FASE1_MODELO.md](../FASE1_MODELO.md) **
 
 ## Como foi executado
 
-Uma instância **MySQL 8.0.30 descartável** (mesmo binário do Laragon, pasta temporária, porta 3399, somente `127.0.0.1`), com os mesmos padrões do servidor local (`log_bin=1`, `log_bin_trust_function_creators=0`, `time_zone=SYSTEM`, `STRICT_TRANS_TABLES`). Ao final, a instância foi **desligada e apagada**. O MySQL do Laragon (porta 3306) **não foi tocado**: nenhum banco `obraflow*` existe nele.
+Uma instância **MySQL 8.0.30 descartável** (mesmo binário do Laragon, pasta temporária, porta 3399, somente `127.0.0.1`), com os mesmos padrões do servidor local (`log_bin=1`, `log_bin_trust_function_creators=0`, `time_zone=SYSTEM`, `STRICT_TRANS_TABLES`). Ao final, a instância foi **desligada e apagada**. O MySQL do Laragon (porta 3306) **não foi tocado**: nenhum banco `viaobras*` existe nele.
 
 ## Como reproduzir (em uma instância descartável — nunca no servidor compartilhado)
 

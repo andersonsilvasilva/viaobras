@@ -24,7 +24,7 @@ use Throwable;
  * Único ponto que escreve documentos, versões, vínculos e permissões (D-P15). Cada escrita e seu evento de
  * auditoria vão na MESMA transação.
  *
- *  - O arquivo vai para o disco privado (config obraflow.documents.disk); a chave NÃO usa o nome original
+ *  - O arquivo vai para o disco privado (config viaobras.documents.disk); a chave NÃO usa o nome original
  *    (evita path traversal e vazamento de informação): {tenant_uuid}/{document_uuid}/{aleatório}.
  *  - Tipo validado pelo CONTEÚDO (finfo), não pela extensão nem pelo Content-Type do cliente.
  *  - Ordem: grava o arquivo → transação (lock do documento, número da versão, versão corrente, auditoria).
@@ -77,7 +77,7 @@ final class DocumentStorage
             throw ApiException::conflict('document_archived', 'Documento arquivado não recebe novas versões.');
         }
 
-        $maxBytes = config('obraflow.documents.max_kb') * 1024;
+        $maxBytes = config('viaobras.documents.max_kb') * 1024;
         $size = (int) $file->getSize();
         if ($size <= 0 || $size > $maxBytes) {
             throw ApiException::unprocessable('invalid_file_size', 'Arquivo vazio ou acima do limite permitido.');
@@ -85,12 +85,12 @@ final class DocumentStorage
 
         // Sempre pelo CONTEÚDO (finfo). UploadedFile::getMimeType() pode cair na extensão (ex.: arquivos de teste).
         $mime = (string) (new finfo(FILEINFO_MIME_TYPE))->file($file->getRealPath());
-        if (! in_array($mime, config('obraflow.documents.allowed_mimes'), true)) {
+        if (! in_array($mime, config('viaobras.documents.allowed_mimes'), true)) {
             throw ApiException::unprocessable('invalid_file_type', 'Tipo de arquivo não permitido.');
         }
 
         $sha256 = hash_file('sha256', $file->getRealPath());
-        $diskName = (string) config('obraflow.documents.disk');
+        $diskName = (string) config('viaobras.documents.disk');
         $key = sprintf('%s/%s/%s', $this->context->tenantOrFail()->uuid, $document->uuid, Str::random(40));
 
         $stream = fopen($file->getRealPath(), 'rb');
@@ -146,7 +146,7 @@ final class DocumentStorage
     {
         $this->assertSameTenant($version);
 
-        $minutes = (int) config('obraflow.documents.signed_url_minutes');
+        $minutes = (int) config('viaobras.documents.signed_url_minutes');
         $this->audit->record(AuditEvent::DOCUMENT_URL_ISSUED, tenantId: $this->context->idOrFail(), userId: $actor->getKey(),
             entityType: 'document', entityId: $version->document_id,
             metadata: ['version_number' => $version->version_number, 'expires_in_minutes' => $minutes]);
@@ -248,6 +248,6 @@ final class DocumentStorage
 
     private function disk(): Filesystem
     {
-        return Storage::disk((string) config('obraflow.documents.disk'));
+        return Storage::disk((string) config('viaobras.documents.disk'));
     }
 }
