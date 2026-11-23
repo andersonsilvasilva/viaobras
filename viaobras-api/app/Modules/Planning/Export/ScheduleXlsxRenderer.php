@@ -82,7 +82,7 @@ final class ScheduleXlsxRenderer
 
         $m = $d['meta'];
         $t = $d['totals'];
-        $this->row([new ImageCell(resource_path('report/brand/logo-completa.png'), 190, 43)], 40);
+        $this->row([new ImageCell(resource_path('report/brand/logo-completa.png'), 161, 48)], 42);
         $this->row([$this->text('Orçamento sintético do planejamento', $this->style(bold: true, size: 15, color: self::DEEP))], 24);
         $this->row([$this->text(trim(($m['project_code'] ? $m['project_code'].' — ' : '').$m['project_name']), $this->style(size: 12))]);
         $this->row([$this->text("{$m['origin']} · duração em {$m['duration_mode']} · encargos: {$m['regime']} · período {$m['start']} a {$m['end']}", $this->style(color: self::MUTED))]);

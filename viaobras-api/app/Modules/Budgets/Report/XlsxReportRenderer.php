@@ -87,7 +87,7 @@ final class XlsxReportRenderer
         $m = $d['meta'];
 
         $logo = resource_path('report/brand/logo-completa.png');
-        $this->row([new ImageCell($logo, 190, 43)], height: 40);
+        $this->row([new ImageCell($logo, 161, 48)], height: 42);
         $this->row([$this->text('Orçamento '.$m['code'].' · versão '.$m['version'], $this->style(bold: true, size: 16, color: self::DEEP))], height: 24);
         $this->row([$this->text($m['title'], $this->style(size: 12))]);
         $this->row([$this->text('Situação: '.$m['status_label'].($m['draft'] ? ' (RASCUNHO — versão não aprovada)' : ($m['approved_at'] ? ' em '.$m['approved_at'] : '')),

@@ -81,7 +81,7 @@ final class DocxReportRenderer
         $s = $this->word->addSection(['paperSize' => 'A4', 'marginTop' => 1134, 'marginBottom' => 1134, 'marginLeft' => 1134, 'marginRight' => 1134]);
         $this->watermark($s);
 
-        $s->addImage(resource_path('report/brand/logo-completa.png'), ['width' => 150, 'height' => 34]);
+        $s->addImage(resource_path('report/brand/logo-completa.png'), ['width' => 150, 'height' => 45]);
         $s->addTextBreak(4);
         $s->addText('PROPOSTA ORÇAMENTÁRIA', ['size' => 9, 'color' => self::SAPPHIRE, 'bold' => true, 'spacing' => 60]);
         $s->addText('Orçamento', ['size' => 34, 'bold' => true, 'color' => self::DEEP], ['spaceAfter' => 0]);

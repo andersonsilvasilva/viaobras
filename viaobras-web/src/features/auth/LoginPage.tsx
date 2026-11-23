@@ -55,7 +55,7 @@ export function LoginPage() {
     <main className="bg-background flex min-h-dvh items-center justify-center p-4">
       <div className="bg-card shadow-card w-full max-w-sm rounded-xl border p-6">
         <div className="mb-6 flex justify-center">
-          <img src="/brand/logo-completa.png" alt="ViaObras" width={477} height={109} className="h-11 w-auto" />
+          <img src="/brand/logo-completa.png" alt="ViaObras" width={806} height={240} className="h-11 w-auto" />
         </div>
         <h1 className="mb-1 text-lg font-semibold">Entrar</h1>
         <p className="text-muted-foreground mb-5 text-sm">Use seu e-mail e senha de acesso.</p>

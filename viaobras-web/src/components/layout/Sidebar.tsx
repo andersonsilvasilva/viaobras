@@ -209,7 +209,7 @@ function OrganizationSwitcher({ collapsed, onToggle }: { collapsed: boolean; onT
           className="hover:bg-sidebar-accent flex min-w-0 flex-1 items-center gap-2 rounded-lg p-1.5 text-left disabled:hover:bg-transparent"
         >
           <span className="shrink-0 rounded-md bg-(--card) p-0.5">
-            <img src="/brand/logo-simbolo.png" alt="" width={217} height={185} className="h-7 w-auto" />
+            <img src="/brand/logo-simbolo.png" alt="" width={209} height={178} className="h-7 w-auto" />
           </span>
           <span className="min-w-0 flex-1">
             <span className="text-sidebar-foreground/60 block text-[10px] tracking-wider uppercase">Organização</span>
@@ -227,7 +227,7 @@ function OrganizationSwitcher({ collapsed, onToggle }: { collapsed: boolean; onT
         {collapsed ? (
           <span className="flex flex-col items-center gap-1">
             <span className="rounded-md bg-(--card) p-0.5">
-              <img src="/brand/logo-simbolo.png" alt="ViaObras" width={217} height={185} className="h-6 w-auto" />
+              <img src="/brand/logo-simbolo.png" alt="ViaObras" width={209} height={178} className="h-6 w-auto" />
             </span>
             <ChevronsRight className="size-4" />
           </span>

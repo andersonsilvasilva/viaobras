@@ -13,7 +13,7 @@ export function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
       <Button variant="ghost" size="icon" onClick={onOpenMenu} aria-label="Abrir menu">
         <Menu className="size-5" />
       </Button>
-      <img src="/brand/logo-simbolo.png" alt="ViaObras" width={217} height={185} className="h-7 w-auto shrink-0" />
+      <img src="/brand/logo-simbolo.png" alt="ViaObras" width={209} height={178} className="h-7 w-auto shrink-0" />
       <span className="truncate text-sm font-semibold">{me?.active_tenant?.name ?? 'ViaObras'}</span>
     </header>
   )
