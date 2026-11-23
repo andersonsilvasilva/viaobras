@@ -3,7 +3,7 @@
 ## 1. Executar
 
 ```bash
-# Backend (MySQL 8.x; usa o banco 'obraflow_testing')
+# Backend (MySQL 8.x; usa o banco 'viaobras_testing')
 cd obraflow-api
 vendor/bin/pest                    # suíte completa (~30 s)
 vendor/bin/pest tests/Feature/Tenancy
@@ -14,7 +14,7 @@ cd obraflow-web
 npm test && npm run lint && npm run build
 ```
 
-**Pré-requisito:** banco `obraflow_testing` e usuário da aplicação ([AMBIENTE_LOCAL.md](AMBIENTE_LOCAL.md)). O `phpunit.xml` **força** `DB_DATABASE=obraflow_testing` e o `TestCase` **aborta** se a conexão apontar para outro banco (a suíte usa `migrate:fresh`).
+**Pré-requisito:** banco `viaobras_testing` e usuário da aplicação ([AMBIENTE_LOCAL.md](AMBIENTE_LOCAL.md)). O `phpunit.xml` **força** `DB_DATABASE=viaobras_testing` e o `TestCase` **aborta** se a conexão apontar para outro banco (a suíte usa `migrate:fresh`).
 
 ## 2. Resultado da Fase 1
 
@@ -88,5 +88,5 @@ Dentro de um teste o app é reaproveitado entre requisições (em produção, ca
 ## 6. Limites
 
 - Não há teste de carga nem de concorrência real (o *lock* de linha é verificado pela consulta, não por duas conexões simultâneas).
-- Imutabilidade de `audit_logs` por **privilégios do banco** foi validada na instância descartável ([validacao-fase1/](validacao-fase1/README.md)); no `obraflow_testing` a aplicação tem todos os privilégios (precisa rodar migrations), então os testes cobrem a trava do **modelo**.
+- Imutabilidade de `audit_logs` por **privilégios do banco** foi validada na instância descartável ([validacao-fase1/](validacao-fase1/README.md)); no `viaobras_testing` a aplicação tem todos os privilégios (precisa rodar migrations), então os testes cobrem a trava do **modelo**.
 - Redis não é exercitado (adiado).

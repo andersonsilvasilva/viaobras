@@ -16,8 +16,8 @@ abstract class TestCase extends BaseTestCase
 
         $database = config('database.connections.'.config('database.default').'.database');
 
-        if ($database !== 'obraflow_testing') {
-            $this->fail("Testes só podem rodar no banco 'obraflow_testing' (encontrado: '{$database}').");
+        if ($database !== 'viaobras_testing') {
+            $this->fail("Testes só podem rodar no banco 'viaobras_testing' (encontrado: '{$database}').");
         }
     }
 

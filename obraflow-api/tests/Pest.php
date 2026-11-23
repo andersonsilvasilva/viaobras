@@ -5,7 +5,7 @@ use Tests\TestCase;
 
 pest()->extend(TestCase::class)->in('Feature', 'Unit');
 
-// Tudo que toca o banco roda com migrate:fresh no 'obraflow_testing' + transação por teste.
+// Tudo que toca o banco roda com migrate:fresh no 'viaobras_testing' + transação por teste.
 pest()->use(RefreshDatabase::class)->in(
     'Feature/Database',
     'Feature/Models',

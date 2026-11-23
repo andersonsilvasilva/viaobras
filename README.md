@@ -67,7 +67,7 @@ docker compose ps               # todos devem ficar "healthy"
 cd obraflow-api
 php artisan migrate                                    # 33 tabelas (Fases 1 e 2) (banco 'viaobras', usuário exclusivo — ver documentation/AMBIENTE_LOCAL.md)
 php artisan viaobras:provision --name="Minha Construtora" --admin-email=admin@empresa.com --admin-name="Fulano"
-vendor/bin/pest                                        # 291 testes (usa o banco 'obraflow_testing')
+vendor/bin/pest                                        # 291 testes (usa o banco 'viaobras_testing')
 ```
 
 ## Estado

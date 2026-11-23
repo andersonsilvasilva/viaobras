@@ -6,21 +6,21 @@ Servidor do Laragon (MySQL 8.0.30). Foram criados **somente**:
 
 ```sql
 CREATE DATABASE IF NOT EXISTS viaobras         CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-CREATE DATABASE IF NOT EXISTS obraflow_testing CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-CREATE USER IF NOT EXISTS 'obraflow_app'@'localhost' IDENTIFIED WITH caching_sha2_password BY '<gerada>';
-CREATE USER IF NOT EXISTS 'obraflow_app'@'127.0.0.1' IDENTIFIED WITH caching_sha2_password BY '<gerada>';
-GRANT ALL PRIVILEGES ON viaobras.*         TO 'obraflow_app'@'localhost', 'obraflow_app'@'127.0.0.1';
-GRANT ALL PRIVILEGES ON obraflow_testing.* TO 'obraflow_app'@'localhost', 'obraflow_app'@'127.0.0.1';
+CREATE DATABASE IF NOT EXISTS viaobras_testing CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE USER IF NOT EXISTS 'viaobras_app'@'localhost' IDENTIFIED WITH caching_sha2_password BY '<gerada>';
+CREATE USER IF NOT EXISTS 'viaobras_app'@'127.0.0.1' IDENTIFIED WITH caching_sha2_password BY '<gerada>';
+GRANT ALL PRIVILEGES ON viaobras.*         TO 'viaobras_app'@'localhost', 'viaobras_app'@'127.0.0.1';
+GRANT ALL PRIVILEGES ON viaobras_testing.* TO 'viaobras_app'@'localhost', 'viaobras_app'@'127.0.0.1';
 ```
 
-Resultado verificado: o usuário enxerga apenas `obraflow` e `obraflow_testing` (outros bancos do servidor não são visíveis nem alterados); sessão em `+00:00`; collation `utf8mb4_0900_ai_ci`. A senha foi gerada aleatoriamente e está **somente** no `.env` local (ignorado pelo Git).
+Resultado verificado: o usuário enxerga apenas `viaobras` e `viaobras_testing` (outros bancos do servidor não são visíveis nem alterados); sessão em `+00:00`; collation `utf8mb4_0900_ai_ci`. A senha foi gerada aleatoriamente e está **somente** no `.env` local (ignorado pelo Git).
 
 Em produção: o usuário da aplicação deve ter, em `audit_logs`, apenas `SELECT, INSERT` (imutabilidade — validado em [validacao-fase1/](validacao-fase1/README.md)); migrations rodam com outro usuário.
 
 ## 2. Configuração aplicada no código
 
 - `config/database.php` (mysql): `timezone => '+00:00'`, `engine => InnoDB`, collation `utf8mb4_0900_ai_ci`. Sem isso o MySQL com `time_zone=SYSTEM` deslocaria `TIMESTAMP` (provado em teste).
-- `phpunit.xml`: força `DB_DATABASE=obraflow_testing`.
+- `phpunit.xml`: força `DB_DATABASE=viaobras_testing`.
 
 ## 3. Drivers locais (Redis adiado)
 

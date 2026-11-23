@@ -27,8 +27,8 @@ jobs:
         env:
           # Credenciais EFÊMERAS de um banco descartável do job (não são segredos reais).
           MYSQL_ROOT_PASSWORD: ci-root-descartavel
-          MYSQL_DATABASE: obraflow_testing
-          MYSQL_USER: obraflow_app
+          MYSQL_DATABASE: viaobras_testing
+          MYSQL_USER: viaobras_app
           MYSQL_PASSWORD: ci-app-descartavel
         ports:
           - 3306:3306
@@ -39,8 +39,8 @@ jobs:
       DB_CONNECTION: mysql
       DB_HOST: 127.0.0.1
       DB_PORT: 3306
-      DB_DATABASE: obraflow_testing
-      DB_USERNAME: obraflow_app
+      DB_DATABASE: viaobras_testing
+      DB_USERNAME: viaobras_app
       DB_PASSWORD: ci-app-descartavel
     steps:
       - uses: actions/checkout@v4
@@ -54,7 +54,7 @@ jobs:
       - run: cp .env.example .env && php artisan key:generate
       - run: vendor/bin/pint --test
       - name: Versão do MySQL em uso
-        run: mysql -h127.0.0.1 -uobraflow_app -pci-app-descartavel -N -e "SELECT VERSION(), @@sql_mode, @@time_zone"
+        run: mysql -h127.0.0.1 -uviaobras_app -pci-app-descartavel -N -e "SELECT VERSION(), @@sql_mode, @@time_zone"
       - name: Testes (migrations, integridade, isolamento multi-tenant, autenticação, auditoria)
         run: vendor/bin/pest
 
