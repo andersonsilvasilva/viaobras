@@ -4,4 +4,7 @@
 vendor
 node_modules
 storage/logs/*
+# Caches de descoberta de pacotes são gerados no ambiente de cada máquina (podem listar pacotes
+# de desenvolvimento que não existem na imagem); o Laravel os recria sozinho na primeira requisição.
+bootstrap/cache/*.php
 tests
