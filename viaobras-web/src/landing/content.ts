@@ -23,6 +23,7 @@ export const SECTION_IDS = {
 export const NAV_LINKS = [
   { label: 'Plataforma', href: `#${SECTION_IDS.platform}` },
   { label: 'Recursos', href: `#${SECTION_IDS.features}` },
+  { label: 'Orçamentos', href: `#${SECTION_IDS.budget}` },
   { label: 'Benefícios', href: `#${SECTION_IDS.benefits}` },
 ] as const
 
@@ -72,8 +73,8 @@ export const SHOTS = {
   budget: {
     file: 'orcamentos.png',
     alt: 'Tela de orçamento da ViaObras com etapas, itens, BDI e preço final',
-    width: 1497,
-    height: 798,
+    width: 1425,
+    height: 802,
   },
   supplies: {
     file: 'suprimentos.png',
