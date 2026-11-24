@@ -1,0 +1,118 @@
+@import "tailwindcss";
+@import "@fontsource-variable/geist";
+
+/*
+ * ViaObras — Landing institucional.
+ * Bundle de CSS próprio (landing.html): não é carregado pelo app autenticado, então estes tokens
+ * (paleta "Nova paleta oficial — ViaObras") não alteram as telas do sistema.
+ * Os hexadecimais existem SOMENTE neste bloco; os componentes usam apenas as classes semânticas.
+ */
+:root {
+    --lp-sapphire: #0f52ba; /* azul-safira — principal */
+    --lp-sapphire-hover: #0b4298; /* safira escuro — hover */
+    --lp-soft: #eaf1ff; /* azul suave — destaques */
+    --lp-deep: #0a2e66; /* azul profundo — contraste */
+    --lp-graphite: #252a35;
+    --lp-gray: #f5f4f6;
+    --lp-white: #ffffff;
+    --lp-success: #16a34a;
+
+    /* derivados para texto/linhas (contraste AA conferido) */
+    --lp-muted: #566070; /* texto secundário sobre branco/cinza/azul suave */
+    --lp-line: #e1e4ea;
+    --lp-on-deep: #c9d8f5; /* texto secundário sobre azul profundo */
+    --lp-on-sapphire: #e4edff; /* texto secundário sobre azul-safira */
+
+    --lp-shadow-sm: 0 1px 2px rgb(16 24 40 / 0.05), 0 1px 3px rgb(16 24 40 / 0.07);
+    --lp-shadow-md: 0 6px 18px rgb(16 24 40 / 0.08);
+    --lp-shadow-shot: 0 18px 40px -12px rgb(10 46 102 / 0.28), 0 4px 10px rgb(16 24 40 / 0.06);
+}
+
+@theme inline {
+    --font-sans: 'Geist Variable', system-ui, sans-serif;
+
+    --color-brand: var(--lp-sapphire);
+    --color-brand-hover: var(--lp-sapphire-hover);
+    --color-brand-soft: var(--lp-soft);
+    --color-brand-deep: var(--lp-deep);
+    --color-ink: var(--lp-graphite);
+    --color-paper: var(--lp-gray);
+    --color-success: var(--lp-success);
+    --color-muted-ink: var(--lp-muted);
+    --color-line: var(--lp-line);
+    --color-on-deep: var(--lp-on-deep);
+    --color-on-brand: var(--lp-on-sapphire);
+
+    --shadow-lp-sm: var(--lp-shadow-sm);
+    --shadow-lp-md: var(--lp-shadow-md);
+    --shadow-lp-shot: var(--lp-shadow-shot);
+}
+
+@layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+        html {
+            scroll-behavior: smooth;
+        }
+    }
+    body {
+        @apply bg-white font-sans text-ink antialiased;
+    }
+    /* A navbar é sticky: as âncoras param abaixo dela. */
+    [id] {
+        scroll-margin-top: 4.5rem;
+    }
+    :focus-visible {
+        outline: 2px solid var(--lp-sapphire);
+        outline-offset: 2px;
+    }
+}
+
+/* ── Revelação ao entrar na viewport ──────────────────────────────────────────
+ * Só esconde quando o JS está ativo (classe "js" no <html>); sem JS o conteúdo aparece normalmente. */
+.js .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+    transition-delay: var(--reveal-delay, 0ms);
+}
+.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Barra de progresso decorativa do cartão flutuante do Hero. */
+@keyframes lp-grow {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+.lp-bar {
+    transform-origin: left;
+    animation: lp-grow 1.4s 0.5s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .js .reveal,
+    .js .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    .lp-bar {
+        animation: none;
+    }
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
