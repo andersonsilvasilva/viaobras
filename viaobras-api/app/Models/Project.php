@@ -27,7 +27,7 @@ class Project extends Model
         'in_progress' => ['paused', 'delayed', 'completed', 'canceled'],
         'paused' => ['in_progress', 'canceled'],
         'delayed' => ['in_progress', 'paused', 'completed', 'canceled'],
-        'completed' => [],
+        'completed' => ['in_progress'], // reabertura: só administrador, com motivo (ProjectController::changeStatus)
         'canceled' => [],
     ];
 

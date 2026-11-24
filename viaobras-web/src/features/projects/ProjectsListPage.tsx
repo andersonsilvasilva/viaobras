@@ -14,7 +14,7 @@ import { EntityFormModal } from '@/features/registry/components/EntityFormModal'
 import { getErrorMessage } from '@/lib/api-error'
 import { cn } from '@/lib/utils'
 import { formatDateOrDash } from '@/utils/format'
-import { atLeast, projectsApi, statusName, statusTone, transitions, type Project } from './api'
+import { atLeast, canChangeStatus, projectsApi, statusName, statusTone, type Project } from './api'
 import { projectBody, projectFields, projectToForm, useProjectLookups } from './form'
 
 type Situation = '' | 'active' | 'inactive'
@@ -92,7 +92,7 @@ export function ProjectsListPage() {
   const menu = (p: Project) => {
     const edit = atLeast(p.access_level, 'edit')
     return [
-      { label: 'Mudar status', icon: RefreshCw, disabled: !edit || transitions[p.status].length === 0, onClick: () => navigate(`/obras/${p.uuid}?acao=status`) },
+      { label: 'Mudar status', icon: RefreshCw, disabled: !canChangeStatus(p), onClick: () => navigate(`/obras/${p.uuid}?acao=status`) },
       { label: 'Editar', icon: Pencil, disabled: !edit, onClick: () => setForm({ row: p }) },
       { label: 'Efetivos (equipe)', icon: Users, onClick: () => navigate(`/obras/${p.uuid}?aba=equipe`) },
       { label: 'Acompanhamento financeiro', icon: Banknote, disabled: true, badge: SOON },

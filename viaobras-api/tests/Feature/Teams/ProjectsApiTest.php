@@ -118,6 +118,33 @@ it('acesso: só membro ativo do tenant; concessão, alteração e revogação au
 });
 
 // ---------------------------------------------------------------- status (D-P27)
+it('reabrir obra concluída: só administrador, com motivo; apaga o término real', function () {
+    $this->b->post("/api/v1/projects/{$this->obra}/status", ['status' => 'in_progress'])->assertOk();
+    $this->b->post("/api/v1/projects/{$this->obra}/status", ['status' => 'completed'])->assertOk();
+
+    grantTo($this, $this->memberA, 'edit');
+    $this->mb->post("/api/v1/projects/{$this->obra}/status", ['status' => 'in_progress', 'reason' => 'Foi engano'])->assertForbidden();
+
+    $this->b->post("/api/v1/projects/{$this->obra}/status", ['status' => 'in_progress'])
+        ->assertUnprocessable()->assertJsonValidationErrors('reason', 'error.details');
+    $this->b->post("/api/v1/projects/{$this->obra}/status", ['status' => 'paused', 'reason' => 'x'])
+        ->assertUnprocessable()->assertJsonPath('error.code', 'invalid_transition');
+    $this->b->post("/api/v1/projects/{$this->obra}/status", ['status' => 'in_progress', 'reason' => 'Concluída por engano'])
+        ->assertOk()->assertJsonPath('data.status', 'in_progress')->assertJsonPath('data.actual_end_date', null);
+});
+
+it('concluir a obra grava progresso 100% e término real (hoje, ou o já informado)', function () {
+    $this->b->post("/api/v1/projects/{$this->obra}/status", ['status' => 'in_progress'])->assertOk();
+    $this->b->post("/api/v1/projects/{$this->obra}/status", ['status' => 'completed'])->assertOk()
+        ->assertJsonPath('data.progress', 100)->assertJsonPath('data.actual_end_date', now()->toDateString());
+
+    $outra = $this->b->post('/api/v1/projects', ['company_uuid' => $this->co, 'name' => 'DEMO Término informado', 'start_date' => '2026-01-10'])->json('data.uuid');
+    $this->b->post("/api/v1/projects/{$outra}/status", ['status' => 'in_progress'])->assertOk();
+    $this->b->put("/api/v1/projects/{$outra}", ['actual_end_date' => '2026-03-15'])->assertOk();
+    $this->b->post("/api/v1/projects/{$outra}/status", ['status' => 'completed'])->assertOk()
+        ->assertJsonPath('data.progress', 100)->assertJsonPath('data.actual_end_date', '2026-03-15');
+});
+
 it('status: só transições permitidas; histórico append-only e auditoria com motivo', function () {
     $this->b->post("/api/v1/projects/{$this->obra}/status", ['status' => 'completed'])
         ->assertUnprocessable()->assertJsonPath('error.code', 'invalid_transition');

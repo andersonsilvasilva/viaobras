@@ -31,6 +31,7 @@ import {
   projectsApi,
   statusName,
   statusTone,
+  canChangeStatus,
   transitions,
   type AccessLevel,
   type Address,
@@ -128,7 +129,7 @@ export function ProjectDetailPage() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="lg" disabled={!canEdit || transitions[project.status].length === 0} onClick={() => setDialog({ kind: 'status' })}>
+          <Button variant="outline" size="lg" disabled={!canChangeStatus(project)} onClick={() => setDialog({ kind: 'status' })}>
             <RefreshCw className="size-4" /> Mudar status
           </Button>
           <Button size="lg" disabled={!canEdit} onClick={() => setDialog({ kind: 'edit' })}>
@@ -448,6 +449,7 @@ function StatusDialog({ project, onClose, onDone }: { project: Project; onClose:
   const [to, setTo] = useState<ProjectStatus>(next[0])
   const [reason, setReason] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const reopening = project.status === 'completed'
   const change = useMutation({
     mutationFn: () => projectsApi.changeStatus(project.uuid, to, reason.trim() || null),
     onSuccess: onDone,
@@ -465,7 +467,7 @@ function StatusDialog({ project, onClose, onDone }: { project: Project; onClose:
           <Button variant="outline" size="lg" onClick={onClose}>
             Cancelar
           </Button>
-          <Button size="lg" onClick={() => change.mutate()} disabled={change.isPending}>
+          <Button size="lg" onClick={() => change.mutate()} disabled={change.isPending || (reopening && !reason.trim())}>
             Salvar
           </Button>
         </>
@@ -486,10 +488,12 @@ function StatusDialog({ project, onClose, onDone }: { project: Project; onClose:
             ))}
           </SelectInput>
         </FormField>
-        <FormField label="Motivo" hint="Fica registrado no histórico e na auditoria.">
+        <FormField label="Motivo" required={reopening} hint="Fica registrado no histórico e na auditoria.">
           <TextArea value={reason} maxLength={500} onChange={(e) => setReason(e.target.value)} />
         </FormField>
-        {(to === 'completed' || to === 'canceled') && <Alert tone="warning">Concluída e cancelada são status finais: não é possível voltar.</Alert>}
+        {to === 'canceled' && <Alert tone="warning">Cancelada é um status final: não é possível voltar.</Alert>}
+        {to === 'completed' && <Alert tone="warning">Ao concluir, o progresso vai a 100% e o término real recebe a data de hoje. Um administrador pode reabrir a obra depois.</Alert>}
+        {reopening && <Alert tone="warning">Ao reabrir, a obra volta a Em andamento e o término real é apagado. O progresso não é alterado: ajuste-o na edição, se precisar.</Alert>}
       </div>
     </Modal>
   )

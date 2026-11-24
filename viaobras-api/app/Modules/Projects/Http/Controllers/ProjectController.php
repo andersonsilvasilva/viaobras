@@ -134,10 +134,16 @@ class ProjectController extends Controller
 
     public function changeStatus(ProjectDetailRequest $request, string $uuid): JsonResponse
     {
-        $project = $this->find($request, $uuid, 'edit');
+        $project = $this->find($request, $uuid, $this->statusAbility($uuid));
         $this->status->change($project, $request->validated('status'), $request->validated('reason'), $request->user());
 
         return $this->respond($request, $project->load(self::RELATIONS));
+    }
+
+    /** Reabrir obra concluída é decisão de administrador; as demais mudanças pedem só edição. */
+    private function statusAbility(string $uuid): string
+    {
+        return Project::query()->where('uuid', $uuid)->value('status') === 'completed' ? 'manage' : 'edit';
     }
 
     public function statusHistory(Request $request, string $uuid): JsonResponse

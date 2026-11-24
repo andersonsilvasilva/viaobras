@@ -115,7 +115,8 @@ it('obra: status não é preenchível (só pelo serviço de transição); client
 it('obra: transições de status permitidas (D-P27)', function () {
     expect(Project::canTransition('planning', 'in_progress'))->toBeTrue()
         ->and(Project::canTransition('planning', 'completed'))->toBeFalse()
-        ->and(Project::canTransition('completed', 'in_progress'))->toBeFalse()
+        ->and(Project::canTransition('completed', 'in_progress'))->toBeTrue()
+        ->and(Project::canTransition('completed', 'paused'))->toBeFalse()
         ->and(Project::canTransition('canceled', 'planning'))->toBeFalse()
         ->and(array_keys(Project::TRANSITIONS))->toBe(Project::STATUSES);
 });

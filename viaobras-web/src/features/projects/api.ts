@@ -128,9 +128,13 @@ export const transitions: Record<ProjectStatus, ProjectStatus[]> = {
   in_progress: ['paused', 'delayed', 'completed', 'canceled'],
   paused: ['in_progress', 'canceled'],
   delayed: ['in_progress', 'paused', 'completed', 'canceled'],
-  completed: [],
+  completed: ['in_progress'], // reabertura: só administrador, com motivo
   canceled: [],
 }
+
+/** Mudar status: reabrir obra concluída exige nível de administração; as demais, edição. */
+export const canChangeStatus = (p: Pick<Project, 'status' | 'access_level'>) =>
+  transitions[p.status].length > 0 && atLeast(p.access_level, p.status === 'completed' ? 'manage' : 'edit')
 
 export const statusTone: Record<ProjectStatus, 'neutral' | 'primary' | 'success' | 'warning' | 'danger'> = {
   planning: 'neutral',

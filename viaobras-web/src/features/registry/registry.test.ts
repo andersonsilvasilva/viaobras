@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { filterNavigation, firstPath, navigation, type NavNode } from '@/app/navigation'
-import { atLeast, transitions } from '@/features/projects/api'
+import { atLeast, canChangeStatus, transitions } from '@/features/projects/api'
 import { formatDocument } from '@/utils/format'
 import { clientPaged } from './paging'
 
@@ -63,10 +63,17 @@ describe('formatação de documentos', () => {
 })
 
 describe('obras', () => {
-  it('estados finais não têm transição (espelho de D-P27)', () => {
-    expect(transitions.completed).toEqual([])
+  it('cancelada é final; concluída só reabre para em andamento (espelho de D-P27)', () => {
+    expect(transitions.completed).toEqual(['in_progress'])
     expect(transitions.canceled).toEqual([])
     expect(transitions.planning).toEqual(['in_progress', 'canceled'])
+  })
+
+  it('reabrir obra concluída exige administração; as demais mudanças, edição', () => {
+    expect(canChangeStatus({ status: 'completed', access_level: 'edit' })).toBe(false)
+    expect(canChangeStatus({ status: 'completed', access_level: 'manage' })).toBe(true)
+    expect(canChangeStatus({ status: 'in_progress', access_level: 'edit' })).toBe(true)
+    expect(canChangeStatus({ status: 'canceled', access_level: 'manage' })).toBe(false)
   })
 
   it('nível de acesso: view < edit < manage', () => {

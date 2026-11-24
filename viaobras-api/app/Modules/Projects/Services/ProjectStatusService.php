@@ -29,7 +29,17 @@ final class ProjectStatusService
                 throw ApiException::unprocessable('invalid_transition', "Transição de status não permitida: {$from} → {$to}.");
             }
 
-            $locked->forceFill(['status' => $to])->save();
+            $changes = ['status' => $to];
+            if ($to === 'completed') {
+                // Concluir a obra fecha os marcadores: 100% e término real (hoje, sem ficar antes do início).
+                $changes['progress'] = 100;
+                $changes['actual_end_date'] = $locked->actual_end_date?->toDateString()
+                    ?? max(now()->startOfDay(), $locked->start_date ?? now()->startOfDay())->toDateString();
+            }
+            if ($from === 'completed') {
+                $changes['actual_end_date'] = null; // obra reaberta: o término real deixa de valer
+            }
+            $locked->forceFill($changes)->save();
 
             $history = new ProjectStatusHistory;
             $history->forceFill([
@@ -38,7 +48,7 @@ final class ProjectStatusService
             ])->save();
 
             $this->audit->record(AuditEvent::PROJECT_STATUS_CHANGED, tenantId: $this->context->idOrFail(), userId: $actor->getKey(),
-                entityType: 'project', entityId: $locked->id, old: ['status' => $from], new: ['status' => $to],
+                entityType: 'project', entityId: $locked->id, old: ['status' => $from], new: $changes,
                 metadata: $reason === null ? [] : ['reason' => $reason]);
 
             return $project->setRawAttributes($locked->getAttributes(), true);

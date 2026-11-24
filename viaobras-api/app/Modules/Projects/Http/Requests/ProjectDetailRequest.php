@@ -49,7 +49,7 @@ class ProjectDetailRequest extends TenantRequest
             ],
             str_ends_with($name, 'projects.status') => [
                 'status' => ['required', Rule::in(Project::STATUSES)],
-                'reason' => ['nullable', 'string', 'max:500'],
+                'reason' => [Rule::requiredIf(fn () => Project::query()->where('uuid', $this->route('uuid'))->value('status') === 'completed'), 'nullable', 'string', 'max:500'],
             ],
             str_ends_with($name, 'projects.access.store') => [
                 'user_uuid' => ['required', 'uuid',
