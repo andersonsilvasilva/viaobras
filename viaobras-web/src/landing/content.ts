@@ -74,7 +74,7 @@ export const SHOTS = {
     file: 'orcamentos.png',
     alt: 'Tela de orçamento da ViaObras com etapas, itens, BDI e preço final',
     width: 1425,
-    height: 802,
+    height: 856,
   },
   supplies: {
     file: 'suprimentos.png',
@@ -91,7 +91,7 @@ export const SHOTS = {
 export const CROPS = {
   /** Obras: aproximado no cartão da obra e nos primeiros indicadores (sem a barra lateral). */
   projects: { x: 0.19, y: 0.085, w: 0.45, h: 0.7 },
-  /** Orçamento: o recorte já está gravado no arquivo (sem o cabeçalho com o nome do cliente). */
+  /** Orçamento: o recorte (sem a barra lateral) já está gravado no arquivo. */
   budget: { x: 0, y: 0, w: 1, h: 1 },
   /** Suprimentos: a tabela inteira, com prioridade e situação à direita. */
   supplies: { x: 0.19, y: 0, w: 0.76, h: 0.67 },
