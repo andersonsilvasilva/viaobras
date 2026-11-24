@@ -58,8 +58,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         try {
           await authService.logout()
         } finally {
-          client.clear()
+          // Sem client.clear(): ele solta a consulta da sessão e a tela seguiria logada. Zera a sessão
+          // e descarta só os dados das demais telas.
           apply(null)
+          client.removeQueries({ predicate: (q) => q.queryKey[0] !== 'auth' })
         }
       },
       selectTenant: async (uuid) => {

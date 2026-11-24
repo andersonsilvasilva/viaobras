@@ -266,8 +266,11 @@ function UserCard({ collapsed }: { collapsed: boolean }) {
   if (!me) return null
 
   const exit = async () => {
-    await logout()
-    navigate('/login', { replace: true })
+    try {
+      await logout()
+    } finally {
+      navigate('/login', { replace: true })
+    }
   }
 
   return (
