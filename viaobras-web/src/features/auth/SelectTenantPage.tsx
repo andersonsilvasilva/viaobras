@@ -1,3 +1,4 @@
+import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { Building2, Loader2, LogOut } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -29,7 +30,7 @@ export function SelectTenantPage() {
   const tenants = me?.tenants ?? []
 
   return (
-    <main className="bg-background flex min-h-dvh items-center justify-center p-4">
+    <main className="bg-background flex min-h-dvh flex-col items-center justify-center gap-4 p-4">
       <div className="bg-card shadow-card w-full max-w-md rounded-xl border p-6">
         <h1 className="mb-1 text-lg font-semibold">Escolha a organização</h1>
         <p className="text-muted-foreground mb-5 text-sm">Olá, {me?.user.name}. Em qual organização deseja trabalhar?</p>
@@ -59,6 +60,7 @@ export function SelectTenantPage() {
           <LogOut className="size-4" /> Sair
         </Button>
       </div>
+      <ThemeToggle />
     </main>
   )
 }

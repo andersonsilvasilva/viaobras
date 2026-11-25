@@ -94,3 +94,13 @@ Arquivos enviados pelo responsável. Os originais ficam em `documentation/marca/
 
 - O símbolo tem azul-marinho, azul-safira e amarelo (capacete). Sobre o menu grafite, ele fica num fundo claro (`--card`) arredondado, porque o azul-marinho não tem contraste direto sobre o grafite.
 - O amarelo do capacete é da marca. Na interface, a cor de destaque continua sendo o azul-safira (sem laranja nem amarelo nos componentes).
+
+## Tema claro e escuro (A-67, 2026-11-25)
+
+- **Opções:** Claro (padrão, mesmo com o aparelho no escuro), Escuro e Automático. A escolha fica no navegador (`viaobras:theme`).
+- **Como funciona:** a classe `.dark` no `<html>` redefine os tokens semânticos em `src/index.css`. Componentes continuam usando só tokens; as utilidades `dark:` seguem essa classe, não o aparelho. `public/theme-init.js` aplica o tema antes da primeira pintura.
+- **Azul no escuro:** mais claro, para ter contraste como link; o texto sobre o botão azul fica escuro.
+- **Texto em azul-marinho:** usar `text-secondary-foreground` (no claro é o azul-marinho). `--primary-deep` é preenchimento.
+- **Logomarca:** usar o componente `BrandLogo` (no escuro, a versão negativa). Os arquivos não têm transparência: o símbolo precisa de fundo branco (`--brand-white`).
+- **Contraste:** `src/lib/theme.test.ts` confere os pares principais de texto e fundo nos dois temas (WCAG AA). Cor nova entra nos dois blocos.
+- **Fora:** a página inicial, a de planos (estilos próprios) e os relatórios em PDF, XLSX e DOCX.

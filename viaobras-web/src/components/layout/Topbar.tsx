@@ -1,4 +1,5 @@
 import { Menu } from 'lucide-react'
+import { ThemeButton } from '@/components/layout/ThemeToggle'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/features/auth/auth-context'
 
@@ -13,8 +14,9 @@ export function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
       <Button variant="ghost" size="icon" onClick={onOpenMenu} aria-label="Abrir menu">
         <Menu className="size-5" />
       </Button>
-      <img src="/brand/logo-simbolo.png" alt="ViaObras" width={209} height={178} className="h-7 w-auto shrink-0" />
-      <span className="truncate text-sm font-semibold">{me?.active_tenant?.name ?? 'ViaObras'}</span>
+      <img src="/brand/logo-simbolo.png" alt="ViaObras" width={209} height={178} className="h-7 w-auto shrink-0 rounded-md" />
+      <span className="min-w-0 flex-1 truncate text-sm font-semibold">{me?.active_tenant?.name ?? 'ViaObras'}</span>
+      <ThemeButton className="shrink-0" />
     </header>
   )
 }

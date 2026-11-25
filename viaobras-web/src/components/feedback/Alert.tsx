@@ -6,7 +6,7 @@ type AlertTone = 'info' | 'success' | 'warning' | 'danger'
 
 // Cores de texto escolhidas para contraste AA sobre o fundo suave (ver DESIGN_SYSTEM.md).
 const tones: Record<AlertTone, { icon: typeof Info; cls: string }> = {
-  info: { icon: Info, cls: 'bg-primary-soft text-primary-deep' },
+  info: { icon: Info, cls: 'bg-primary-soft text-secondary-foreground' },
   success: { icon: CircleCheck, cls: 'bg-success-soft text-success-strong' },
   warning: { icon: TriangleAlert, cls: 'bg-warning-soft text-warning-strong' },
   danger: { icon: CircleAlert, cls: 'bg-destructive-soft text-destructive' },

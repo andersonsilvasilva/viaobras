@@ -1,6 +1,7 @@
 import { Building2, Calculator, CalendarDays, HardHat } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BrandLogo } from '@/components/layout/BrandLogo'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/features/auth/auth-context'
@@ -15,8 +16,8 @@ function greeting(hour: number): string {
 
 /**
  * Abertura do Visão geral: logomarca, saudação, organização e data, com atalhos. Fundo claro com degradê suave
- * em azul-safira e o símbolo como marca d'água — o "Obra" da logo é azul-marinho, então a logo fica sobre fundo
- * claro (DESIGN_SYSTEM.md, Logomarca). Só tokens: nenhuma cor fixa.
+ * em azul-safira e o símbolo como marca d'água. No tema escuro a logo troca para a versão negativa (BrandLogo) e a
+ * marca d'água sai, porque o arquivo do símbolo tem fundo branco. Só tokens: nenhuma cor fixa.
  */
 export function DashboardHero() {
   const { me, can } = useAuth()
@@ -36,13 +37,13 @@ export function DashboardHero() {
         aria-hidden
         width={209}
         height={178}
-        className="pointer-events-none absolute -right-6 -bottom-10 hidden h-56 w-auto opacity-[0.08] select-none md:block"
+        className="pointer-events-none absolute -right-6 -bottom-10 hidden h-56 w-auto opacity-[0.08] select-none md:block dark:hidden"
       />
       <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-(--primary-deep) via-(--primary) to-(--chart-3)" aria-hidden />
 
       <div className="relative flex flex-col gap-5 p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-          <img src="/brand/logo-completa.png" alt="ViaObras" width={806} height={240} className="h-12 w-auto shrink-0 sm:h-14" />
+          <BrandLogo className="h-12 self-start sm:h-14 sm:self-center" />
           <div className="bg-border hidden h-14 w-px sm:block" aria-hidden />
           <div className="min-w-0">
             <h1 className="text-2xl font-semibold tracking-tight">

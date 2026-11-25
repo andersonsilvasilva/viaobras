@@ -1,14 +1,16 @@
 import { ArrowLeft } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { BrandLogo } from '@/components/layout/BrandLogo'
+import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { SITE_URL } from '@/landing/content'
 
 /** Moldura das telas sem sessão (login, redefinir senha e aceitar convite). */
 export function AuthCard({ title, description, children }: { title: string; description?: string; children: ReactNode }) {
   return (
-    <main className="bg-background flex min-h-dvh items-center justify-center p-4">
+    <main className="bg-background flex min-h-dvh flex-col items-center justify-center gap-4 p-4">
       <div className="bg-card shadow-card w-full max-w-sm rounded-xl border p-6">
         <div className="mb-6 flex justify-center">
-          <img src="/brand/logo-completa.png" alt="ViaObras" width={806} height={240} className="h-11 w-auto" />
+          <BrandLogo className="h-11" />
         </div>
         <h1 className="mb-1 text-lg font-semibold">{title}</h1>
         {description && <p className="text-muted-foreground mb-5 text-sm">{description}</p>}
@@ -19,6 +21,7 @@ export function AuthCard({ title, description, children }: { title: string; desc
           </a>
         </div>
       </div>
+      <ThemeToggle />
     </main>
   )
 }

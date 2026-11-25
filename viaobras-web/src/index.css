@@ -3,12 +3,17 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 
+/* as utilidades dark: seguem o tema ESCOLHIDO no app (classe .dark), não o tema do aparelho */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
  * ViaObras — Design Tokens
  * Fonte única da identidade visual (azul-safira). Os hexadecimais existem
  * SOMENTE neste bloco; componentes usam apenas tokens semânticos.
  */
 :root {
+    color-scheme: light;
+
     /* Primitivos de marca (Paleta Oficial ViaObras — manual da marca) */
     --brand-sapphire: #0052d4;
     --brand-sapphire-hover: #0042ab;
@@ -54,6 +59,10 @@
     --destructive-foreground: var(--brand-white);
     --destructive-soft: #fdeaea;
 
+    /* Linhas da grade do cronograma: cinza semitransparente, o MESMO nos dois temas (o componente lê a cor uma
+       única vez, ao montar). No claro fica como a borda; no escuro continua visível. Precisa ser hexadecimal. */
+    --grid-line: #7f8aa34d;
+
     /* Gráficos: tons de azul + complementares (sem laranja) */
     --chart-1: var(--brand-sapphire);
     --chart-2: var(--brand-deep);
@@ -80,6 +89,61 @@
     --sidebar-width: 16rem;
     --sidebar-width-collapsed: 4.25rem;
     --topbar-height: 3.5rem;
+}
+
+/*
+ * Tema escuro: só redefine os tokens semânticos. O azul fica mais claro para ter contraste como texto e link;
+ * por isso o texto sobre o botão azul passa a ser escuro. O contraste dos dois temas é conferido em theme.test.ts.
+ */
+.dark {
+    color-scheme: dark;
+
+    --background: #0f1420;
+    --foreground: #e6e9f0;
+    --card: #171e2c;
+    --card-foreground: #e6e9f0;
+    --popover: #1d2535;
+    --popover-foreground: #e6e9f0;
+    --primary: #6ea8ff;
+    --primary-hover: #8dbbff;
+    --primary-foreground: #08152b;
+    --primary-soft: #1b2b4b;
+    --primary-deep: #1d4f9e; /* preenchimento escuro (barras do cronograma); texto usa secondary-foreground */
+    --secondary: #1b2b4b;
+    --secondary-foreground: #c9dcff;
+    --muted: #1f2737;
+    --muted-foreground: #a6afc0;
+    --accent: #1b2b4b;
+    --accent-foreground: #c9dcff;
+    --border: #2b3448;
+    --input: #3b465e;
+    --ring: #6ea8ff;
+    --success: #34cf86;
+    --success-foreground: #052315;
+    --success-soft: #12301f;
+    --success-strong: #74e8ac;
+    --warning: #e3aa44;
+    --warning-foreground: #241700;
+    --warning-soft: #33270f;
+    --warning-strong: #f6c870;
+    --destructive: #ff928a;
+    --destructive-foreground: #2b0705;
+    --destructive-soft: #3a1c1f;
+
+    --chart-1: #6ea8ff;
+    --chart-2: #bcd4ff;
+    --chart-3: #3f7fe0;
+    --chart-4: #4f74b8;
+    --chart-5: #34cf86;
+
+    --sidebar: #0a0e17;
+    --sidebar-foreground: #c9d0dd;
+    --sidebar-accent: #1b2232;
+    --sidebar-border: #222b3d;
+    --sidebar-ring: #6ea8ff;
+
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 1px 3px rgb(0 0 0 / 0.45);
+    --shadow-overlay: 0 12px 32px rgb(0 0 0 / 0.6);
 }
 
 @theme inline {
@@ -154,4 +218,23 @@
     :focus-visible {
         @apply outline-2 outline-offset-2 outline-ring;
     }
+}
+
+/* componentes de terceiros com fundo claro fixo */
+.dark .recharts-default-tooltip {
+    background: var(--popover) !important;
+    border-color: var(--border) !important;
+    color: var(--popover-foreground);
+}
+/* legenda: o texto na cor da série (tons escuros de azul) some no fundo escuro; o marcador mantém a cor */
+.dark .recharts-legend-item-text {
+    color: var(--foreground) !important;
+}
+.dark .recharts-tooltip-cursor {
+    fill: var(--muted);
+}
+.dark .leaflet-popup-content-wrapper,
+.dark .leaflet-popup-tip {
+    background: var(--popover);
+    color: var(--popover-foreground);
 }

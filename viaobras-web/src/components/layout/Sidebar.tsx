@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Check, ChevronDown, ChevronRight, ChevronsLeft, ChevronsRight, LogOut, Loader2 } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { ThemeButton, ThemeToggle } from '@/components/layout/ThemeToggle'
 import { filterNavigation, firstPath, navigation, type NavNode } from '@/app/navigation'
 import { useToast } from '@/app/providers/ToastProvider'
 import { useAuth } from '@/features/auth/auth-context'
@@ -74,6 +75,10 @@ export function Sidebar({ collapsed, onToggle, onNavigate }: SidebarProps) {
             <NavEntry key={node.label} node={node} depth={0} trail="" collapsed={collapsed} open={open} onToggleGroup={toggleGroup} onNavigate={onNavigate} />
           ))}
         </ul>
+      </div>
+
+      <div className="border-sidebar-border flex shrink-0 justify-center border-t px-3 py-2">
+        {collapsed ? <ThemeButton className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground" /> : <ThemeToggle tone="sidebar" className="w-full" />}
       </div>
 
       <UserCard collapsed={collapsed} />
@@ -230,7 +235,7 @@ function OrganizationSwitcher({ collapsed, onToggle }: { collapsed: boolean; onT
           aria-expanded={menu}
           className="hover:bg-sidebar-accent flex min-w-0 flex-1 items-center gap-2 rounded-lg p-1.5 text-left disabled:hover:bg-transparent"
         >
-          <span className="shrink-0 rounded-md bg-(--card) p-0.5">
+          <span className="shrink-0 rounded-md bg-(--brand-white) p-0.5">
             <img src="/brand/logo-simbolo.png" alt="" width={209} height={178} className="h-7 w-auto" />
           </span>
           <span className="min-w-0 flex-1">
@@ -248,7 +253,7 @@ function OrganizationSwitcher({ collapsed, onToggle }: { collapsed: boolean; onT
       >
         {collapsed ? (
           <span className="flex flex-col items-center gap-1">
-            <span className="rounded-md bg-(--card) p-0.5">
+            <span className="rounded-md bg-(--brand-white) p-0.5">
               <img src="/brand/logo-simbolo.png" alt="ViaObras" width={209} height={178} className="h-6 w-auto" />
             </span>
             <ChevronsRight className="size-4" />

@@ -6,7 +6,7 @@ export type StatusTone = 'neutral' | 'primary' | 'success' | 'warning' | 'danger
 
 const toneClass: Record<StatusTone, string> = {
   neutral: 'bg-muted text-muted-foreground',
-  primary: 'bg-primary-soft text-primary-deep',
+  primary: 'bg-primary-soft text-secondary-foreground',
   success: 'bg-success-soft text-success-strong',
   warning: 'bg-warning-soft text-warning-strong',
   danger: 'bg-destructive-soft text-destructive',
@@ -81,7 +81,7 @@ export function ProgressIndicator({ value, label }: { value: number; label?: str
 
 export function DemoBanner({ children }: { children?: ReactNode }) {
   return (
-    <div className="bg-primary-soft text-primary-deep mb-4 rounded-lg px-3 py-2 text-sm" role="note">
+    <div className="bg-primary-soft text-secondary-foreground mb-4 rounded-lg px-3 py-2 text-sm" role="note">
       <strong>Dados de demonstração.</strong> {children ?? 'Os valores exibidos são fictícios e não representam informações reais ou oficiais.'}
     </div>
   )

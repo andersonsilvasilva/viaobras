@@ -13,6 +13,8 @@
     --wx-background-alt: var(--muted);
     --wx-border: 1px solid var(--border);
     --wx-gantt-border-color: var(--border);
+    /* usada pelo componente para DESENHAR a grade (ele procura o "#" no valor) e pelas bordas da tabela e da escala */
+    --wx-gantt-border: 1px solid var(--grid-line);
     --wx-gantt-task-color: var(--primary);
     --wx-gantt-task-fill-color: var(--primary-deep);
     --wx-gantt-task-border-color: var(--primary-deep);
@@ -208,4 +210,10 @@
 .viaobras-gantt.of-panning * {
     cursor: grabbing !important;
     user-select: none;
+}
+
+/* escuro: a barra de resumo não pode ficar clara sob o texto */
+.dark .viaobras-gantt,
+.dark .viaobras-gantt .wx-willow-theme {
+    --wx-gantt-summary-color: var(--primary);
 }
