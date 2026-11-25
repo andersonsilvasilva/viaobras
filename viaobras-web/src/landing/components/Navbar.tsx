@@ -5,7 +5,13 @@ import { ButtonLink } from './primitives'
 
 const MENU_ID = 'menu-mobile'
 
-export function Navbar() {
+interface NavbarProps {
+  links?: ReadonlyArray<{ label: string; href: string }>
+  homeHref?: string
+  homeLabel?: string
+}
+
+export function Navbar({ links = NAV_LINKS, homeHref = `#${SECTION_IDS.top}`, homeLabel = 'ViaObras — voltar ao início' }: NavbarProps) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
@@ -45,12 +51,12 @@ export function Navbar() {
       }`}
     >
       <nav aria-label="Principal" className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href={`#${SECTION_IDS.top}`} aria-label="ViaObras — voltar ao início" className="rounded-md">
+        <a href={homeHref} aria-label={homeLabel} className="rounded-md">
           <img src="/brand/logo-completa.png" alt="ViaObras" width={806} height={240} className="h-9 w-auto" />
         </a>
 
         <ul className="hidden items-center gap-1 md:flex">
-          {NAV_LINKS.map((link) => (
+          {links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
@@ -80,7 +86,7 @@ export function Navbar() {
 
       <div id={MENU_ID} hidden={!open} className="border-t border-line bg-white md:hidden">
         <ul className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3 sm:px-6">
-          {NAV_LINKS.map((link) => (
+          {links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}

@@ -1,0 +1,11 @@
+@import "../landing/landing.css";
+
+/* Página de planos: mesmos tokens da landing; só o safira escuro segue o valor do pedido desta página. */
+:root {
+    --lp-sapphire-hover: #0a4298;
+}
+
+/* Brilho azul muito discreto no topo. */
+.pricing-glow {
+    background: radial-gradient(60rem 26rem at 50% -6rem, var(--lp-soft), transparent 70%);
+}

@@ -8,11 +8,12 @@ export default defineConfig({
   resolve: { alias: { '@': path.resolve(import.meta.dirname, './src') } },
   server: { port: 5173, host: true },
   build: {
-    // Duas páginas: o app autenticado (index.html) e a landing institucional (landing.html).
+    // Páginas: o app autenticado (index.html), a landing institucional (landing.html) e a de planos (planos.html).
     rollupOptions: {
       input: {
         main: path.resolve(import.meta.dirname, 'index.html'),
         landing: path.resolve(import.meta.dirname, 'landing.html'),
+        planos: path.resolve(import.meta.dirname, 'planos.html'),
       },
     },
   },

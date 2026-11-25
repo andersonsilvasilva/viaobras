@@ -97,7 +97,7 @@ export function Lead({ children, onDark, className }: { children: ReactNode; onD
   )
 }
 
-type ButtonVariant = 'primary' | 'secondary' | 'light' | 'ghostLight'
+export type ButtonVariant = 'primary' | 'secondary' | 'light' | 'ghostLight'
 
 const BUTTON: Record<ButtonVariant, string> = {
   primary: 'bg-brand text-white shadow-lp-sm hover:bg-brand-hover focus-visible:outline-brand',
