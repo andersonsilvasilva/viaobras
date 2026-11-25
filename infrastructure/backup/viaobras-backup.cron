@@ -1,0 +1,10 @@
+# /etc/cron.d/viaobras-backup (dono root, modo 644). Horários em UTC.
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# cópia a cada 6 horas
+17 */6 * * * root timeout 30m /opt/viaobras/backup-tool/viaobras-backup.sh run >> /var/log/viaobras-backup.log 2>&1
+# retenção, uma vez por dia
+47 4 * * * root timeout 45m /opt/viaobras/backup-tool/viaobras-backup.sh forget >> /var/log/viaobras-backup.log 2>&1
+# integridade, aos domingos
+17 5 * * 0 root timeout 90m /opt/viaobras/backup-tool/viaobras-backup.sh check >> /var/log/viaobras-backup.log 2>&1

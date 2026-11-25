@@ -1,0 +1,4 @@
+# Estes arquivos rodam no servidor Linux: quebra de linha LF, mesmo com core.autocrlf no Windows.
+*.sh text eol=lf
+*.cron text eol=lf
+config.exemplo text eol=lf

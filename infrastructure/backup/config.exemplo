@@ -1,0 +1,12 @@
+# Copiar para /etc/viaobras-backup/config (dono root, modo 600) e preencher NO SERVIDOR.
+# Nunca gravar a versão preenchida no repositório.
+
+# destino no Google Drive, pelo rclone ("gdrive" é o nome do acesso criado no rclone)
+RESTIC_REPOSITORY="rclone:gdrive:viaobras-backup"
+# arquivo com a senha do repositório (modo 600). Guarde uma cópia da senha FORA do servidor.
+RESTIC_PASSWORD_FILE="/etc/viaobras-backup/senha"
+RCLONE_CONFIG="/etc/viaobras-backup/rclone.conf"
+
+# monitor externo de sinal de vida: um endereço para o backup e outro para a verificação semanal
+HEARTBEAT_URL=""
+HEARTBEAT_CHECK_URL=""
