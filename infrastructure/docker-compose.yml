@@ -36,6 +36,9 @@ services:
       API_TOKEN_MAX_DAYS: ${API_TOKEN_MAX_DAYS:-90}
       INVITATION_TTL_DAYS: ${INVITATION_TTL_DAYS:-7}
       LOG_CHANNEL: stderr
+    volumes:
+      # arquivos enviados (documentos e anexos privados): sem o volume, recriar o contêiner os apagaria
+      - api_storage:/var/www/html/storage/app
     depends_on:
       mysql:
         condition: service_healthy
@@ -121,6 +124,7 @@ services:
 volumes:
   mysql_data:
   redis_data:
+  api_storage:
 
 networks:
   frontend:
