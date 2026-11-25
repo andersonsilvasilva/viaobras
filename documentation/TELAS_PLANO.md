@@ -13,7 +13,7 @@
 
 ## Decisões de integração
 
-- **T-01 — API real × demonstração:** os módulos com backend (Fases 1–3) usam **sempre** a API. As telas-protótipo sem backend (dashboard, orçamentos, suprimentos) continuam com dados demonstrativos, marcadas como **"Demonstração"** no menu; `VITE_USE_MOCKS` passa a valer só para elas.
+- **T-01 — API real × demonstração:** os módulos com backend (Fases 1–3) usam **sempre** a API. As telas-protótipo sem backend (dashboard, orçamentos, suprimentos) continuam com dados demonstrativos (Suprimentos deixou de ser demonstração na 7A, [FASE7A_MODELO.md](FASE7A_MODELO.md)), marcadas como **"Demonstração"** no menu; `VITE_USE_MOCKS` passa a valer só para elas.
 - **T-02 — Autenticação:** somente sessão por cookie (Sanctum SPA), com `GET /sanctum/csrf-cookie` e cabeçalho `X-XSRF-TOKEN` nas escritas. Nenhum token é guardado no navegador. A organização ativa vem do servidor (`/auth/me`); o `X-Tenant-Hint` continua só como dica.
 - **T-03 — Permissões na interface:** o menu mostra só o que o usuário pode consultar; ações sem permissão aparecem **desabilitadas** (padrão, ajuste 6). A API continua sendo a autoridade (403/404).
 - **T-04 — Dados:** nada de dados fictícios no banco real; a tela vazia mostra o estado vazio com "Adicionar".

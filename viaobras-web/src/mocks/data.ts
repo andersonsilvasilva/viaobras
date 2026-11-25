@@ -1,6 +1,6 @@
 // DADOS DEMONSTRATIVOS — fictícios. Códigos "DEMO-*" não correspondem a tabelas
 // oficiais (SINAPI, SUDECAP etc.) e não devem ser usados como referência de preço.
-import type { Budget, BudgetGroup, Composition, DashboardData, Party, Project, PurchaseRequest } from '@/types'
+import type { Budget, BudgetGroup, Composition, DashboardData, Party, Project } from '@/types'
 
 export const projects: Project[] = [
   { id: 'p1', code: 'OBR-001', name: 'Residencial Modelo A', customer: 'Cliente Demo 01', manager: 'Responsável Demo A', startDate: '2026-01-12', expectedEndDate: '2027-02-28', budget: 4_850_000, progress: 62, status: 'in_progress' },
@@ -70,14 +70,6 @@ export const initialBudgetGroups: BudgetGroup[] = [
       { id: 'it6', code: 'DEMO-L-030', description: 'Equipe de acabamento (demonstrativo)', type: 'labor', unit: 'h', quantity: 1_800, unitPrice: 26 },
     ],
   },
-]
-
-export const purchaseRequests: PurchaseRequest[] = [
-  { id: 'r1', number: 'SOL-0101', project: 'Residencial Modelo A', requester: 'Responsável Demo A', date: '2026-10-28', itemsCount: 6, priority: 'high', status: 'pending' },
-  { id: 'r2', number: 'SOL-0102', project: 'Galpão Logístico Demo', requester: 'Responsável Demo B', date: '2026-10-30', itemsCount: 3, priority: 'urgent', status: 'approved' },
-  { id: 'r3', number: 'SOL-0103', project: 'Edifício Comercial Demo', requester: 'Responsável Demo A', date: '2026-11-02', itemsCount: 12, priority: 'medium', status: 'quoting' },
-  { id: 'r4', number: 'SOL-0104', project: 'Centro de Distribuição Demo', requester: 'Responsável Demo C', date: '2026-11-05', itemsCount: 2, priority: 'low', status: 'draft' },
-  { id: 'r5', number: 'SOL-0105', project: 'Residencial Modelo A', requester: 'Responsável Demo B', date: '2026-11-09', itemsCount: 8, priority: 'medium', status: 'rejected' },
 ]
 
 export const customers: Party[] = [

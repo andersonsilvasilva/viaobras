@@ -117,11 +117,14 @@ export const contractsApi = {
   },
 }
 
-/** Documentos ligados a um contrato ou aditivo (D-P55): cria o documento com o arquivo e vincula. */
+/** Donos de anexos que usam este painel: contrato, aditivo (D-P55) e solicitação de materiais (D-P110). */
+export type AttachmentOwner = 'contract' | 'contract_addendum' | 'purchase_request'
+
+/** Documentos ligados a um dono: cria o documento com o arquivo e vincula. */
 export const attachmentsApi = {
-  list: (type: 'contract' | 'contract_addendum', key: string) =>
+  list: (type: AttachmentOwner, key: string) =>
     http<Page<LinkedDocument>>('/documents', { query: { linkable_type: type, linkable_key: key, per_page: 100 } }).then((p) => p.data),
-  upload: async (type: 'contract' | 'contract_addendum', key: string, title: string, file: File) => {
+  upload: async (type: AttachmentOwner, key: string, title: string, file: File) => {
     const form = new FormData()
     form.append('title', title)
     form.append('file', file)

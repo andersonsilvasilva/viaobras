@@ -43,6 +43,8 @@ const PHASE5_TABLES = [
     'schedule_baselines', 'schedule_dependencies', 'schedule_progress_history', 'schedule_tasks', 'schedules',
     // 6B — recursos do planejamento e composições próprias
     'own_compositions', 'schedule_task_items',
+    // 7A — solicitações de materiais
+    'purchase_request_history', 'purchase_request_items', 'purchase_requests',
 ];
 
 function dbName(): string

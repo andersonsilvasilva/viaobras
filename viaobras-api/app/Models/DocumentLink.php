@@ -15,7 +15,7 @@ class DocumentLink extends Model
 {
     use BelongsToTenant;
 
-    public const LINKABLE_TYPES = ['company', 'company_branch', 'customer', 'supplier', 'employee', 'equipment', 'project', 'contract', 'contract_addendum'];
+    public const LINKABLE_TYPES = ['company', 'company_branch', 'customer', 'supplier', 'employee', 'equipment', 'project', 'contract', 'contract_addendum', 'purchase_request'];
 
     protected $guarded = ['*'];
 

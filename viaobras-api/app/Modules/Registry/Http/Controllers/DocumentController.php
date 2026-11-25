@@ -15,6 +15,7 @@ use App\Models\DocumentVersion;
 use App\Models\Employee;
 use App\Models\Equipment;
 use App\Models\Project;
+use App\Models\PurchaseRequest;
 use App\Models\Supplier;
 use App\Modules\Contracts\Services\ContractAccess;
 use App\Modules\Projects\Services\ProjectAccess;
@@ -29,6 +30,7 @@ use App\Modules\Registry\Services\DocumentAccess;
 use App\Modules\Registry\Services\DocumentStorage;
 use App\Modules\Registry\Services\RegistryService;
 use App\Modules\Shared\Exceptions\ApiException;
+use App\Modules\Supplies\Services\PurchaseRequestAccess;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -56,6 +58,8 @@ class DocumentController extends Controller
         // Fase 5A (D-P55): contrato pelo uuid; aditivo pelo id. Ver/vincular segue o acesso ao contrato (obra)
         'contract' => [Contract::class, 'uuid'],
         'contract_addendum' => [ContractAddendum::class, 'id'],
+        // Fase 7A (D-P110): anexos e fotos da solicitação; ver e vincular seguem o PurchaseRequestAccess
+        'purchase_request' => [PurchaseRequest::class, 'uuid'],
     ];
 
     public function __construct(
@@ -64,6 +68,7 @@ class DocumentController extends Controller
         private readonly RegistryService $registry,
         private readonly ProjectAccess $projects,
         private readonly ContractAccess $contracts,
+        private readonly PurchaseRequestAccess $purchases,
     ) {}
 
     public function index(Request $request): JsonResponse
@@ -245,6 +250,9 @@ class DocumentController extends Controller
             $owner instanceof Contract => $this->contracts->allows($user, $owner, $ability === 'view' ? 'view' : 'edit'),
             $owner instanceof ContractAddendum => ($c = Contract::query()->find($owner->contract_id)) !== null
                 && $this->contracts->allows($user, $c, $ability === 'view' ? 'view' : 'edit'),
+            $owner instanceof PurchaseRequest => $ability === 'view'
+                ? $this->purchases->canView($user, $owner)
+                : $this->purchases->canView($user, $owner) && $this->purchases->canChange($user, $owner),
             default => true, // donos da Fase 2: regra original (permissão de documento)
         };
     }

@@ -58,6 +58,10 @@ final class PermissionCatalog
         // Fase 6A — planejamento da obra (com o acesso por obra — D-P24)
         'schedules.view' => 'schedules',
         'schedules.manage' => 'schedules',
+        // Fase 7A — solicitações de materiais (com o acesso por obra — D-P112)
+        'supplies.view' => 'supplies',
+        'supplies.request' => 'supplies',
+        'supplies.approve' => 'supplies',
     ];
 
     public const ADMIN_ROLE = 'admin';
@@ -91,7 +95,9 @@ final class PermissionCatalog
                 // Fase 5: contratos (consulta)
                 'contracts.view',
                 // Fase 6: planejamento (consulta)
-                'schedules.view'],
+                'schedules.view',
+                // Fase 7A: suprimentos (consulta)
+                'supplies.view'],
             'viewer' => ['tenant.view'],
         ];
     }

@@ -1,9 +1,11 @@
+import { useQuery } from '@tanstack/react-query'
 import { Check, ChevronDown, ChevronRight, ChevronsLeft, ChevronsRight, LogOut, Loader2 } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { filterNavigation, firstPath, navigation, type NavNode } from '@/app/navigation'
 import { useToast } from '@/app/providers/ToastProvider'
 import { useAuth } from '@/features/auth/auth-context'
+import { suppliesApi } from '@/features/supplies/api'
 import { getErrorMessage } from '@/lib/api-error'
 import { cn } from '@/lib/utils'
 
@@ -160,9 +162,29 @@ function NavEntry({
       >
         {Icon && <Icon className="size-[18px] shrink-0" aria-hidden />}
         <span className="flex-1 truncate">{node.label}</span>
+        {node.path === '/suprimentos' && <PendingApprovals />}
         {node.demo && <span className="bg-sidebar-accent rounded px-1.5 py-0.5 text-[10px] tracking-wide uppercase">Demo</span>}
       </NavLink>
     </li>
+  )
+}
+
+/** Quantas solicitações de materiais esperam a decisão de quem está logado (D-P109). */
+function PendingApprovals() {
+  const { can } = useAuth()
+  const summary = useQuery({
+    queryKey: ['purchase-requests', 'summary', 'menu'],
+    queryFn: () => suppliesApi.summary(),
+    enabled: can('supplies.approve'),
+    refetchInterval: 60_000,
+  })
+  const count = summary.data?.awaiting_my_approval ?? 0
+  if (count === 0) return null
+  return (
+    <span className="bg-sidebar-accent text-sidebar-accent-foreground rounded-full px-2 py-0.5 text-[11px] font-semibold tabular-nums" title={`${count} aguardando sua aprovação`}>
+      {count}
+      <span className="sr-only"> aguardando sua aprovação</span>
+    </span>
   )
 }
 

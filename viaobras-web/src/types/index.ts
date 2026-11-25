@@ -64,20 +64,6 @@ export interface BudgetGroup {
   items: BudgetItem[]
 }
 
-export type RequestPriority = 'low' | 'medium' | 'high' | 'urgent'
-export type RequestStatus = 'draft' | 'pending' | 'approved' | 'quoting' | 'rejected'
-
-export interface PurchaseRequest {
-  id: string
-  number: string
-  project: string
-  requester: string
-  date: string
-  itemsCount: number
-  priority: RequestPriority
-  status: RequestStatus
-}
-
 export interface Party {
   id: string
   name: string

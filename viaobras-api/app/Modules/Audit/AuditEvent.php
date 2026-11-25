@@ -161,6 +161,9 @@ final class AuditEvent
     // 6B — exportação do orçamento sintético (XLSX/PDF); o arquivo não é guardado
     public const SCHEDULE_EXPORTED = 'schedule.exported';
 
+    // Fase 7A — solicitações de materiais (CRUD em registry.*, entity_type purchase_request e purchase_request_item)
+    public const SUPPLIES_STATUS_CHANGED = 'supplies.status_changed';
+
     /** @return list<string> */
     public static function all(): array
     {
@@ -195,6 +198,12 @@ final class AuditEvent
     public static function phase6(): array
     {
         return array_values(array_filter(self::all(), fn (string $e) => str_starts_with($e, 'schedule.')));
+    }
+
+    /** Eventos da Fase 7 (cobertura verificada pelos testes de suprimentos). @return list<string> */
+    public static function phase7(): array
+    {
+        return array_values(array_filter(self::all(), fn (string $e) => str_starts_with($e, 'supplies.')));
     }
 
     /** Eventos do calendário e dos horários da obra (cobertura verificada pelos testes do calendário). @return list<string> */

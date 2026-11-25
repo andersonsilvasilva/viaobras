@@ -5,6 +5,7 @@ namespace App\Modules\Planning\Services;
 use App\Models\Budget;
 use App\Models\BudgetVersion;
 use App\Models\Project;
+use App\Models\PurchaseRequestItem;
 use App\Models\Schedule;
 use App\Models\ScheduleBaseline;
 use App\Models\ScheduleDependency;
@@ -113,6 +114,7 @@ final class ScheduleService
             }
             ScheduleDependency::query()->where('schedule_id', $schedule->id)->delete();
             ScheduleTaskItem::query()->where('schedule_id', $schedule->id)->delete(); // recursos (6B)
+            $this->unlinkPurchaseItems($tasks->all()); // 7A (D-P102)
             // filhos antes dos pais (FK RESTRICT)
             while (($ids = ScheduleTask::query()->where('schedule_id', $schedule->id)
                 ->whereNotIn('id', ScheduleTask::query()->select('parent_id')->where('schedule_id', $schedule->id)->whereNotNull('parent_id'))
@@ -229,11 +231,22 @@ final class ScheduleService
             foreach (ScheduleTaskItem::query()->where('schedule_id', $schedule->id)->whereIn('task_id', $ids)->get() as $item) {
                 $this->registry->delete($item, $actor); // recursos da atividade (6B)
             }
+            $this->unlinkPurchaseItems($ids); // 7A (D-P102)
             foreach (array_reverse($ids) as $id) {
                 $this->registry->delete(ScheduleTask::query()->findOrFail($id), $actor);
             }
             $this->scheduler->recompute($schedule);
         });
+    }
+
+    /**
+     * Itens de solicitações de materiais perdem só a ligação com a atividade excluída; a descrição fica no item.
+     *
+     * @param  array<int, int>  $taskIds
+     */
+    private function unlinkPurchaseItems(array $taskIds): void
+    {
+        PurchaseRequestItem::query()->whereIn('task_id', $taskIds)->update(['task_id' => null]);
     }
 
     // ------------------------------------------------------------ dependências

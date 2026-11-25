@@ -20,6 +20,7 @@ import { formatCurrency, formatDateOrDash } from '@/utils/format'
 import { PlanningTab } from '@/features/planning/PlanningTab'
 import { ProjectMap } from './ProjectMap'
 import { ProjectContractsTab } from '@/features/contracts/ProjectContractsTab'
+import { RequestList } from '@/features/supplies/RequestList'
 import { CalendarTab } from './calendar/CalendarTab'
 import { calendarApi } from './calendar/api'
 import { ScheduleEditor } from './calendar/ScheduleEditor'
@@ -79,6 +80,7 @@ export function ProjectDetailPage() {
   const [tab, setTab] = useState(() => params.get('aba') ?? 'geral')
   const [dialog, setDialog] = useState<Dialog | null>(() => (params.get('acao') === 'status' ? { kind: 'status' } : null))
   const lookups = useProjectLookups()
+  const { can } = useAuth()
 
   const query = useQuery({ queryKey: ['project', uuid], queryFn: () => projectsApi.get(uuid) })
   const project = query.data
@@ -108,6 +110,7 @@ export function ProjectDetailPage() {
     { id: 'calendario', label: 'Calendário' },
     { id: 'horarios', label: 'Horários' },
     { id: 'contratos', label: 'Contratos' },
+    ...(can('supplies.view') ? [{ id: 'requisicoes', label: 'Requisições' }] : []),
     { id: 'fases', label: 'Fases' },
     { id: 'equipe', label: 'Equipe' },
     { id: 'historico', label: 'Histórico de status' },
@@ -232,6 +235,7 @@ export function ProjectDetailPage() {
             />
           )}
           {tab === 'contratos' && <ProjectContractsTab project={project} canEditProject={canEdit} />}
+          {tab === 'requisicoes' && <RequestList projectUuid={project.uuid} canCreate={canEdit} />}
           {tab === 'historico' && <HistoryTab uuid={uuid} />}
           {tab === 'acesso' && canManage && <AccessTab uuid={uuid} onGrant={() => setDialog({ kind: 'grant' })} onRevoke={(u, name) => setDialog({ kind: 'confirm', title: `Remover o acesso de ${name}?`, run: () => projectsApi.access.revoke(uuid, u) })} />}
         </Tabs>

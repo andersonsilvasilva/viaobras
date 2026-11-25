@@ -43,6 +43,8 @@ use App\Models\ProjectCalendarException;
 use App\Models\ProjectMember;
 use App\Models\ProjectPhase;
 use App\Models\ProjectStatusHistory;
+use App\Models\PurchaseRequest;
+use App\Models\PurchaseRequestItem;
 use App\Models\ReferenceDataset;
 use App\Models\Resource;
 use App\Models\ResourceGroup;
@@ -179,6 +181,9 @@ class AppServiceProvider extends ServiceProvider
             'budget_item_resource' => BudgetItemResource::class,
             'budget_approval' => BudgetApproval::class,
             'budget_status_history' => BudgetStatusHistory::class,
+            // Fase 7A — suprimentos
+            'purchase_request' => PurchaseRequest::class,
+            'purchase_request_item' => PurchaseRequestItem::class,
             // Fase 4C — catálogo
             'resource' => Resource::class,
             'resource_labor_cost' => ResourceLaborCost::class,

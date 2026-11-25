@@ -13,8 +13,9 @@ import { GettingStartedPage } from '@/features/onboarding/GettingStartedPage'
 import { RequirePermission } from '@/features/auth/guards'
 import { DashboardPage } from '@/features/dashboard/DashboardPage'
 import { ModulePage } from '@/features/modules/ModulePage'
-import { ProcurementPage } from '@/features/procurement/ProcurementPage'
 import { registryRoutes } from '@/features/registry/routes'
+import { RequestDetailPage } from '@/features/supplies/RequestDetailPage'
+import { SuppliesPage } from '@/features/supplies/SuppliesPage'
 
 const m = (title: string, description: string) => <ModulePage title={title} description={description} />
 
@@ -43,7 +44,13 @@ export const router = createBrowserRouter([
               },
               { path: 'orcamento-inteligente', element: <SmartBudgetPage /> },
               { path: 'primeiros-passos', element: <GettingStartedPage /> },
-              { path: 'suprimentos', element: <ProcurementPage /> },
+              {
+                element: <RequirePermission permission="supplies.view" />,
+                children: [
+                  { path: 'suprimentos', element: <SuppliesPage /> },
+                  { path: 'suprimentos/:uuid', element: <RequestDetailPage /> },
+                ],
+              },
               { path: 'contratos', element: m('Contratos', 'Contratos com clientes e fornecedores.') },
               { path: 'planejamento', element: m('Planejamento', 'Cronogramas, dependências e linha de base.') },
               { path: 'diario-de-obras', element: m('Diário de Obras', 'Registro diário de atividades, clima e ocorrências.') },

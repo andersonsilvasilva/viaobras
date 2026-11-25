@@ -72,7 +72,7 @@ export const navigation: NavNode[] = [
     ],
   },
   { label: 'Orçamentos', path: '/orcamentos', icon: Calculator, permission: 'budgets.view' },
-  { label: 'Suprimentos', path: '/suprimentos', icon: ClipboardList, demo: true },
+  { label: 'Suprimentos', path: '/suprimentos', icon: ClipboardList, permission: 'supplies.view' },
   {
     label: 'Em preparação',
     icon: Clock,

@@ -34,7 +34,8 @@ final class Browser
         $response = $this->test->json($method, $uri, $data, $headers);
 
         foreach ($response->headers->getCookies() as $cookie) {
-            if ($cookie->getExpiresTime() !== 0 && $cookie->getExpiresTime() < time()) {
+            // relógio da APLICAÇÃO (respeita travelTo): com time() real, um teste com data fixa passaria a perder a sessão
+            if ($cookie->getExpiresTime() !== 0 && $cookie->getExpiresTime() < now()->getTimestamp()) {
                 unset($this->jar[$cookie->getName()]);
             } else {
                 $this->jar[$cookie->getName()] = (string) $cookie->getValue();

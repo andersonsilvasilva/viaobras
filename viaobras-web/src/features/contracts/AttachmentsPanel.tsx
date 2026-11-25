@@ -7,11 +7,11 @@ import { Button } from '@/components/ui/button'
 import { useAuth } from '@/features/auth/auth-context'
 import { getErrorMessage } from '@/lib/api-error'
 import { formatDateOrDash } from '@/utils/format'
-import { attachmentsApi } from './api'
+import { attachmentsApi, type AttachmentOwner } from './api'
 
 interface Props {
-  type: 'contract' | 'contract_addendum'
-  /** uuid do contrato ou id do aditivo */
+  type: AttachmentOwner
+  /** uuid do contrato ou da solicitação, ou id do aditivo */
   linkKey: string
   canEdit: boolean
   /** Título sugerido para o arquivo (ex.: "Contrato CTR-001/2026 assinado"). */
@@ -22,8 +22,9 @@ interface Props {
 const size = (b: number) => (b > 1048576 ? `${(b / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(b / 1024))} KB`)
 
 /**
- * Arquivos do contrato ou do aditivo (D-P55): ficam nos Documentos (disco privado), ligados ao dono. Download por
- * link temporário (D-P15). Enviar exige poder editar o contrato e `documents.manage`.
+ * Arquivos do contrato, do aditivo (D-P55) ou da solicitação de materiais (D-P110): ficam nos Documentos (disco
+ * privado), ligados ao dono. Download por link temporário (D-P15). Enviar exige poder alterar o dono e
+ * `documents.manage`.
  */
 export function AttachmentsPanel({ type, linkKey, canEdit, suggestedTitle, compact }: Props) {
   const { can } = useAuth()
@@ -39,7 +40,7 @@ export function AttachmentsPanel({ type, linkKey, canEdit, suggestedTitle, compa
     onSuccess: () => {
       notify('success', 'Arquivo anexado.')
       client.invalidateQueries({ queryKey: key })
-      client.invalidateQueries({ queryKey: ['contract'] })
+      client.invalidateQueries({ queryKey: type === 'purchase_request' ? ['purchase-requests'] : ['contract'] })
       if (input.current) input.current.value = ''
     },
     onError: (e) => notify('error', getErrorMessage(e)),
