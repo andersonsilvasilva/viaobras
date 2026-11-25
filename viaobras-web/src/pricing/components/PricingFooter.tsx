@@ -6,10 +6,11 @@ const CURRENT_YEAR = new Date().getFullYear()
 const linkClass = 'rounded-sm text-sm text-on-deep transition-colors hover:text-white focus-visible:outline-white'
 
 export function PricingFooter() {
+  // só aparecem quando a página existir (config.ts): nada de endereço fictício
   const legal = [
     { label: 'Política de Privacidade', href: LEGAL.privacyUrl },
     { label: 'Termos de Uso', href: LEGAL.termsUrl },
-  ]
+  ].filter((link) => link.href)
 
   return (
     <footer className="bg-ink text-white">
@@ -30,12 +31,7 @@ export function PricingFooter() {
               ))}
               {legal.map((link) => (
                 <li key={link.label}>
-                  {link.href ? (
-                    <a href={link.href} className={linkClass}>{link.label}</a>
-                  ) : (
-                    // sem página publicada não há link: nada de endereço fictício
-                    <span className="text-sm text-on-deep/70">{link.label} (em breve)</span>
-                  )}
+                  <a href={link.href} className={linkClass}>{link.label}</a>
                 </li>
               ))}
             </ul>

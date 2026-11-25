@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import html from '../../planos.html?raw'
 import { salesLink } from './config'
-import { COMPARISON, FOOTER, IDS, NAV, PLANS, priceLabel, salesMessage } from './content'
+import { COMPARISON, FAQ, FOOTER, IDS, NAV, PLANS, priceLabel, salesMessage, SOON_NOTE, WHY } from './content'
 
 const plain = (text: string) => text.replace(/ /g, ' ')
 const plan = (id: string) => PLANS.find((p) => p.id === id)!
@@ -29,11 +29,17 @@ describe('planos — preços', () => {
   })
 })
 
-describe('planos — o que ainda não existe aparece como "Em breve"', () => {
+describe('planos — o que ainda não existe é marcado e explicado na nota', () => {
   const missing = /financeir|contas a pagar|orçado|dashboard|indicadores gerenciais|relatórios (completos|avançados)|visão consolidada/i
 
   it('nos cartões', () => {
     for (const p of PLANS) for (const f of p.features.filter((f) => missing.test(f.label))) expect(f.soon, `${p.id}: ${f.label}`).toBe(true)
+  })
+
+  it('com uma nota que diz que o recurso ainda não está disponível, sem a expressão "em breve"', () => {
+    expect(SOON_NOTE.startsWith('*')).toBe(true)
+    expect(SOON_NOTE).toContain('ainda não disponível')
+    expect(JSON.stringify([PLANS, COMPARISON, SOON_NOTE, WHY, FAQ])).not.toMatch(/em breve/i)
   })
 
   it('no comparativo', () => {

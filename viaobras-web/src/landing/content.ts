@@ -7,6 +7,9 @@
 export const APP_URL = 'https://app.viaobras.com.br/'
 export const SITE_URL = 'https://viaobras.com.br/'
 
+/** Página de planos e preços (planos.html). */
+export const PRICING_PATH = '/planos.html'
+
 /** Âncoras das seções (ids no DOM). */
 export const SECTION_IDS = {
   top: 'topo',
@@ -19,6 +22,7 @@ export const SECTION_IDS = {
   supplies: 'suprimentos',
   indicators: 'indicadores',
   integrated: 'integrada',
+  pricing: 'planos',
 } as const
 
 export const NAV_LINKS = [
@@ -27,6 +31,7 @@ export const NAV_LINKS = [
   { label: 'Demonstração', href: `#${SECTION_IDS.demo}` },
   { label: 'Orçamentos', href: `#${SECTION_IDS.budget}` },
   { label: 'Benefícios', href: `#${SECTION_IDS.benefits}` },
+  { label: 'Planos', href: PRICING_PATH },
 ] as const
 
 export const FOOTER_LINKS = [
@@ -35,6 +40,7 @@ export const FOOTER_LINKS = [
   { label: 'Orçamentos', href: `#${SECTION_IDS.budget}` },
   { label: 'Suprimentos', href: `#${SECTION_IDS.supplies}` },
   { label: 'Indicadores', href: `#${SECTION_IDS.indicators}` },
+  { label: 'Planos', href: PRICING_PATH },
   { label: 'Acessar sistema', href: APP_URL },
 ] as const
 
@@ -235,6 +241,14 @@ export const INTEGRATED = {
     { icon: 'suprimentos', title: 'Suprimentos', text: 'Demandas e solicitações de materiais.' },
     { icon: 'indicadores', title: 'Indicadores', text: 'Visão gerencial e acompanhamento.' },
   ],
+} as const
+
+export const PRICING_SECTION = {
+  eyebrow: 'Planos',
+  title: 'Um plano para cada momento da sua operação.',
+  text: 'Compare os planos da ViaObras e escolha o que acompanha o número de obras e o tamanho da sua equipe.',
+  cta: 'Ver planos e preços',
+  href: PRICING_PATH,
 } as const
 
 export const FINAL_CTA = {

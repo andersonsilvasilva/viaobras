@@ -8,6 +8,7 @@ import { Hero } from './components/Hero'
 import { IntegratedPlatformSection } from './components/IntegratedPlatformSection'
 import { Navbar } from './components/Navbar'
 import { PlatformSection } from './components/PlatformSection'
+import { PricingTeaser } from './components/PricingTeaser'
 import { ProjectsSection } from './components/ProjectsSection'
 import { SuppliesSection } from './components/SuppliesSection'
 import { SECTION_IDS } from './content'
@@ -38,6 +39,7 @@ export function LandingPage() {
         </div>
         <FinancialSection />
         <IntegratedPlatformSection />
+        <PricingTeaser />
         <FinalCTA />
       </main>
       <Footer />

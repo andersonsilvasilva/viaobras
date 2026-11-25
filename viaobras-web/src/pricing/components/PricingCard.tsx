@@ -1,9 +1,9 @@
-import { Check, Clock } from 'lucide-react'
+import { Check } from 'lucide-react'
 import type { CSSProperties } from 'react'
 import { FEATURED_BADGE } from '../config'
 import { priceLabel, salesMessage, type Billing, type Plan } from '../content'
 import { SalesButton } from './SalesButton'
-import { SoonBadge } from './SoonBadge'
+import { SoonMark } from './SoonMark'
 
 export function PricingCard({ plan, billing, index }: { plan: Plan; billing: Billing; index: number }) {
   const price = priceLabel(plan, billing)
@@ -38,15 +38,11 @@ export function PricingCard({ plan, billing, index }: { plan: Plan; billing: Bil
 
       <ul className="mt-6 space-y-2.5 border-t border-line pt-5">
         {plan.features.map((feature) => (
-          <li key={feature.label} className={`flex gap-2.5 text-sm ${feature.soon ? 'text-muted-ink' : 'text-ink'}`}>
-            {feature.soon ? (
-              <Clock className="mt-0.5 size-4 shrink-0 text-muted-ink" aria-hidden="true" />
-            ) : (
-              <Check className="mt-0.5 size-4 shrink-0 text-success" strokeWidth={2.5} aria-hidden="true" />
-            )}
+          <li key={feature.label} className="flex gap-2.5 text-sm text-ink">
+            <Check className="mt-0.5 size-4 shrink-0 text-success" strokeWidth={2.5} aria-hidden="true" />
             <span>
               {feature.label}
-              {feature.soon && <SoonBadge />}
+              {feature.soon && <SoonMark />}
             </span>
           </li>
         ))}

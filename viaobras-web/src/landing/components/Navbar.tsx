@@ -32,7 +32,7 @@ export function Navbar({ links = NAV_LINKS, homeHref = `#${SECTION_IDS.top}`, ho
         toggleRef.current?.focus()
       }
     }
-    const mq = window.matchMedia('(min-width: 768px)')
+    const mq = window.matchMedia('(min-width: 1024px)')
     const onChange = () => mq.matches && setOpen(false)
     document.addEventListener('keydown', onKey)
     mq.addEventListener('change', onChange)
@@ -55,7 +55,7 @@ export function Navbar({ links = NAV_LINKS, homeHref = `#${SECTION_IDS.top}`, ho
           <img src="/brand/logo-completa.png" alt="ViaObras" width={806} height={240} className="h-9 w-auto" />
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {links.map((link) => (
             <li key={link.href}>
               <a
@@ -74,7 +74,7 @@ export function Navbar({ links = NAV_LINKS, homeHref = `#${SECTION_IDS.top}`, ho
         <button
           ref={toggleRef}
           type="button"
-          className="inline-flex size-11 items-center justify-center rounded-lg text-ink hover:bg-brand-soft md:hidden"
+          className="inline-flex size-11 items-center justify-center rounded-lg text-ink hover:bg-brand-soft lg:hidden"
           aria-expanded={open}
           aria-controls={MENU_ID}
           aria-label={open ? 'Fechar menu' : 'Abrir menu'}
@@ -84,7 +84,7 @@ export function Navbar({ links = NAV_LINKS, homeHref = `#${SECTION_IDS.top}`, ho
         </button>
       </nav>
 
-      <div id={MENU_ID} hidden={!open} className="border-t border-line bg-white md:hidden">
+      <div id={MENU_ID} hidden={!open} className="border-t border-line bg-white lg:hidden">
         <ul className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3 sm:px-6">
           {links.map((link) => (
             <li key={link.href}>

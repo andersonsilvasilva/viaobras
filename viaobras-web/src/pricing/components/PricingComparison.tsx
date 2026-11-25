@@ -1,7 +1,7 @@
 import { Check, Minus } from 'lucide-react'
 import { Reveal, Section, SectionTitle } from '../../landing/components/primitives'
 import { COMPARISON, IDS, PLANS, SOON_NOTE, type Cell } from '../content'
-import { SoonBadge } from './SoonBadge'
+import { SoonMark } from './SoonMark'
 
 function CellContent({ cell, rowSoon }: { cell: Cell; rowSoon?: boolean }) {
   if (cell.value === null) {
@@ -12,18 +12,18 @@ function CellContent({ cell, rowSoon }: { cell: Cell; rowSoon?: boolean }) {
       </>
     )
   }
-  const pending = rowSoon || cell.soon
+  // linha inteira em implementação já tem o asterisco no nome; célula isolada leva o seu
   return (
-    <span className={pending ? 'text-muted-ink' : 'text-ink'}>
+    <span className="text-ink">
       {cell.value === true ? (
         <>
-          <Check className={`mx-auto size-5 ${pending ? 'text-muted-ink' : 'text-success'}`} strokeWidth={2.5} aria-hidden="true" />
-          <span className="sr-only">{pending ? 'Previsto' : 'Incluído'}</span>
+          <Check className="mx-auto size-5 text-success" strokeWidth={2.5} aria-hidden="true" />
+          <span className="sr-only">{rowSoon ? 'Incluído no plano, em implementação' : 'Incluído'}</span>
         </>
       ) : (
         cell.value
       )}
-      {cell.soon && <span className="mt-0.5 block text-[11px] font-semibold">Em breve</span>}
+      {cell.soon && <SoonMark />}
     </span>
   )
 }
@@ -65,7 +65,7 @@ export function PricingComparison() {
               <tr key={row.label} className="border-b border-line last:border-0">
                 <th scope="row" className="sticky left-0 z-10 bg-white px-4 py-3 text-left font-medium text-ink">
                   {row.label}
-                  {row.soon && <SoonBadge />}
+                  {row.soon && <SoonMark />}
                 </th>
                 {row.cells.map((cell, i) => (
                   <td key={PLANS[i].id} className={`px-3 py-3 text-center ${i === featured ? 'bg-brand-soft' : ''}`}>

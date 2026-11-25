@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import html from '../../landing.html?raw'
-import { APP_URL, FOOTER_LINKS, NAV_LINKS, SECTION_IDS, SHOTS, SITE_URL } from './content'
+import { APP_URL, FOOTER_LINKS, NAV_LINKS, PRICING_SECTION, SECTION_IDS, SHOTS, SITE_URL } from './content'
 
 describe('landing — conteúdo e links', () => {
   it('os links de acesso à plataforma apontam para o app', () => {
@@ -15,6 +15,11 @@ describe('landing — conteúdo e links', () => {
     for (const link of [...NAV_LINKS, ...FOOTER_LINKS]) {
       if (link.href.startsWith('#')) expect(ids.has(link.href.slice(1))).toBe(true)
     }
+  })
+
+  it('o cabeçalho, o rodapé e a seção de planos levam à página de preços', () => {
+    for (const links of [NAV_LINKS, FOOTER_LINKS]) expect(links.find((l) => l.label === 'Planos')?.href).toBe('/planos.html')
+    expect(PRICING_SECTION.href).toBe('/planos.html')
   })
 
   it('ids de seção são únicos', () => {

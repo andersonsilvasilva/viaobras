@@ -1,8 +1,8 @@
 /**
  * Conteúdo da página de planos: preços, limites, recursos, comparativo e perguntas.
  *
- * `soon: true` = o recurso AINDA NÃO EXISTE na plataforma e aparece como "Em breve". Só remova a marca quando o
- * recurso estiver publicado. Conferido no código em 2026-11-25:
+ * `soon: true` = o recurso AINDA NÃO EXISTE na plataforma: recebe um asterisco, explicado numa única nota
+ * (SOON_NOTE). Só remova a marca quando o recurso estiver publicado. Conferido no código em 2026-11-25:
  *  - existem: obras, orçamentos (versões, aprovação, exportação), planejamento (exportação), empresas, clientes,
  *    fornecedores, equipes, solicitações de materiais com aprovação;
  *  - não existem: financeiro, contas a pagar/receber, orçado × realizado, dashboards (a Visão geral usa dados de
@@ -115,7 +115,7 @@ export const PLANS: Plan[] = [
 ]
 
 export const ANNUAL_NOTE = 'Economize o equivalente a 2 mensalidades no plano anual.'
-export const SOON_NOTE = '“Em breve” indica recursos ainda em desenvolvimento, que não estão disponíveis na plataforma hoje.'
+export const SOON_NOTE = '* Em implementação: liberação por etapas, ainda não disponível na plataforma.'
 
 const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
 
@@ -187,7 +187,7 @@ export const WHY = {
   subtitle: 'Uma plataforma para conectar informações, simplificar processos e oferecer uma visão mais clara da operação.',
   cards: [
     { icon: 'decisoes', title: 'Decisões com mais clareza', text: 'Visualize informações importantes para acompanhar a evolução dos seus projetos.' },
-    { icon: 'custos', title: 'Controle financeiro', text: 'Acompanhe custos, orçamento e desempenho financeiro das suas obras.', note: 'Orçamento e custos hoje; desempenho financeiro em breve.' },
+    { icon: 'custos', title: 'Controle financeiro', text: 'Acompanhe custos, orçamento e desempenho financeiro das suas obras.', note: '* Desempenho financeiro em implementação.' },
     { icon: 'projetos', title: 'Tudo centralizado', text: 'Reduza a dispersão de informações entre planilhas, documentos e controles.' },
     { icon: 'progresso', title: 'Mais eficiência', text: 'Organize processos e reduza o tempo gasto com controles operacionais.' },
   ],
