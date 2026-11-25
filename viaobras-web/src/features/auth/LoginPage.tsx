@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Loader2 } from 'lucide-react'
+import { ArrowLeft, Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { Alert } from '@/components/feedback/Alert'
 import { FormField, TextInput } from '@/components/forms/fields'
 import { Button } from '@/components/ui/button'
+import { SITE_URL } from '@/landing/content'
 import { ApiError, getErrorMessage } from '@/lib/api-error'
 import { useAuth } from './auth-context'
 import { authService } from './auth-service'
@@ -78,6 +79,11 @@ export function LoginPage() {
         <button type="button" onClick={forgot} className="text-primary mt-4 text-sm hover:underline">
           Esqueci minha senha
         </button>
+        <div className="mt-5 border-t pt-4 text-center">
+          <a href={SITE_URL} className="text-muted-foreground hover:text-primary inline-flex items-center gap-1.5 rounded-sm text-sm hover:underline">
+            <ArrowLeft className="size-4" aria-hidden /> Voltar para a página comercial
+          </a>
+        </div>
       </div>
     </main>
   )
