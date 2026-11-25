@@ -36,6 +36,15 @@ services:
       API_TOKEN_MAX_DAYS: ${API_TOKEN_MAX_DAYS:-90}
       INVITATION_TTL_DAYS: ${INVITATION_TTL_DAYS:-7}
       LOG_CHANNEL: stderr
+      # envio de e-mail (recuperação de senha e convites). Sem MAIL_MAILER, os e-mails só vão para o registro (log).
+      MAIL_MAILER: ${MAIL_MAILER:-log}
+      MAIL_SCHEME: ${MAIL_SCHEME:-smtps}
+      MAIL_HOST: ${MAIL_HOST:-}
+      MAIL_PORT: ${MAIL_PORT:-465}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-ViaObras}
     volumes:
       # arquivos enviados (documentos e anexos privados): sem o volume, recriar o contêiner os apagaria
       - api_storage:/var/www/html/storage/app
