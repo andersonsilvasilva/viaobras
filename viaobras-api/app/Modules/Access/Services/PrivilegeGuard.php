@@ -28,6 +28,12 @@ final class PrivilegeGuard
         }
     }
 
+    /** O usuário tem a permissão (pelos papéis) neste tenant? */
+    public function holds(User $user, Tenant $tenant, string $permission): bool
+    {
+        return $this->context->run($tenant, fn (): bool => User::query()->findOrFail($user->getKey())->getAllPermissions()->contains('name', $permission), $user);
+    }
+
     public function assertCanGrantRole(User $actor, Tenant $tenant, Role $role): void
     {
         $this->assertCanGrantPermissions($actor, $tenant, $role->permissions()->pluck('name')->all());

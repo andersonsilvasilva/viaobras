@@ -243,10 +243,17 @@ it('quem gerencia papéis NÃO concede permissões que não possui nem se promov
     $b->post('/api/v1/roles', ['name' => 'poderoso', 'permissions' => ['tokens.manage']])
         ->assertForbidden()->assertJsonPath('error.code', 'privilege_escalation');
 
+    // a si mesmo: ninguém muda os próprios papéis (D-P132)
     $b->post('/api/v1/members/'.membership($this->A, $gestor)->id.'/roles', ['role_id' => roleId($this->A, 'admin')])
+        ->assertConflict()->assertJsonPath('error.code', 'self_action');
+
+    // e também não torna OUTRA pessoa administradora (poderia ser uma conta comparsa)
+    $outro = Scenario::member($this->A, 'viewer');
+    $b->post('/api/v1/members/'.membership($this->A, $outro)->id.'/roles', ['role_id' => roleId($this->A, 'admin')])
         ->assertForbidden()->assertJsonPath('error.code', 'privilege_escalation');
 
-    expect(rolesIn($this->A, $gestor))->toBe(['delegado', 'viewer'])->not->toContain('admin'); // nada de admin
+    expect(rolesIn($this->A, $gestor))->toBe(['delegado', 'viewer'])->not->toContain('admin') // nada de admin
+        ->and(rolesIn($this->A, $outro))->toBe(['viewer']);
 });
 
 // ---------------------------------------------------------------- vínculos
@@ -302,9 +309,16 @@ it('com dois administradores, um pode sair — e o outro passa a ser o último',
 
     $this->browser->post("/api/v1/members/{$mPrimeiro->id}/suspend")->assertStatus(409)->assertJsonPath('error.code', 'last_admin');
 
-    // reativar o segundo e então o primeiro pode ser removido
+    // reativado o segundo, o primeiro pode sair — pelas mãos do outro (D-P132: nunca pela própria conta)
     $this->browser->post("/api/v1/members/{$mSegundo->id}/reactivate")->assertOk();
-    $this->browser->delete("/api/v1/members/{$mPrimeiro->id}")->assertNoContent();
+    $this->browser->delete("/api/v1/members/{$mPrimeiro->id}")->assertConflict()->assertJsonPath('error.code', 'self_action');
+
+    $outroNavegador = new Browser($this);
+    $outroNavegador->login($segundo->email)->assertOk();
+    $outroNavegador->delete("/api/v1/members/{$mPrimeiro->id}")->assertNoContent();
+
+    // e quem ficou passa a ser o último
+    $outroNavegador->post("/api/v1/members/{$mSegundo->id}/suspend")->assertConflict()->assertJsonPath('error.code', 'last_admin');
 });
 
 it('administrador suspenso ou bloqueado NÃO conta como administrador ativo', function () {

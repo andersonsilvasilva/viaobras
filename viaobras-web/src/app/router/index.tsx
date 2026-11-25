@@ -15,6 +15,7 @@ import { GettingStartedPage } from '@/features/onboarding/GettingStartedPage'
 import { RequirePermission } from '@/features/auth/guards'
 import { DashboardPage } from '@/features/dashboard/DashboardPage'
 import { InvitationsPage } from '@/features/members/InvitationsPage'
+import { MembersPage } from '@/features/members/MembersPage'
 import { ModulePage } from '@/features/modules/ModulePage'
 import { EmailSettingsPage } from '@/features/platform/EmailSettingsPage'
 import { registryRoutes } from '@/features/registry/routes'
@@ -53,7 +54,10 @@ export const router = createBrowserRouter([
               { path: 'primeiros-passos', element: <GettingStartedPage /> },
               {
                 element: <RequirePermission permission="members.view" />,
-                children: [{ path: 'convites', element: <InvitationsPage /> }],
+                children: [
+                  { path: 'membros', element: <MembersPage /> },
+                  { path: 'convites', element: <InvitationsPage /> },
+                ],
               },
               {
                 element: <RequirePermission permission="platform.admin" />,

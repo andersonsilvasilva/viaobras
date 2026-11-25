@@ -3,10 +3,14 @@
 namespace App\Modules\Access\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use App\Models\Role;
 use App\Models\TenantUser;
 use App\Models\User;
+use App\Models\UserProjectAccess;
 use App\Modules\Access\Services\MembershipService;
+use App\Modules\Access\Services\PrivilegeGuard;
+use App\Modules\Projects\Services\ProjectAccess;
 use App\Modules\Tenancy\TenantContext;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -38,6 +42,23 @@ class MemberController extends Controller
             'joined_at' => $m->joined_at?->toIso8601String(),
             'roles' => ($roles[$m->user_id] ?? collect())->map(fn ($r) => ['id' => $r->role_id, 'name' => $r->name])->values(),
         ])->values()]);
+    }
+
+    /** Obras do membro, só para leitura (D-P137). Mostra apenas as que QUEM CONSULTA também pode ver (D-P24). */
+    public function projects(Request $request, int $id, ProjectAccess $access, PrivilegeGuard $privileges): JsonResponse
+    {
+        $target = User::query()->findOrFail($this->find($id)->user_id);
+        // quem gerencia obras vê todas, sem precisar de acesso por obra
+        $all = $privileges->holds($target, $this->context->tenantOrFail(), 'projects.manage');
+
+        $levels = UserProjectAccess::query()->where('user_id', $target->getKey())->pluck('access_level', 'project_id');
+        $projects = $access->visible(Project::query(), $request->user())
+            ->whereIn('projects.id', $levels->keys())->orderBy('code')->get(['projects.id', 'uuid', 'code', 'name']);
+
+        return response()->json(['data' => [
+            'all' => $all,
+            'projects' => $projects->map(fn (Project $p) => ['uuid' => $p->uuid, 'code' => $p->code, 'name' => $p->name, 'access_level' => $levels[$p->id]])->values(),
+        ]]);
     }
 
     public function suspend(Request $request, int $id): JsonResponse

@@ -19,6 +19,24 @@ export interface Role {
   name: string
   is_system: boolean
   permissions: string[]
+  /** Quantas pessoas têm o papel (só na listagem). */
+  members_count?: number
+}
+
+export type MemberStatus = 'invited' | 'active' | 'suspended' | 'removed'
+
+export interface Member {
+  id: number
+  user: { uuid: string; name: string; email: string }
+  status: MemberStatus
+  joined_at: string | null
+  roles: { id: number; name: string }[]
+}
+
+export interface MemberProjects {
+  /** Quem gerencia obras vê todas, sem acesso por obra. */
+  all: boolean
+  projects: { uuid: string; code: string; name: string; access_level: 'view' | 'edit' | 'manage' }[]
 }
 
 const data = <T,>(r: { data: T }) => r.data
@@ -29,6 +47,23 @@ export const invitationsApi = {
   /** `email_sent` falso: o convite existe, mas o e-mail não saiu. */
   create: (email: string, role_id: number) => http<{ data: Invitation; email_sent: boolean }>('/invitations', { method: 'POST', body: { email, role_id } }),
   revoke: (id: number) => http<void>(`/invitations/${id}`, { method: 'DELETE' }),
+}
+
+export const membersApi = {
+  list: () => http<{ data: Member[] }>('/members').then(data),
+  projects: (id: number) => http<{ data: MemberProjects }>(`/members/${id}/projects`).then(data),
+  suspend: (id: number) => http<unknown>(`/members/${id}/suspend`, { method: 'POST' }),
+  reactivate: (id: number) => http<unknown>(`/members/${id}/reactivate`, { method: 'POST' }),
+  remove: (id: number) => http<void>(`/members/${id}`, { method: 'DELETE' }),
+  assignRole: (id: number, role_id: number) => http<unknown>(`/members/${id}/roles`, { method: 'POST', body: { role_id } }),
+  revokeRole: (id: number, roleId: number) => http<void>(`/members/${id}/roles/${roleId}`, { method: 'DELETE' }),
+}
+
+export const rolesApi = {
+  list: () => http<{ data: Role[] }>('/roles').then(data),
+  create: (name: string, permissions: string[]) => http<{ data: Role }>('/roles', { method: 'POST', body: { name, permissions } }).then(data),
+  update: (id: number, name: string, permissions: string[]) => http<{ data: Role }>(`/roles/${id}`, { method: 'PUT', body: { name, permissions } }).then(data),
+  remove: (id: number) => http<void>(`/roles/${id}`, { method: 'DELETE' }),
 }
 
 export const statusMeta: Record<InvitationStatus, { label: string; tone: StatusTone }> = {
@@ -44,7 +79,7 @@ export const effectiveStatus = (i: Pick<Invitation, 'status' | 'expires_at'>, no
 
 const SYSTEM_ROLES: Record<string, { label: string; help: string }> = {
   admin: { label: 'Administrador', help: 'Acesso completo à organização, inclusive convidar pessoas e gerenciar papéis.' },
-  member: { label: 'Membro', help: 'Consulta cadastros, orçamentos e suprimentos. Só vê as obras às quais receber acesso.' },
+  member: { label: 'Membro (consulta)', help: 'Só consulta: não cria nem edita. Só vê as obras às quais receber acesso.' },
   viewer: { label: 'Somente organização', help: 'Vê apenas os dados da organização.' },
 }
 

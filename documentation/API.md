@@ -79,8 +79,9 @@ Fornecido pelo Sanctum para o fluxo SPA.
 | `GET /tenant/settings` · `PUT /tenant/settings/{key}` | `settings.view` · `settings.manage` | Configurações do tenant (dado de negócio de exemplo) |
 | `GET /tokens` · `POST /tokens` · `DELETE /tokens/{id}` | `tokens.manage` | Tokens de API do tenant ativo. Corpo: `name`, `expires_in_days` (1–90, obrigatório) e `abilities` (obrigatórias, sem curinga, sem gestão de acesso) |
 | `GET /members` | `members.view` | Membros e papéis |
-| `POST /members/{id}/suspend` · `…/reactivate` · `DELETE /members/{id}` | `members.manage` | Ciclo de vida do vínculo (último admin protegido) |
-| `POST /members/{id}/roles` · `DELETE /members/{id}/roles/{roleId}` | `roles.manage` | Atribuir/retirar papel |
+| `GET /members/{id}/projects` | `members.view` | Obras do membro e nível, só as que quem consulta também pode ver (`all`: quem gerencia obras vê todas) |
+| `POST /members/{id}/suspend` · `…/reactivate` · `DELETE /members/{id}` | `members.manage` | Ciclo de vida do vínculo (último admin protegido; nunca sobre a própria conta; sobre um administrador, só outro administrador) |
+| `POST /members/{id}/roles` · `DELETE /members/{id}/roles/{roleId}` | `roles.manage` | Atribuir/retirar papel (nunca os próprios; dar **ou retirar** exige possuir as permissões do papel) |
 | `GET /roles` · `GET /roles/{id}` · `GET /permissions` | `roles.view` | Papéis do tenant e catálogo global |
 | `POST /roles` · `PUT /roles/{id}` · `DELETE /roles/{id}` | `roles.manage` | Papéis do tenant (os de sistema são imutáveis) |
 | `GET /invitations` | `members.view` | Convites do tenant |

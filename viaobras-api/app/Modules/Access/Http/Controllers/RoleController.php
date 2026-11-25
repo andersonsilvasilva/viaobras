@@ -37,7 +37,7 @@ class RoleController extends Controller
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:100', 'regex:/^[A-Za-z0-9 _.-]+$/', $this->uniqueName()],
+            'name' => ['required', 'string', 'max:100', 'regex:/^[\p{L}\p{N} _.-]+$/u', $this->uniqueName()],
             'permissions' => ['present', 'array'],
             'permissions.*' => ['string', Rule::in(array_keys(PermissionCatalog::PERMISSIONS))],
         ]);
@@ -52,7 +52,7 @@ class RoleController extends Controller
         $role = Role::query()->forTenant($this->context->idOrFail())->findOrFail($id);
 
         $data = $request->validate([
-            'name' => ['sometimes', 'string', 'max:100', 'regex:/^[A-Za-z0-9 _.-]+$/', $this->uniqueName($role->getKey())],
+            'name' => ['sometimes', 'string', 'max:100', 'regex:/^[\p{L}\p{N} _.-]+$/u', $this->uniqueName($role->getKey())],
             'permissions' => ['sometimes', 'array'],
             'permissions.*' => ['string', Rule::in(array_keys(PermissionCatalog::PERMISSIONS))],
         ]);

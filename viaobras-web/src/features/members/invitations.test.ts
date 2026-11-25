@@ -19,7 +19,7 @@ describe('convites', () => {
   })
 
   it('traduz os papéis do sistema e mantém o nome dos papéis da organização', () => {
-    expect([roleLabel('admin'), roleLabel('member'), roleLabel('DEMO Encarregado'), roleLabel(null)]).toEqual(['Administrador', 'Membro', 'DEMO Encarregado', '—'])
+    expect([roleLabel('admin'), roleLabel('member'), roleLabel('DEMO Encarregado'), roleLabel(null)]).toEqual(['Administrador', 'Membro (consulta)', 'DEMO Encarregado', '—'])
   })
 
   it('o menu Convites aparece só para quem pode ver os membros', () => {

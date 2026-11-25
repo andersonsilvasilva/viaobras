@@ -19,6 +19,8 @@ use Illuminate\Database\QueryException;
  *  - roda sob TenantLock (concorrência) e em transação;
  *  - grava a auditoria NA MESMA transação (falha de auditoria desfaz a operação);
  *  - protege o último administrador ativo;
+ *  - ninguém suspende, remove ou muda os papéis da própria conta (D-P132);
+ *  - só administrador suspende, reativa, remove ou retira papel de quem é administrador (D-P133);
  *  - revoga os tokens do tenant quando o acesso é suspenso/removido.
  */
 final class MembershipService
@@ -41,6 +43,7 @@ final class MembershipService
             }
 
             $this->lastAdmin->assertNotLast($tenant, $membership->user_id, 'suspender este usuário');
+            $this->assertMayActOn($actor, $tenant, $membership);
 
             return $this->transition($actor, $tenant, $membership, MembershipStatus::Suspended, AuditEvent::MEMBERSHIP_SUSPENDED, revokeTokens: true);
         });
@@ -54,6 +57,7 @@ final class MembershipService
             if ($membership->membership_status !== MembershipStatus::Suspended) {
                 throw ApiException::conflict('invalid_membership_state', 'Só vínculos suspensos podem ser reativados (vínculos removidos exigem novo convite).');
             }
+            $this->assertMayActOn($actor, $tenant, $membership);
 
             return $this->transition($actor, $tenant, $membership, MembershipStatus::Active, AuditEvent::MEMBERSHIP_REACTIVATED, revokeTokens: false);
         });
@@ -70,6 +74,7 @@ final class MembershipService
             }
 
             $this->lastAdmin->assertNotLast($tenant, $membership->user_id, 'remover este usuário');
+            $this->assertMayActOn($actor, $tenant, $membership);
 
             $user = User::query()->findOrFail($membership->user_id);
             $this->context->run($tenant, function () use ($actor, $tenant, $membership, $user): void {
@@ -94,6 +99,7 @@ final class MembershipService
                 throw ApiException::conflict('invalid_membership_state', 'Só é possível atribuir papéis a vínculos ativos.');
             }
             $this->assertRoleBelongs($tenant, $role);
+            $this->assertNotSelf($actor, $membership);
             $this->privileges->assertCanGrantRole($actor, $tenant, $role);
 
             $user = User::query()->findOrFail($membership->user_id);
@@ -127,6 +133,8 @@ final class MembershipService
             if ($role->name === PermissionCatalog::ADMIN_ROLE) {
                 $this->lastAdmin->assertNotLast($tenant, $membership->user_id, 'remover o papel de administrador');
             }
+            $this->assertMayActOn($actor, $tenant, $membership);
+            $this->privileges->assertCanGrantRole($actor, $tenant, $role); // D-P134: retirar exige o mesmo que conceder
 
             $user = User::query()->findOrFail($membership->user_id);
 
@@ -165,6 +173,22 @@ final class MembershipService
             metadata: ['target_user_id' => $membership->user_id, 'tokens_revoked' => $revoked]);
 
         return $membership;
+    }
+
+    private function assertNotSelf(User $actor, TenantUser $membership): void
+    {
+        if ((int) $membership->user_id === (int) $actor->getKey()) {
+            throw ApiException::conflict('self_action', 'Você não pode alterar o seu próprio acesso. Peça a outro administrador.');
+        }
+    }
+
+    private function assertMayActOn(User $actor, Tenant $tenant, TenantUser $membership): void
+    {
+        $this->assertNotSelf($actor, $membership);
+
+        if ($this->lastAdmin->holdsAdminRole($tenant, $membership->user_id) && ! $this->lastAdmin->isActiveAdmin($tenant, (int) $actor->getKey())) {
+            throw ApiException::forbidden('admin_only', 'Só um administrador pode alterar o acesso de outro administrador.');
+        }
     }
 
     /** Relê o vínculo já sob o lock (o objeto recebido pode estar desatualizado). */

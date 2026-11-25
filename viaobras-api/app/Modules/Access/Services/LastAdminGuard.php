@@ -45,6 +45,19 @@ final class LastAdminGuard
         }
     }
 
+    /** Tem o papel `admin` neste tenant, esteja o vínculo ativo ou suspenso. */
+    public function holdsAdminRole(Tenant $tenant, int $userId): bool
+    {
+        return DB::table('model_has_roles')
+            ->join('roles', function ($j): void {
+                $j->on('roles.id', '=', 'model_has_roles.role_id')->on('roles.tenant_id', '=', 'model_has_roles.tenant_id');
+            })
+            ->where('model_has_roles.tenant_id', $tenant->getKey())
+            ->where('model_has_roles.model_id', $userId)
+            ->where('roles.name', PermissionCatalog::ADMIN_ROLE)
+            ->exists();
+    }
+
     public function isActiveAdmin(Tenant $tenant, int $userId): bool
     {
         return DB::table('model_has_roles')

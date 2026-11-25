@@ -28,6 +28,7 @@ Route::middleware('tenant.required')->group(function (): void {
 
     // Membros
     Route::get('members', [MemberController::class, 'index'])->middleware('can:members.view')->name('members.index');
+    Route::get('members/{id}/projects', [MemberController::class, 'projects'])->whereNumber('id')->middleware('can:members.view')->name('members.projects');
     Route::post('members/{id}/suspend', [MemberController::class, 'suspend'])->whereNumber('id')->middleware('can:members.manage')->name('members.suspend');
     Route::post('members/{id}/reactivate', [MemberController::class, 'reactivate'])->whereNumber('id')->middleware('can:members.manage')->name('members.reactivate');
     Route::delete('members/{id}', [MemberController::class, 'destroy'])->whereNumber('id')->middleware('can:members.manage')->name('members.destroy');
