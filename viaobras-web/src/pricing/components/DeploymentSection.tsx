@@ -14,8 +14,10 @@ export function DeploymentSection() {
         </Reveal>
 
         <Reveal index={1} className="rounded-2xl border border-line bg-white p-6 shadow-lp-md sm:p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand">{DEPLOYMENT.priceLabel}</p>
+          <p className="inline-block rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">{DEPLOYMENT.badge}</p>
+          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-brand">{DEPLOYMENT.priceLabel}</p>
           <p className="mt-2 text-4xl font-semibold tracking-tight text-brand-deep tabular-nums">{DEPLOYMENT.price}</p>
+          <p className="mt-2 text-sm font-medium text-ink">{DEPLOYMENT.priceDetail}</p>
           <ul className="mt-6 space-y-3">
             {DEPLOYMENT.items.map((item) => (
               <li key={item} className="flex gap-2.5 text-sm text-ink">

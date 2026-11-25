@@ -1,7 +1,7 @@
 import { Check } from 'lucide-react'
 import type { CSSProperties } from 'react'
 import { FEATURED_BADGE } from '../config'
-import { priceLabel, salesMessage, type Billing, type Plan } from '../content'
+import { deploymentNotice, priceLabel, salesMessage, type Billing, type Plan } from '../content'
 import { SalesButton } from './SalesButton'
 import { SoonMark } from './SoonMark'
 
@@ -33,6 +33,9 @@ export function PricingCard({ plan, billing, index }: { plan: Plan; billing: Bil
         </p>
         <p className="mt-1 min-h-10 text-xs text-muted-ink">{price.detail}</p>
       </div>
+      <p className="mt-1 flex min-h-14 items-center rounded-lg border border-brand/25 bg-white px-3 py-2 text-xs font-semibold leading-snug text-brand-deep">
+        {deploymentNotice(plan)}
+      </p>
 
       <SalesButton label={plan.cta} message={salesMessage(plan, billing)} variant={plan.featured ? 'primary' : 'secondary'} className="mt-4 w-full" />
 

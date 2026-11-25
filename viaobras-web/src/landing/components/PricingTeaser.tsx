@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react'
-import { PLANS, priceLabel } from '../../pricing/content'
+import { deploymentNotice, PLANS, priceLabel } from '../../pricing/content'
 import { PRICING_SECTION, SECTION_IDS } from '../content'
 import { ButtonLink, Eyebrow, Lead, Reveal, Section } from './primitives'
 
@@ -20,6 +20,7 @@ export function PricingTeaser() {
           <span className="text-3xl font-semibold tracking-tight tabular-nums">{starting.value}</span>
           <span className="text-sm text-muted-ink">{starting.period}</span>
         </p>
+        <p className="mt-2 text-sm font-medium text-brand-deep">{deploymentNotice(PLANS[0])}</p>
         <div className="mt-6 flex justify-center">
           <ButtonLink href={PRICING_SECTION.href}>
             {PRICING_SECTION.cta}

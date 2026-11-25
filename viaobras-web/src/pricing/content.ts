@@ -127,13 +127,22 @@ export function priceLabel(plan: Plan, billing: Billing): { value: string; perio
     : { value: brl.format(plan.price.annual), period: '/ano', detail: `No lugar de ${brl.format(plan.price.monthly * 12)} em 12 mensalidades` }
 }
 
+/** Implantação OBRIGATÓRIA na contratação (decisão do responsável, 2026-11-25). */
+export const DEPLOYMENT_FEE = 'R$\u00a0490,00' // espaço que não quebra linha
+
+/** Aviso que acompanha o preço de cada plano: o cliente vê o custo de entrada junto com a mensalidade. */
+export const deploymentNotice = (plan: Plan) =>
+  plan.price ? `+ implantação obrigatória: ${DEPLOYMENT_FEE}, cobrada uma única vez` : 'Implantação obrigatória, com valor definido na proposta'
+
 export const DEPLOYMENT = {
   title: 'Comece com tudo organizado.',
   text: 'A implantação da ViaObras foi pensada para facilitar a entrada da sua empresa na plataforma, com orientação inicial para configuração e utilização.',
-  priceLabel: 'Preço sugerido',
-  price: 'R$ 490,00',
+  badge: 'Obrigatória na contratação',
+  priceLabel: 'Taxa de implantação',
+  price: DEPLOYMENT_FEE,
+  priceDetail: 'Cobrança única, além da mensalidade ou anuidade do plano. No Enterprise, o valor é definido na proposta.',
   items: ['Configuração inicial', 'Orientação de cadastro', 'Organização inicial da empresa', 'Treinamento introdutório', 'Orientação para início da operação'],
-  note: 'A implantação pode ser gratuita em campanhas promocionais ou para contratações anuais elegíveis.',
+  note: 'A implantação é obrigatória. A taxa pode ser isenta em campanhas promocionais ou em contratações anuais elegíveis.',
   disclaimer: 'O escopo da implantação é confirmado na proposta comercial.',
   cta: 'Falar com consultor',
 } as const
@@ -179,7 +188,7 @@ export const COMPARISON: Row[] = [
   row('Relatórios', ['Básicos', later('Completos'), later('Avançados'), later('Personalizados')]),
   row('Gestão de equipes', ['Básica', true, true, true]),
   row('Histórico de orçamentos', [null, true, true, true]),
-  row('Implantação assistida', [null, 'Orientada', 'Assistida', 'Dedicada']),
+  row('Implantação (obrigatória)', ['Inicial', 'Orientada', 'Assistida', 'Dedicada']),
 ]
 
 export const WHY = {
@@ -205,7 +214,10 @@ export const FAQ: Question[] = [
   { question: 'Posso mudar de plano posteriormente?', answer: 'Você poderá solicitar a alteração do plano conforme a necessidade da sua operação e as condições comerciais vigentes.' },
   { question: 'Preciso instalar algum programa?', answer: 'A ViaObras é uma plataforma web acessada pelo navegador.' },
   { question: 'A ViaObras é adequada para pequenas empresas?', answer: 'Sim. O plano Start foi pensado para profissionais e equipes menores que desejam começar a organizar sua gestão.' },
-  { question: 'Como funciona a implantação?', answer: 'A implantação poderá incluir orientação inicial, configuração e treinamento, conforme o plano contratado.' },
+  {
+    question: 'Como funciona a implantação?',
+    answer: `A implantação é obrigatória na contratação, com taxa de ${DEPLOYMENT_FEE} cobrada uma única vez (no Enterprise, o valor é definido na proposta). Ela poderá incluir orientação inicial, configuração e treinamento, conforme o plano contratado.`,
+  },
   {
     question: 'Meus dados estão seguros?',
     answer: 'Segurança e proteção de dados são prioridades na plataforma.',

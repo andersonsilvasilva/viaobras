@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import html from '../../planos.html?raw'
 import { salesLink } from './config'
-import { COMPARISON, FAQ, FOOTER, IDS, NAV, PLANS, priceLabel, salesMessage, SOON_NOTE, WHY } from './content'
+import { COMPARISON, DEPLOYMENT, deploymentNotice, FAQ, FOOTER, IDS, NAV, PLANS, priceLabel, salesMessage, SOON_NOTE, WHY } from './content'
 
 const plain = (text: string) => text.replace(/ /g, ' ')
 const plan = (id: string) => PLANS.find((p) => p.id === id)!
@@ -45,6 +45,19 @@ describe('planos — o que ainda não existe é marcado e explicado na nota', ()
   it('no comparativo', () => {
     for (const row of COMPARISON.filter((r) => missing.test(r.label))) expect(row.soon, row.label).toBe(true)
     expect(COMPARISON.find((r) => r.label === 'Relatórios')!.cells.map((c) => !!c.soon)).toEqual([false, true, true, true])
+  })
+})
+
+describe('planos — implantação obrigatória', () => {
+  it('cada preço de plano vem com a taxa única de implantação; o Enterprise, com valor na proposta', () => {
+    for (const p of PLANS.filter((p) => p.price)) expect(plain(deploymentNotice(p))).toBe('+ implantação obrigatória: R$ 490,00, cobrada uma única vez')
+    expect(deploymentNotice(plan('enterprise'))).toBe('Implantação obrigatória, com valor definido na proposta')
+  })
+
+  it('nenhum texto a apresenta como opcional ou como preço sugerido', () => {
+    expect(JSON.stringify([DEPLOYMENT, FAQ, COMPARISON])).not.toMatch(/sugerid|opcional/i)
+    expect(DEPLOYMENT.badge).toContain('Obrigatória')
+    expect(COMPARISON.find((r) => r.label === 'Implantação (obrigatória)')!.cells.every((c) => c.value !== null)).toBe(true)
   })
 })
 
