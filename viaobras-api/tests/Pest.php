@@ -22,4 +22,5 @@ pest()->use(RefreshDatabase::class)->in(
     'Feature/Contracts',
     'Feature/Planning',
     'Feature/Supplies',
+    'Feature/Platform',
 );

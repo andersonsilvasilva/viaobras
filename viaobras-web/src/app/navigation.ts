@@ -12,6 +12,7 @@ import {
   LayoutDashboard,
   PieChart,
   Ruler,
+  Settings,
   ShoppingCart,
   Sparkles,
   Warehouse,
@@ -73,6 +74,8 @@ export const navigation: NavNode[] = [
   },
   { label: 'Orçamentos', path: '/orcamentos', icon: Calculator, permission: 'budgets.view' },
   { label: 'Suprimentos', path: '/suprimentos', icon: ClipboardList, permission: 'supplies.view' },
+  // só o administrador da plataforma (D-P113)
+  { label: 'Plataforma', icon: Settings, children: [{ label: 'E-mail', path: '/plataforma/email', permission: 'platform.admin' }] },
   {
     label: 'Em preparação',
     icon: Clock,
@@ -133,6 +136,8 @@ export const routeLabels: Record<string, string> = {
   medicoes: 'Medições',
   compras: 'Compras',
   suprimentos: 'Suprimentos',
+  plataforma: 'Plataforma',
+  email: 'E-mail',
   estoque: 'Estoque',
   financeiro: 'Financeiro',
   documentos: 'Documentos',

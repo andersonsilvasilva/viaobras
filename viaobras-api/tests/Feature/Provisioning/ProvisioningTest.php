@@ -184,10 +184,14 @@ it('senhas diferentes ou fracas no prompt não criam nada', function () {
     expect(Tenant::query()->count())->toBe(0);
 });
 
-it('provisionar não cria interface de superadmin: nenhuma rota de plataforma existe', function () {
-    $rotas = collect(app('router')->getRoutes())->map(fn ($r) => $r->uri())->filter(fn ($u) => str_contains($u, 'admin') || str_contains($u, 'platform') || str_contains($u, 'provision'));
+it('não há interface de superadmin: a única área de plataforma é a de e-mail, restrita ao administrador (A-24, A-65)', function () {
+    $rotas = collect(app('router')->getRoutes())->filter(fn ($r) => str_contains($r->uri(), 'admin') || str_contains($r->uri(), 'platform') || str_contains($r->uri(), 'provision'));
 
-    expect($rotas)->toBeEmpty();
+    expect($rotas)->not->toBeEmpty();
+    foreach ($rotas as $rota) {
+        expect($rota->uri())->toStartWith('api/v1/platform/mail')
+            ->and($rota->gatherMiddleware())->toContain('authenticated', 'platform.admin');
+    }
 });
 
 // ---------------------------------------------------------------- comandos operacionais

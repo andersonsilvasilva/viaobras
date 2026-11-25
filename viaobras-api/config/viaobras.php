@@ -17,6 +17,13 @@ return [
     'frontend_url' => env('FRONTEND_URL', 'http://localhost:5173'),
 
     /*
+    | Administradores da PLATAFORMA (D-P113): e-mails separados por vírgula, definidos só no .env do servidor.
+    */
+    'platform_admins' => array_values(array_filter(array_map(
+        fn (string $email) => strtolower(trim($email)), explode(',', (string) env('PLATFORM_ADMIN_EMAILS', '')),
+    ))),
+
+    /*
     | Documentos (D-P15): disco privado (local no desenvolvimento; S3 por configuração), sem URL pública.
     | O acesso é por URL assinada de curta duração. Limites conservadores até haver antivírus (FASE2_MODELO §6).
     */

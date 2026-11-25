@@ -45,6 +45,8 @@ services:
       MAIL_PASSWORD: ${MAIL_PASSWORD:-}
       MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-}
       MAIL_FROM_NAME: ${MAIL_FROM_NAME:-ViaObras}
+      # administradores da plataforma (D-P113): e-mails separados por vírgula
+      PLATFORM_ADMIN_EMAILS: ${PLATFORM_ADMIN_EMAILS:-}
     volumes:
       # arquivos enviados (documentos e anexos privados): sem o volume, recriar o contêiner os apagaria
       - api_storage:/var/www/html/storage/app

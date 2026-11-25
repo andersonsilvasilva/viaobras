@@ -164,6 +164,23 @@ final class AuditEvent
     // Fase 7A — solicitações de materiais (CRUD em registry.*, entity_type purchase_request e purchase_request_item)
     public const SUPPLIES_STATUS_CHANGED = 'supplies.status_changed';
 
+    // Plataforma — caixa postal e mensagens padrão (sem tenant; a senha nunca é registrada)
+    public const PLATFORM_MAIL_UPDATED = 'platform.mail_updated';
+
+    public const PLATFORM_MAIL_REVERTED = 'platform.mail_reverted';
+
+    public const PLATFORM_MAIL_TESTED = 'platform.mail_tested';
+
+    public const PLATFORM_MAIL_TEMPLATE_UPDATED = 'platform.mail_template_updated';
+
+    public const PLATFORM_MAIL_TEMPLATE_RESTORED = 'platform.mail_template_restored';
+
+    /** Eventos da administração da plataforma (cobertura verificada pelos testes de e-mail). @return list<string> */
+    public static function platform(): array
+    {
+        return array_values(array_filter(self::all(), fn (string $e) => str_starts_with($e, 'platform.')));
+    }
+
     /** @return list<string> */
     public static function all(): array
     {

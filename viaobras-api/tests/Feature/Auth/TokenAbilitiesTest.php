@@ -226,6 +226,11 @@ it('TODA rota de negócio passa pelo SetTenantContext (estrutural: rota nova sem
 
     foreach (Route::getRoutes() as $route) {
         $uri = $route->uri();
+        if (str_starts_with($uri, 'api/v1/platform/')) {
+            expect($route->gatherMiddleware())->toContain('platform.admin', 'authenticated');
+
+            continue;
+        }
         if (! str_starts_with($uri, 'api/v1/') || in_array($uri, $publicas, true) || in_array($uri, $semTenant, true)) {
             continue;
         }

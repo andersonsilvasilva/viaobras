@@ -86,7 +86,7 @@ final class InvitationService
         // Fora da transação: falha de e-mail não desfaz o convite (o admin pode revogar e recriar).
         $sent = true;
         try {
-            Mail::to($email)->send(new InvitationMail($tenant->name, $actor->name, $role->name, $plain, $invitation->expires_at->format('d/m/Y H:i')));
+            Mail::to($email)->send(new InvitationMail($tenant->name, $actor->name, $role->name, $plain, $invitation->expires_at->copy()->setTimezone($tenant->timezone ?: 'America/Sao_Paulo')->format('d/m/Y H:i')));
         } catch (Throwable $e) {
             $sent = false;
             Log::error('Falha ao enviar convite', ['invitation_id' => $invitation->getKey(), 'exception' => $e::class]);

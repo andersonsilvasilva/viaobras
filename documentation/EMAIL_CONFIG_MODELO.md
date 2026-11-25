@@ -59,3 +59,15 @@ Menu **Plataforma → E-mail**, visível só para o administrador da plataforma.
 - **Chave da aplicação:** se a `APP_KEY` mudar, a senha cifrada precisa ser digitada de novo.
 - **Texto editado que quebra o envio:** a validação das variáveis e a prévia evitam; "Restaurar padrão" desfaz.
 - **Publicação:** o `docker-compose.yml` precisa das variáveis `MAIL_*` no repositório. Publicar um commit sem elas desligaria o envio.
+
+## 8. Andamento
+
+### Implementação (2026-11-25), nas três etapas
+
+- **Páginas dos links (D-P120):** `/reset-password` e `/accept-invitation`, com a regra de senha da API. No convite, nome e senha só são pedidos a quem ainda não tem conta.
+- **Banco:** migrations `2026_11_25_710001` (`platform_mail_settings`) e `710002` (`platform_mail_templates`), sem `tenant_id`.
+- **Administrador (D-P113):** `PLATFORM_ADMIN_EMAILS`; rotas `/api/v1/platform/mail` só para ele e só por sessão (token recusado). `/auth/me` informa `is_platform_admin`.
+- **Caixa postal:** teste antes de valer, senha da própria pessoa, senha da caixa cifrada e nunca devolvida, portas 465/587 com criptografia obrigatória e recusa de endereços internos. **Acréscimo à proposta:** a senha guardada só é reaproveitada se servidor, porta e usuário não mudarem, para não ser enviada a outro servidor.
+- **Mensagens:** convite e recuperação de senha com variáveis fechadas, prévia, teste e restauração. A validade do convite passou a sair no fuso da organização (antes, em UTC).
+- **Testes:** API 559/559 (`Feature/Platform/PlatformMailTest`, 27 casos, sem usar a rede); frontend 91/91. Percurso no navegador no ambiente descartável: redefinir senha, convite com conta nova, bloqueio do administrador de organização, caixa postal (erros) e mensagens. **Não testado no navegador:** salvar uma caixa postal real (coberto pelos testes com o envio simulado).
+- **Pendente:** migrations no banco local (autorização), homologação e publicação.

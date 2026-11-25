@@ -14,6 +14,13 @@ export interface Me {
   active_tenant: TenantSummary | null
   /** Permissões no tenant ativo (null sem tenant ativo). */
   permissions: string[] | null
+  /** Administrador da plataforma (lista do servidor): independe da organização. */
+  is_platform_admin?: boolean
+}
+
+export interface AcceptedInvitation {
+  tenant: { uuid: string; name: string }
+  account_existed: boolean
 }
 
 export const authService = {
@@ -22,4 +29,8 @@ export const authService = {
   logout: () => http<void>('/auth/logout', { method: 'POST' }),
   selectTenant: (tenantUuid: string) => http<Me>('/session/tenant', { method: 'POST', body: { tenant_uuid: tenantUuid } }),
   forgotPassword: (email: string) => http<{ message: string }>('/auth/forgot-password', { method: 'POST', body: { email } }),
+  resetPassword: (body: { token: string; email: string; password: string; password_confirmation: string }) =>
+    http<{ message: string }>('/auth/reset-password', { method: 'POST', body }),
+  acceptInvitation: (body: { token: string; name?: string; password?: string; password_confirmation?: string }) =>
+    http<{ data: AcceptedInvitation }>('/invitations/accept', { method: 'POST', body }).then((r) => r.data),
 }

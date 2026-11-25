@@ -1,7 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { AppLayout } from '@/app/layouts/AppLayout'
 import { ErrorState } from '@/components/feedback/states'
+import { AcceptInvitationPage } from '@/features/auth/AcceptInvitationPage'
 import { AuthRoot } from '@/features/auth/AuthRoot'
+import { ResetPasswordPage } from '@/features/auth/ResetPasswordPage'
 import { GuestOnly, RequireAuth } from '@/features/auth/guards'
 import { LoginPage } from '@/features/auth/LoginPage'
 import { NoPermissionPage } from '@/features/auth/NoPermissionPage'
@@ -13,6 +15,7 @@ import { GettingStartedPage } from '@/features/onboarding/GettingStartedPage'
 import { RequirePermission } from '@/features/auth/guards'
 import { DashboardPage } from '@/features/dashboard/DashboardPage'
 import { ModulePage } from '@/features/modules/ModulePage'
+import { EmailSettingsPage } from '@/features/platform/EmailSettingsPage'
 import { registryRoutes } from '@/features/registry/routes'
 import { RequestDetailPage } from '@/features/supplies/RequestDetailPage'
 import { SuppliesPage } from '@/features/supplies/SuppliesPage'
@@ -26,6 +29,9 @@ export const router = createBrowserRouter([
     children: [
       { element: <GuestOnly />, children: [{ path: '/login', element: <LoginPage /> }] },
       { path: '/organizacao', element: <SelectTenantPage /> },
+      // destinos dos links de e-mail: valem com ou sem sessão
+      { path: '/reset-password', element: <ResetPasswordPage /> },
+      { path: '/accept-invitation', element: <AcceptInvitationPage /> },
       {
         element: <RequireAuth />,
         children: [
@@ -44,6 +50,10 @@ export const router = createBrowserRouter([
               },
               { path: 'orcamento-inteligente', element: <SmartBudgetPage /> },
               { path: 'primeiros-passos', element: <GettingStartedPage /> },
+              {
+                element: <RequirePermission permission="platform.admin" />,
+                children: [{ path: 'plataforma/email', element: <EmailSettingsPage /> }],
+              },
               {
                 element: <RequirePermission permission="supplies.view" />,
                 children: [

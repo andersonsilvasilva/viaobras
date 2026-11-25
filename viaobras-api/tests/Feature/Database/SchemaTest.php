@@ -45,6 +45,8 @@ const PHASE5_TABLES = [
     'own_compositions', 'schedule_task_items',
     // 7A — solicitações de materiais
     'purchase_request_history', 'purchase_request_items', 'purchase_requests',
+    // plataforma: caixa postal e mensagens padrão
+    'platform_mail_settings', 'platform_mail_templates',
 ];
 
 function dbName(): string

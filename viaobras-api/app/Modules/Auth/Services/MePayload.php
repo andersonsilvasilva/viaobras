@@ -6,6 +6,7 @@ use App\Enums\MembershipStatus;
 use App\Models\Tenant;
 use App\Models\TenantUser;
 use App\Models\User;
+use App\Modules\Platform\PlatformAdmin;
 use App\Modules\Shared\Exceptions\ApiException;
 use App\Modules\Tenancy\ActiveTenantResolver;
 use App\Modules\Tenancy\TenantContext;
@@ -49,6 +50,7 @@ final class MePayload
             'tenants' => $memberships->map(fn (TenantUser $m) => $this->tenantArray($m->tenant))->values()->all(),
             'active_tenant' => $active,
             'permissions' => $permissions,
+            'is_platform_admin' => ! $this->resolver->isTokenRequest($user) && PlatformAdmin::is($user),
         ];
     }
 

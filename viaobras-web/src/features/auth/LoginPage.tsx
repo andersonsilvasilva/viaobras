@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ArrowLeft, Loader2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -7,8 +7,8 @@ import { z } from 'zod'
 import { Alert } from '@/components/feedback/Alert'
 import { FormField, TextInput } from '@/components/forms/fields'
 import { Button } from '@/components/ui/button'
-import { SITE_URL } from '@/landing/content'
 import { ApiError, getErrorMessage } from '@/lib/api-error'
+import { AuthCard } from './AuthCard'
 import { useAuth } from './auth-context'
 import { authService } from './auth-service'
 
@@ -53,38 +53,25 @@ export function LoginPage() {
   }
 
   return (
-    <main className="bg-background flex min-h-dvh items-center justify-center p-4">
-      <div className="bg-card shadow-card w-full max-w-sm rounded-xl border p-6">
-        <div className="mb-6 flex justify-center">
-          <img src="/brand/logo-completa.png" alt="ViaObras" width={806} height={240} className="h-11 w-auto" />
-        </div>
-        <h1 className="mb-1 text-lg font-semibold">Entrar</h1>
-        <p className="text-muted-foreground mb-5 text-sm">Use seu e-mail e senha de acesso.</p>
+    <AuthCard title="Entrar" description="Use seu e-mail e senha de acesso.">
+      {error && <Alert tone="danger" className="mb-4">{error}</Alert>}
+      {forgotSent && <Alert tone="success" className="mb-4">{forgotSent}</Alert>}
 
-        {error && <Alert tone="danger" className="mb-4">{error}</Alert>}
-        {forgotSent && <Alert tone="success" className="mb-4">{forgotSent}</Alert>}
-
-        <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
-          <FormField label="E-mail" required error={formState.errors.email?.message}>
-            <TextInput type="email" autoComplete="username" autoFocus {...register('email')} />
-          </FormField>
-          <FormField label="Senha" required error={formState.errors.password?.message}>
-            <TextInput type="password" autoComplete="current-password" {...register('password')} />
-          </FormField>
-          <Button type="submit" size="lg" disabled={formState.isSubmitting}>
-            {formState.isSubmitting && <Loader2 className="size-4 animate-spin" aria-hidden />}
-            Entrar
-          </Button>
-        </form>
-        <button type="button" onClick={forgot} className="text-primary mt-4 text-sm hover:underline">
-          Esqueci minha senha
-        </button>
-        <div className="mt-5 border-t pt-4 text-center">
-          <a href={SITE_URL} className="text-muted-foreground hover:text-primary inline-flex items-center gap-1.5 rounded-sm text-sm hover:underline">
-            <ArrowLeft className="size-4" aria-hidden /> Voltar para a página comercial
-          </a>
-        </div>
-      </div>
-    </main>
+      <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
+        <FormField label="E-mail" required error={formState.errors.email?.message}>
+          <TextInput type="email" autoComplete="username" autoFocus {...register('email')} />
+        </FormField>
+        <FormField label="Senha" required error={formState.errors.password?.message}>
+          <TextInput type="password" autoComplete="current-password" {...register('password')} />
+        </FormField>
+        <Button type="submit" size="lg" disabled={formState.isSubmitting}>
+          {formState.isSubmitting && <Loader2 className="size-4 animate-spin" aria-hidden />}
+          Entrar
+        </Button>
+      </form>
+      <button type="button" onClick={forgot} className="text-primary mt-4 text-sm hover:underline">
+        Esqueci minha senha
+      </button>
+    </AuthCard>
   )
 }

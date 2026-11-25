@@ -2,6 +2,7 @@
 
 namespace App\Modules\Access\Mail;
 
+use App\Modules\Platform\Services\MailTemplates;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -22,13 +23,23 @@ class InvitationMail extends Mailable
 
     public function envelope(): Envelope
     {
-        return new Envelope(subject: "Convite para {$this->tenantName} no ViaObras");
+        return new Envelope(subject: $this->message()['subject']);
     }
 
     public function content(): Content
     {
-        return new Content(text: 'mail.invitation', with: [
-            'url' => rtrim(config('viaobras.frontend_url'), '/').'/accept-invitation?token='.$this->token,
+        return new Content(text: 'mail.plain', with: ['body' => $this->message()['body']]);
+    }
+
+    /** @return array{subject: string, body: string} assunto e texto das mensagens padrão da plataforma (D-P118) */
+    private function message(): array
+    {
+        return app(MailTemplates::class)->render('invitation', [
+            'organizacao' => $this->tenantName,
+            'convidado_por' => $this->inviterName,
+            'papel' => $this->roleName,
+            'link' => rtrim(config('viaobras.frontend_url'), '/').'/accept-invitation?token='.$this->token,
+            'validade' => $this->expiresAt,
         ]);
     }
 }

@@ -37,6 +37,8 @@ use App\Models\Equipment;
 use App\Models\JobTitle;
 use App\Models\OwnComposition;
 use App\Models\PersonalAccessToken;
+use App\Models\PlatformMailSetting;
+use App\Models\PlatformMailTemplate;
 use App\Models\Project;
 use App\Models\ProjectAddress;
 use App\Models\ProjectCalendarException;
@@ -80,6 +82,9 @@ use App\Modules\Catalog\Console\CopySinapiResourcesCommand;
 use App\Modules\Core\Health\DatabaseCheck;
 use App\Modules\Core\Health\HealthReport;
 use App\Modules\Core\Health\RedisCheck;
+use App\Modules\Platform\Mail\PlainTextMail;
+use App\Modules\Platform\Services\MailTemplates;
+use App\Modules\Platform\Services\PlatformMailbox;
 use App\Modules\References\Console\ImportReferencesCommand;
 use App\Modules\Tenancy\TenantContext;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -181,6 +186,9 @@ class AppServiceProvider extends ServiceProvider
             'budget_item_resource' => BudgetItemResource::class,
             'budget_approval' => BudgetApproval::class,
             'budget_status_history' => BudgetStatusHistory::class,
+            // plataforma (sem tenant): caixa postal e mensagens padrão
+            'platform_mail_setting' => PlatformMailSetting::class,
+            'platform_mail_template' => PlatformMailTemplate::class,
             // Fase 7A — suprimentos
             'purchase_request' => PurchaseRequest::class,
             'purchase_request_item' => PurchaseRequestItem::class,
@@ -193,6 +201,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->configureRateLimiting();
         $this->configureMailLinks();
+        // caixa postal configurada na tela da plataforma: aplicada quando o serviço de e-mail é criado
+        $this->app->resolving('mail.manager', fn () => PlatformMailbox::applyActive());
         $this->auditExpiredTokenUse();
 
         if ($this->app->runningInConsole()) {
@@ -220,8 +230,20 @@ class AppServiceProvider extends ServiceProvider
     private function configureMailLinks(): void
     {
         // Link de recuperação aponta para o FRONTEND (SPA), não para a API.
-        ResetPassword::createUrlUsing(fn ($user, string $token) => rtrim(config('viaobras.frontend_url'), '/')
-            .'/reset-password?token='.$token.'&email='.urlencode($user->getEmailForPasswordReset()));
+        $url = fn ($user, string $token): string => rtrim(config('viaobras.frontend_url'), '/')
+            .'/reset-password?token='.$token.'&email='.urlencode($user->getEmailForPasswordReset());
+        ResetPassword::createUrlUsing($url);
+
+        // o assunto e o texto vêm das mensagens padrão da plataforma (D-P118)
+        ResetPassword::toMailUsing(function ($user, string $token) use ($url) {
+            $message = app(MailTemplates::class)->render('password_reset', [
+                'nome' => $user->name,
+                'link' => $url($user, $token),
+                'validade' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire').' minutos',
+            ]);
+
+            return (new PlainTextMail($message['subject'], $message['body']))->to($user->getEmailForPasswordReset());
+        });
     }
 
     /** Uso de token expirado negado ⇒ evento token.expired_use_denied (melhor esforço; nunca o valor do token). */

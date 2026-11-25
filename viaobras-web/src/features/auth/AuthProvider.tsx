@@ -5,6 +5,7 @@ import { onUnauthorized } from '@/lib/http'
 import { setActiveTenant } from '@/lib/tenant-context'
 import { AuthContext, type AuthContextValue } from './auth-context'
 import { authService, type Me } from './auth-service'
+import { permissionsOf } from './permissions'
 
 const ME_KEY = ['auth', 'me'] as const
 
@@ -45,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => onUnauthorized(() => client.setQueryData(ME_KEY, null)), [client])
 
   const value = useMemo<AuthContextValue>(() => {
-    const permissions = new Set(query.data?.permissions ?? [])
+    const permissions = permissionsOf(query.data)
     return {
       me: query.isPending ? undefined : (query.data ?? null),
       can: (p) => permissions.has(p),
