@@ -95,9 +95,23 @@ it('não grava quando o servidor recusa, e a mensagem de erro não revela a senh
     $content = $this->b->put('/api/v1/platform/mail/mailbox', mailboxData(['password' => 'senha-errada']))
         ->assertUnprocessable()->assertJsonPath('error.code', 'mail_test_failed')->getContent();
 
-    expect($content)->toContain('Authentication failed')->not->toContain('senha-errada')->not->toContain(base64_encode('senha-errada'))
+    expect($content)->toContain('535')->toContain('senha da caixa postal')->not->toContain('senha-errada')->not->toContain(base64_encode('senha-errada'))
         ->and(PlatformMailSetting::query()->count())->toBe(0);
 });
+
+it('em outras falhas mostra o texto do servidor de e-mail, sem a senha', function () {
+    $this->mock(MailboxSender::class)->shouldReceive('send')->andThrow(new RuntimeException('Connection timed out for '.MAILBOX_SECRET));
+
+    $content = $this->b->put('/api/v1/platform/mail/mailbox', mailboxData())->assertUnprocessable()->getContent();
+
+    expect($content)->toContain('Connection timed out')->not->toContain(MAILBOX_SECRET);
+});
+
+it('informa se a configuração do servidor envia de verdade', function (string $mailer, bool $sends) {
+    config(['mail.default' => $mailer]);
+
+    $this->b->get('/api/v1/platform/mail')->assertOk()->assertJsonPath('data.mailbox.server_sends', $sends);
+})->with(['SMTP envia' => ['smtp', true], 'log só registra' => ['log', false], 'array só guarda em memória' => ['array', false]]);
 
 it('exige a senha de quem está alterando', function () {
     $this->b->put('/api/v1/platform/mail/mailbox', mailboxData(['current_password' => 'Outra-Senha-999']))

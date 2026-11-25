@@ -17,6 +17,7 @@ const firstError = (e: unknown) => (e instanceof ApiError && Object.values(e.det
 export function MailboxTab({ status, onChanged }: { status: MailboxStatus; onChanged: (settings: EmailSettings) => void }) {
   const { notify } = useToast()
   const [reverting, setReverting] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const form = useForm<MailboxForm>({ resolver: zodResolver(mailboxSchemaFor(status)), defaultValues: mailboxForm(status) })
   const [host, port, username] = useWatch({ control: form.control, name: ['host', 'port', 'username'] })
   const passwordNeeded = needsMailboxPassword(status, { host, port, username })
@@ -84,8 +85,12 @@ export function MailboxTab({ status, onChanged }: { status: MailboxStatus; onCha
             error={errors.password?.message}
             hint={passwordNeeded ? 'Obrigatória ao configurar ou ao mudar servidor, porta ou usuário' : 'Definida. Deixe em branco para manter'}
           >
-            <TextInput type="password" autoComplete="new-password" {...form.register('password')} />
+            <TextInput type={showPassword ? 'text' : 'password'} autoComplete="new-password" spellCheck={false} {...form.register('password')} />
           </FormField>
+          <label className="flex items-center gap-2 text-sm sm:col-start-2 sm:-mt-2">
+            <input type="checkbox" className="accent-primary size-4" checked={showPassword} onChange={(e) => setShowPassword(e.target.checked)} />
+            Mostrar a senha digitada (confira se o navegador não preencheu outra)
+          </label>
           <FormField label="E-mail do remetente" required error={errors.from_address?.message}>
             <TextInput type="email" autoComplete="off" {...form.register('from_address')} />
           </FormField>

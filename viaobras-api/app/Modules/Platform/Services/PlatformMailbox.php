@@ -83,13 +83,22 @@ final class PlatformMailbox
         return [
             'source' => $setting !== null && $setting->active ? 'panel' : 'server',
             // a configuração do servidor envia de verdade? (log/array só registram)
-            'server_sends' => (bool) config('viaobras.server_mail_sends'),
+            'server_sends' => $this->serverSends(),
             'settings' => $setting === null ? null : [
                 'host' => $setting->host, 'port' => $setting->port, 'encryption' => $setting->encryption, 'username' => $setting->username,
                 'from_address' => $setting->from_address, 'from_name' => $setting->from_name, 'password_set' => true,
                 'active' => $setting->active, 'last_tested_at' => $setting->last_tested_at?->toIso8601String(),
             ],
         ];
+    }
+
+    /**
+     * O mailer padrão entrega de verdade? Só interessa quando a tela não está em uso: nesse caso `mail.default` é o do
+     * servidor.
+     */
+    private function serverSends(): bool
+    {
+        return ! in_array(config('mail.mailers.'.config('mail.default').'.transport'), ['log', 'array', null], true);
     }
 
     /** @param array{host: string, port: int|string, username: string, password?: ?string, from_address: string, from_name: string} $data */
@@ -166,6 +175,11 @@ final class PlatformMailbox
             $message = str_replace([$password, base64_encode($password)], '***', $message);
         }
         Log::warning('Falha no teste de e-mail da plataforma', ['exception' => $e::class]);
+
+        // o caso mais comum, em linguagem de quem configura
+        if (preg_match('/\b535\b|Failed to authenticate/i', $message) === 1) {
+            return ApiException::unprocessable('mail_test_failed', 'O servidor de e-mail recusou o usuário ou a senha (código 535). Use a senha da caixa postal, a mesma do webmail, e não a sua senha do ViaObras.');
+        }
 
         return ApiException::unprocessable('mail_test_failed', 'O servidor de e-mail não aceitou o envio: '.mb_strimwidth($message, 0, 300, '…'));
     }
