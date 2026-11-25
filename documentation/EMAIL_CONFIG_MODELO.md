@@ -71,3 +71,9 @@ Menu **Plataforma → E-mail**, visível só para o administrador da plataforma.
 - **Mensagens:** convite e recuperação de senha com variáveis fechadas, prévia, teste e restauração. A validade do convite passou a sair no fuso da organização (antes, em UTC).
 - **Testes:** API 559/559 (`Feature/Platform/PlatformMailTest`, 27 casos, sem usar a rede); frontend 91/91. Percurso no navegador no ambiente descartável: redefinir senha, convite com conta nova, bloqueio do administrador de organização, caixa postal (erros) e mensagens. **Não testado no navegador:** salvar uma caixa postal real (coberto pelos testes com o envio simulado).
 - **Pendente:** migrations no banco local (autorização), homologação e publicação.
+
+### Tela de convites (2026-11-25)
+
+- Menu **Convites** (`/convites`, exige `members.view`): listar, convidar, reenviar (revoga e cria outro, trocando o link) e revogar. Convidar exige `members.invite`; papéis com permissões que a pessoa não tem aparecem desabilitados. Usa a API da Fase 1, sem mudança no servidor.
+- Convite pendente com validade vencida aparece como **Expirado**, porque a produção ainda não executa as tarefas agendadas.
+- **Testes:** frontend 95/95. No ambiente descartável: envio, repetido recusado, reenvio (link antigo recusado), aceite pelo link do e-mail, login, visão de membro sem ações, revogação e largura de celular.

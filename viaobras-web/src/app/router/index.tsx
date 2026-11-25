@@ -14,6 +14,7 @@ import { SmartBudgetPage } from '@/features/budgets/SmartBudgetPage'
 import { GettingStartedPage } from '@/features/onboarding/GettingStartedPage'
 import { RequirePermission } from '@/features/auth/guards'
 import { DashboardPage } from '@/features/dashboard/DashboardPage'
+import { InvitationsPage } from '@/features/members/InvitationsPage'
 import { ModulePage } from '@/features/modules/ModulePage'
 import { EmailSettingsPage } from '@/features/platform/EmailSettingsPage'
 import { registryRoutes } from '@/features/registry/routes'
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
               },
               { path: 'orcamento-inteligente', element: <SmartBudgetPage /> },
               { path: 'primeiros-passos', element: <GettingStartedPage /> },
+              {
+                element: <RequirePermission permission="members.view" />,
+                children: [{ path: 'convites', element: <InvitationsPage /> }],
+              },
               {
                 element: <RequirePermission permission="platform.admin" />,
                 children: [{ path: 'plataforma/email', element: <EmailSettingsPage /> }],

@@ -15,6 +15,7 @@ import {
   Settings,
   ShoppingCart,
   Sparkles,
+  UserPlus,
   Warehouse,
   type LucideIcon,
 } from 'lucide-react'
@@ -74,6 +75,7 @@ export const navigation: NavNode[] = [
   },
   { label: 'Orçamentos', path: '/orcamentos', icon: Calculator, permission: 'budgets.view' },
   { label: 'Suprimentos', path: '/suprimentos', icon: ClipboardList, permission: 'supplies.view' },
+  { label: 'Convites', path: '/convites', icon: UserPlus, permission: 'members.view' },
   // só o administrador da plataforma (D-P113)
   { label: 'Plataforma', icon: Settings, children: [{ label: 'E-mail', path: '/plataforma/email', permission: 'platform.admin' }] },
   {
@@ -136,6 +138,7 @@ export const routeLabels: Record<string, string> = {
   medicoes: 'Medições',
   compras: 'Compras',
   suprimentos: 'Suprimentos',
+  convites: 'Convites',
   plataforma: 'Plataforma',
   email: 'E-mail',
   estoque: 'Estoque',
