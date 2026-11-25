@@ -1,13 +1,16 @@
 import { Check } from 'lucide-react'
 import type { CSSProperties } from 'react'
 import { FEATURED_BADGE } from '../config'
-import { deploymentNotice, priceLabel, salesMessage, type Billing, type Plan } from '../content'
+import { ButtonLink } from '../../landing/components/primitives'
+import { deploymentNotice, priceLabel, proposalLink, salesMessage, type Billing, type Plan } from '../content'
 import { SalesButton } from './SalesButton'
 import { SoonMark } from './SoonMark'
 
 export function PricingCard({ plan, billing, index }: { plan: Plan; billing: Billing; index: number }) {
   const price = priceLabel(plan, billing)
   const titleId = `plano-${plan.id}`
+  const formUrl = proposalLink(plan, billing)
+  const buttonVariant = plan.featured ? 'primary' : 'secondary'
 
   return (
     <li
@@ -37,7 +40,13 @@ export function PricingCard({ plan, billing, index }: { plan: Plan; billing: Bil
         {deploymentNotice(plan)}
       </p>
 
-      <SalesButton label={plan.cta} message={salesMessage(plan, billing)} variant={plan.featured ? 'primary' : 'secondary'} className="mt-4 w-full" />
+      {formUrl ? (
+        <ButtonLink href={formUrl} variant={buttonVariant} className="mt-4 w-full">
+          {plan.cta}
+        </ButtonLink>
+      ) : (
+        <SalesButton label={plan.cta} message={salesMessage(plan, billing)} variant={buttonVariant} className="mt-4 w-full" />
+      )}
 
       <ul className="mt-6 space-y-2.5 border-t border-line pt-5">
         {plan.features.map((feature) => (

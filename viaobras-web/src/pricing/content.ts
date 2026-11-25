@@ -97,7 +97,7 @@ export const PLANS: Plan[] = [
       f('Até 15 obras ativas'), f('Até 15 usuários'), f('Todos os recursos do Pro'), f('Gestão ampliada'), f('Exportação de relatórios'),
       f('Onboarding assistido'), soon('Dashboard avançado'), soon('Visão consolidada'), soon('Relatórios avançados'),
     ],
-    cta: 'Assinar Business',
+    cta: 'Pedir proposta Business',
   },
   {
     id: 'enterprise',
@@ -242,6 +242,15 @@ export const FOOTER = {
     { label: 'Acessar plataforma', href: APP_URL },
   ],
 } as const
+
+/**
+ * Formulário de pedido de proposta (no site da HighTech), já com o plano e a cobrança escolhidos. O formulário calcula
+ * o preço no servidor dele: ao mudar preço ou limite, atualize também lá. Enterprise não usa o formulário (null).
+ */
+export const PROPOSAL_FORM_URL = 'https://hightechtecnologia.com.br/viaobras/proposta'
+
+export const proposalLink = (plan: Plan, billing: Billing): string | null =>
+  plan.price ? `${PROPOSAL_FORM_URL}?plano=${plan.id}&cobranca=${billing === 'monthly' ? 'mensal' : 'anual'}` : null
 
 export const salesMessage = (plan: Plan, billing: Billing) =>
   `Olá! Tenho interesse no plano ${plan.name}${plan.price ? ` (cobrança ${billing === 'monthly' ? 'mensal' : 'anual'})` : ''}.`

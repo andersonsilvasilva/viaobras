@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import html from '../../planos.html?raw'
 import { salesLink } from './config'
-import { COMPARISON, DEPLOYMENT, deploymentNotice, FAQ, FOOTER, IDS, NAV, PLANS, priceLabel, salesMessage, SOON_NOTE, WHY } from './content'
+import { COMPARISON, DEPLOYMENT, deploymentNotice, FAQ, FOOTER, IDS, NAV, PLANS, priceLabel, proposalLink, salesMessage, SOON_NOTE, WHY } from './content'
 
 const plain = (text: string) => text.replace(/ /g, ' ')
 const plan = (id: string) => PLANS.find((p) => p.id === id)!
@@ -84,6 +84,18 @@ describe('planos — canal comercial', () => {
   it('a mensagem identifica o plano e a cobrança escolhida', () => {
     expect(salesMessage(plan('business'), 'annual')).toBe('Olá! Tenho interesse no plano ViaObras Business (cobrança anual).')
     expect(salesMessage(plan('enterprise'), 'annual')).toBe('Olá! Tenho interesse no plano ViaObras Enterprise.')
+  })
+})
+
+describe('planos — pedido de proposta', () => {
+  it('Start, Pro e Business levam ao formulário com o plano e a cobrança escolhidos', () => {
+    expect(proposalLink(plan('start'), 'monthly')).toBe('https://hightechtecnologia.com.br/viaobras/proposta?plano=start&cobranca=mensal')
+    expect(proposalLink(plan('pro'), 'annual')).toBe('https://hightechtecnologia.com.br/viaobras/proposta?plano=pro&cobranca=anual')
+    expect(proposalLink(plan('business'), 'monthly')).toContain('plano=business&cobranca=mensal')
+  })
+
+  it('o Enterprise continua no canal comercial', () => {
+    expect(proposalLink(plan('enterprise'), 'annual')).toBeNull()
   })
 })
 
