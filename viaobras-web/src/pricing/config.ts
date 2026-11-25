@@ -23,8 +23,8 @@ export const LEGAL = {
   termsUrl: '',
 }
 
-/** Selo do plano em destaque. Use '' para esconder (ex.: enquanto não houver base para dizer que é o mais escolhido). */
-export const FEATURED_BADGE = 'MAIS ESCOLHIDO'
+/** Selo do plano em destaque ('' esconde). "Mais escolhido" só com dados de vendas que o sustentem. */
+export const FEATURED_BADGE = 'RECOMENDADO'
 
 /**
  * Link do canal comercial com a mensagem já preenchida, ou null se nenhum canal estiver configurado.
