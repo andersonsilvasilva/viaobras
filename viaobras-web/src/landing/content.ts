@@ -12,6 +12,7 @@ export const SECTION_IDS = {
   top: 'topo',
   benefits: 'beneficios',
   platform: 'plataforma',
+  demo: 'demonstracao',
   features: 'recursos',
   projects: 'obras',
   budget: 'orcamentos',
@@ -23,6 +24,7 @@ export const SECTION_IDS = {
 export const NAV_LINKS = [
   { label: 'Plataforma', href: `#${SECTION_IDS.platform}` },
   { label: 'Recursos', href: `#${SECTION_IDS.features}` },
+  { label: 'Demonstração', href: `#${SECTION_IDS.demo}` },
   { label: 'Orçamentos', href: `#${SECTION_IDS.budget}` },
   { label: 'Benefícios', href: `#${SECTION_IDS.benefits}` },
 ] as const
@@ -108,6 +110,7 @@ export const HERO = {
   ],
   primaryCta: 'Conhecer a plataforma',
   secondaryCta: 'Acessar ViaObras',
+  demoCta: 'Ver demonstração',
 } as const
 
 export const BENEFITS = [
@@ -115,6 +118,15 @@ export const BENEFITS = [
   { icon: 'custos', title: 'Controle de custos', text: 'Visibilidade dos orçamentos e valores.' },
   { icon: 'decisoes', title: 'Decisões melhores', text: 'Indicadores e informações para gestão.' },
 ] as const
+
+export const DEMO = {
+  eyebrow: 'Demonstração',
+  title: 'Veja a ViaObras em uso.',
+  text: 'Um passeio de pouco mais de um minuto: visão geral, obras, orçamento com BDI, suprimentos e indicadores. Os dados exibidos são fictícios.',
+  video: 'landing/viaobras-demo.mp4',
+  poster: 'landing/viaobras-demo-poster.jpg',
+  label: 'Vídeo de demonstração da plataforma ViaObras (sem narração, com legendas)',
+} as const
 
 export const PLATFORM = {
   eyebrow: 'Visão geral',

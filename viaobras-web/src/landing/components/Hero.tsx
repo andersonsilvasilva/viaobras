@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, History } from 'lucide-react'
+import { ArrowRight, CheckCircle2, History, PlayCircle } from 'lucide-react'
 import type { CSSProperties } from 'react'
 import { APP_URL, HERO, SECTION_IDS, SHOTS } from '../content'
 import { ProductShot } from './ProductShot'
@@ -32,6 +32,10 @@ export function Hero() {
                 <ButtonLink href={`#${SECTION_IDS.features}`}>
                   {HERO.primaryCta}
                   <ArrowRight className="size-4" aria-hidden="true" />
+                </ButtonLink>
+                <ButtonLink href={`#${SECTION_IDS.demo}`} variant="secondary">
+                  <PlayCircle className="size-4" aria-hidden="true" />
+                  {HERO.demoCta}
                 </ButtonLink>
                 <ButtonLink href={APP_URL} variant="secondary">
                   {HERO.secondaryCta}

@@ -1,5 +1,6 @@
 import { BenefitsBar } from './components/BenefitsBar'
 import { BudgetSection } from './components/BudgetSection'
+import { DemoSection } from './components/DemoSection'
 import { FinalCTA } from './components/FinalCTA'
 import { FinancialSection } from './components/FinancialSection'
 import { Footer } from './components/Footer'
@@ -28,6 +29,7 @@ export function LandingPage() {
       <main id="conteudo">
         <Hero />
         <BenefitsBar />
+        <DemoSection />
         <PlatformSection />
         <div id={SECTION_IDS.features}>
           <ProjectsSection />
